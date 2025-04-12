@@ -1,0 +1,61 @@
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class ThongKeHoaDon extends JFrame {
+
+    public ThongKeHoaDon() {
+        setTitle("Thống Kê Hóa Đơn");
+        setSize(1300, 600);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // ======= Header =======
+        JPanel headerPanel = new JPanel(new GridLayout(3, 1));
+        headerPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+
+        JLabel title = new JLabel("************* THỐNG KÊ HÓA ĐƠN *************", JLabel.CENTER);
+        title.setFont(new Font("Serif", Font.BOLD, 20));
+        headerPanel.add(title);
+
+        // Thông tin thống kê
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd/MM/yyyy HH:mm:ss");
+        String now = LocalDateTime.now().format(formatter);
+
+        JLabel timeLabel = new JLabel("Thời gian hiện tại: " + now);
+        JLabel staffLabel = new JLabel("Tên nhân viên lập thống kê: Hoàng văn giáp      Chức vụ: (Quản lý)");
+
+        headerPanel.add(timeLabel);
+        headerPanel.add(staffLabel);
+
+        add(headerPanel, BorderLayout.NORTH);
+
+        // ======= Table =======
+        String[] columnNames = {
+            "ID Hóa đơn", "ID Nhân viên", "ID Khách hàng", "ID Phòng",
+            "Check-in", "Check-out", "Tiền đặt cọc",
+            "Phụ thu Check-in", "Phụ thu Check-out", "Tổng tiền",
+            "Số người ở", "Mô hình thuê", "Trạng thái", "Ngày giờ quản lý"
+        };
+
+        Object[][] data = {
+            {"HD001", "NV001", "KH001", "P101", "2024-10-01", "2024-10-03", 1000000, 0, 200000, 3200000, 2, "Theo ngày", "Đã thanh toán", "03/10/2024 00:48:13"},
+            {"HD002", "NV002", "KH002", "P102", "2024-09-28", "2024-10-01", 800000, 0, 150000, 2450000, 1, "Theo ngày", "Đã thanh toán", "01/10/2024 23:30:00"}
+        };
+
+        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        JTable table = new JTable(model);
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        add(scrollPane, BorderLayout.CENTER);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new ThongKeHoaDon().setVisible(true);
+        });
+    }
+}
