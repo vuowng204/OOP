@@ -77,11 +77,6 @@ public class CustomerManager extends javax.swing.JFrame {
         jRadioButton2.setText("Nữ");
 
         jTextField2.setText("jTextField2");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
 
         jTextField3.setText("jTextField2");
 
@@ -119,7 +114,7 @@ public class CustomerManager extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID khách hàng", "Tên khách hàng", "CCCD", "Ngày sinh", "SĐT", "Địa Chỉ", "Giới tính"
+                "ID khách hàng", "Tên khách hàng", "CCCD", "Ngày sinh", "SĐT", "Ngày sinh", "Giới tính"
             }
         ) {
             Class[] types = new Class [] {
@@ -239,10 +234,6 @@ public class CustomerManager extends javax.swing.JFrame {
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton1ActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments

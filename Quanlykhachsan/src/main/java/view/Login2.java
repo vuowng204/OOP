@@ -152,6 +152,12 @@ public class Login2 extends javax.swing.JFrame {
         if(sb.length()>0){
             JOptionPane.showConfirmDialog(this, sb.toString(),"Invalidation",JOptionPane.ERROR_MESSAGE);
             return;}
+        else{
+            new Home().setVisible(true);
+        this.dispose();
+            
+        }
+       
     }//GEN-LAST:event_nutDangNhapActionPerformed
         
     /**

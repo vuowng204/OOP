@@ -204,9 +204,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="jTextField2"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField2ActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField3">
       <Properties>
@@ -311,7 +308,7 @@
                 <Column editable="true" title="CCCD" type="java.lang.String"/>
                 <Column editable="true" title="Ng&#xe0;y sinh" type="java.lang.String"/>
                 <Column editable="true" title="S&#x110;T" type="java.lang.String"/>
-                <Column editable="true" title="&#x110;&#x1ecb;a Ch&#x1ec9;" type="java.lang.String"/>
+                <Column editable="true" title="Ng&#xe0;y sinh" type="java.lang.String"/>
                 <Column editable="true" title="Gi&#x1edb;i t&#xed;nh" type="java.lang.String"/>
               </Table>
             </Property>

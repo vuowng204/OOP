@@ -4,11 +4,17 @@
  */
 package view;
 
+import javax.swing.JFrame;
+import java.awt.Window;
+
+
 /**
  *
  * @author Admin
  */
 public class Home extends javax.swing.JFrame {
+    public  ServiceNRoom serviceNRoom;
+    public  EmployManager employManager;
 
     /**
      * Creates new form Home
@@ -16,8 +22,28 @@ public class Home extends javax.swing.JFrame {
     public Home() {
         initComponents();
         this.setLocationRelativeTo(null); // Căn giữa màn hình
+        serviceNRoom= new ServiceNRoom();
+        employManager= new EmployManager();
+        
+
+    }
+    public static <T extends ServiceNRoom> void configureAndShow(T window, String title) {
+        window.setLocationRelativeTo(null);
+        window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        window.setTenphong(title); // Ví dụ: setTitle() có sẵn trong JFrame
+        window.setVisible(true);
+    }
+    public static void Show1(java.awt.Window window) {
+    window.setLocationRelativeTo(null);
+
+    if (window instanceof JFrame frame) {
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
+    window.setVisible(true);
+}
+
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,13 +58,13 @@ public class Home extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        QuanlykhachangjLabel = new javax.swing.JLabel();
+        QuanLyNhanVienjLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        Phong101jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -48,9 +74,7 @@ public class Home extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ỨNG DỤNG QUẢN LÝ NHÀ HÀNG");
         setBackground(new java.awt.Color(255, 51, 51));
-        setMaximumSize(new java.awt.Dimension(970, 700));
         setMinimumSize(new java.awt.Dimension(970, 700));
-        setPreferredSize(new java.awt.Dimension(970, 700));
         setResizable(false);
 
         bg.setBackground(new java.awt.Color(255, 255, 255));
@@ -65,13 +89,23 @@ public class Home extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Showcard Gothic", 1, 18)); // NOI18N
         jLabel2.setText("GREEN LEAVES HOTEL");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\Quanlykhachsan\\src\\main\\java\\ICON\\icons8-human-50.png")); // NOI18N
-        jLabel3.setText("  Quản lý khách hàng");
+        QuanlykhachangjLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        QuanlykhachangjLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\Quanlykhachsan\\src\\main\\java\\ICON\\icons8-human-50.png")); // NOI18N
+        QuanlykhachangjLabel.setText("  Quản lý khách hàng");
+        QuanlykhachangjLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                QuanlykhachangjLabelMouseClicked(evt);
+            }
+        });
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\Quanlykhachsan\\src\\main\\java\\ICON\\icons8-employee-64.png")); // NOI18N
-        jLabel4.setText("Quản lý nhân viên ");
+        QuanLyNhanVienjLabel4.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        QuanLyNhanVienjLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\Quanlykhachsan\\src\\main\\java\\ICON\\icons8-employee-64.png")); // NOI18N
+        QuanLyNhanVienjLabel4.setText("Quản lý nhân viên ");
+        QuanLyNhanVienjLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                QuanLyNhanVienjLabel4MouseClicked(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\Quanlykhachsan\\src\\main\\java\\ICON\\icons8-bed-48.png")); // NOI18N
@@ -103,11 +137,11 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addComponent(jLabel3))
+                        .addComponent(QuanlykhachangjLabel))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
+                            .addComponent(QuanLyNhanVienjLabel4)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,9 +160,9 @@ public class Home extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
+                .addComponent(QuanlykhachangjLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(QuanLyNhanVienjLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -141,11 +175,22 @@ public class Home extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new java.awt.GridLayout(3, 2, 20, 20));
 
-        jButton1.setBackground(new java.awt.Color(255, 0, 0));
-        jButton1.setText("PHÒNG 1");
-        jPanel2.add(jButton1);
+        Phong101jButton1.setBackground(new java.awt.Color(204, 255, 102));
+        Phong101jButton1.setText("PHÒNG 101");
+        Phong101jButton1.setToolTipText("");
+        Phong101jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Phong101jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(Phong101jButton1);
 
         jButton2.setText("PHÒNG 2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton2);
 
         jButton4.setText("PHÒNG 3");
@@ -176,7 +221,7 @@ public class Home extends javax.swing.JFrame {
             .addGroup(bgLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -192,6 +237,35 @@ public class Home extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void QuanlykhachangjLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuanlykhachangjLabelMouseClicked
+        CustomerManager customerManager=new CustomerManager();
+        
+        customerManager.setLocationRelativeTo(null);
+        customerManager.setVisible(true);
+        customerManager.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+ 
+    }//GEN-LAST:event_QuanlykhachangjLabelMouseClicked
+
+    private void Phong101jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Phong101jButton1ActionPerformed
+        // TODO add your handling code here:
+ 
+        serviceNRoom.setLocationRelativeTo(null);
+        serviceNRoom.setVisible(true);
+        serviceNRoom.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        serviceNRoom.setTenphong("Phong 101");
+    }//GEN-LAST:event_Phong101jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+       this.configureAndShow(serviceNRoom, "Phong 102");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void QuanLyNhanVienjLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuanLyNhanVienjLabel4MouseClicked
+        // TODO add your handling code here:
+       this.Show1(employManager);
+       
+    }//GEN-LAST:event_QuanLyNhanVienjLabel4MouseClicked
 
     /**
      * @param args the command line arguments
@@ -229,8 +303,10 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Phong101jButton1;
+    private javax.swing.JLabel QuanLyNhanVienjLabel4;
+    private javax.swing.JLabel QuanlykhachangjLabel;
     private javax.swing.JPanel bg;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -238,8 +314,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
