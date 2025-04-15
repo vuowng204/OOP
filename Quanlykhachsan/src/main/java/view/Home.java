@@ -4,6 +4,7 @@
  */
 package view;
 
+import java.awt.Color;
 import javax.swing.JFrame;
 import java.awt.Window;
 
@@ -15,6 +16,10 @@ import java.awt.Window;
 public class Home extends javax.swing.JFrame {
     public  ServiceNRoom serviceNRoom;
     public  EmployManager employManager;
+    public HoaDonDatPhong hddp;
+    public ServiceDetail sd;
+    public RoomManager rm;
+   
 
     /**
      * Creates new form Home
@@ -22,8 +27,13 @@ public class Home extends javax.swing.JFrame {
     public Home() {
         initComponents();
         this.setLocationRelativeTo(null); // Căn giữa màn hình
-        serviceNRoom= new ServiceNRoom();
-        employManager= new EmployManager();
+        this.serviceNRoom= new ServiceNRoom();
+        this.employManager= new EmployManager();
+        this.hddp=new HoaDonDatPhong();
+        this.sd =new ServiceDetail();
+        this.rm=new RoomManager();
+        
+       
         
 
     }
@@ -41,7 +51,11 @@ public class Home extends javax.swing.JFrame {
     }
 
     window.setVisible(true);
-}
+    }
+    public void setColorForCheckin(){
+        this.Phong101jButton1.setBackground(Color.red);
+    }
+        
 
  
     /**
@@ -60,16 +74,16 @@ public class Home extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         QuanlykhachangjLabel = new javax.swing.JLabel();
         QuanLyNhanVienjLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        QuanLyPhongjLabel5 = new javax.swing.JLabel();
+        QuanLyDichVujLabel6 = new javax.swing.JLabel();
+        ThongKeDoanhThujLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         Phong101jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        P102jButton2 = new javax.swing.JButton();
+        P103jButton4 = new javax.swing.JButton();
+        P104jButton3 = new javax.swing.JButton();
+        P105jButton5 = new javax.swing.JButton();
+        P106jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ỨNG DỤNG QUẢN LÝ NHÀ HÀNG");
@@ -78,9 +92,9 @@ public class Home extends javax.swing.JFrame {
         setResizable(false);
 
         bg.setBackground(new java.awt.Color(255, 255, 255));
-        bg.setMaximumSize(new java.awt.Dimension(980, 670));
-        bg.setMinimumSize(new java.awt.Dimension(980, 670));
-        bg.setPreferredSize(new java.awt.Dimension(980, 670));
+        bg.setMaximumSize(new java.awt.Dimension(980, 600));
+        bg.setMinimumSize(new java.awt.Dimension(980, 600));
+        bg.setPreferredSize(new java.awt.Dimension(980, 600));
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 102));
 
@@ -107,18 +121,33 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\Quanlykhachsan\\src\\main\\java\\ICON\\icons8-bed-48.png")); // NOI18N
-        jLabel5.setText("    Quản lý phòng");
+        QuanLyPhongjLabel5.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        QuanLyPhongjLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\Quanlykhachsan\\src\\main\\java\\ICON\\icons8-bed-48.png")); // NOI18N
+        QuanLyPhongjLabel5.setText("    Quản lý phòng");
+        QuanLyPhongjLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                QuanLyPhongjLabel5MouseClicked(evt);
+            }
+        });
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\Quanlykhachsan\\src\\main\\java\\ICON\\icons8-service-64.png")); // NOI18N
-        jLabel6.setText("  Quản lý dịch vụ");
+        QuanLyDichVujLabel6.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        QuanLyDichVujLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\Quanlykhachsan\\src\\main\\java\\ICON\\icons8-service-64.png")); // NOI18N
+        QuanLyDichVujLabel6.setText("  Quản lý dịch vụ");
+        QuanLyDichVujLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                QuanLyDichVujLabel6MouseClicked(evt);
+            }
+        });
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\Quanlykhachsan\\src\\main\\java\\ICON\\icons8-report-50.png")); // NOI18N
-        jLabel7.setText("     Thống Kê Doanh thu");
-        jLabel7.setToolTipText("");
+        ThongKeDoanhThujLabel7.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        ThongKeDoanhThujLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\Quanlykhachsan\\src\\main\\java\\ICON\\icons8-report-50.png")); // NOI18N
+        ThongKeDoanhThujLabel7.setText("     Thống Kê Doanh thu");
+        ThongKeDoanhThujLabel7.setToolTipText("");
+        ThongKeDoanhThujLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ThongKeDoanhThujLabel7MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -145,9 +174,11 @@ public class Home extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel7))))))
+                                    .addComponent(QuanLyDichVujLabel6)
+                                    .addComponent(ThongKeDoanhThujLabel7)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(9, 9, 9)
+                                        .addComponent(QuanLyPhongjLabel5)))))))
                 .addGap(7, 7, 7))
         );
         jPanel1Layout.setVerticalGroup(
@@ -164,18 +195,17 @@ public class Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(QuanLyNhanVienjLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
+                .addComponent(QuanLyPhongjLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
+                .addComponent(QuanLyDichVujLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
+                .addComponent(ThongKeDoanhThujLabel7)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new java.awt.GridLayout(3, 2, 20, 20));
 
-        Phong101jButton1.setBackground(new java.awt.Color(204, 255, 102));
         Phong101jButton1.setText("PHÒNG 101");
         Phong101jButton1.setToolTipText("");
         Phong101jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -185,25 +215,47 @@ public class Home extends javax.swing.JFrame {
         });
         jPanel2.add(Phong101jButton1);
 
-        jButton2.setText("PHÒNG 2");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        P102jButton2.setText("PHÒNG 102");
+        P102jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                P102jButton2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2);
+        jPanel2.add(P102jButton2);
 
-        jButton4.setText("PHÒNG 3");
-        jPanel2.add(jButton4);
+        P103jButton4.setText("PHÒNG 103");
+        P103jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                P103jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(P103jButton4);
 
-        jButton3.setText("PHÒNG 4");
-        jPanel2.add(jButton3);
+        P104jButton3.setText("PHÒNG 104");
+        P104jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                P104jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(P104jButton3);
 
-        jButton5.setText("PHÒNG 5");
-        jPanel2.add(jButton5);
+        P105jButton5.setText("PHÒNG 105");
+        P105jButton5.setActionCommand("PHÒNG 105");
+        P105jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                P105jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(P105jButton5);
 
-        jButton6.setText("PHÒNG 6");
-        jPanel2.add(jButton6);
+        P106jButton6.setText("PHÒNG 106");
+        P106jButton6.setActionCommand("PHÒNG 106");
+        P106jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                P106jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(P106jButton6);
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -211,17 +263,17 @@ public class Home extends javax.swing.JFrame {
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(32, 32, 32)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 671, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(bgLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(21, 21, 21)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -232,7 +284,7 @@ public class Home extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
         );
 
         pack();
@@ -254,18 +306,56 @@ public class Home extends javax.swing.JFrame {
         serviceNRoom.setVisible(true);
         serviceNRoom.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         serviceNRoom.setTenphong("Phong 101");
+    
     }//GEN-LAST:event_Phong101jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void P102jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P102jButton2ActionPerformed
         // TODO add your handling code here:
        this.configureAndShow(serviceNRoom, "Phong 102");
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_P102jButton2ActionPerformed
 
     private void QuanLyNhanVienjLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuanLyNhanVienjLabel4MouseClicked
         // TODO add your handling code here:
        this.Show1(employManager);
        
     }//GEN-LAST:event_QuanLyNhanVienjLabel4MouseClicked
+
+    private void ThongKeDoanhThujLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ThongKeDoanhThujLabel7MouseClicked
+        // TODO add your handling code here:
+        this.Show1(hddp);
+    
+    }//GEN-LAST:event_ThongKeDoanhThujLabel7MouseClicked
+
+    private void QuanLyDichVujLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuanLyDichVujLabel6MouseClicked
+        // TODO add your handling code here:
+        this.Show1(sd);
+        
+    }//GEN-LAST:event_QuanLyDichVujLabel6MouseClicked
+
+    private void P103jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P103jButton4ActionPerformed
+        // TODO add your handling code here:
+        this.configureAndShow(serviceNRoom, "Phong 103");
+    }//GEN-LAST:event_P103jButton4ActionPerformed
+
+    private void P104jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P104jButton3ActionPerformed
+        // TODO add your handling code here:
+        this.configureAndShow(serviceNRoom, "Phong 104");
+    }//GEN-LAST:event_P104jButton3ActionPerformed
+
+    private void P105jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P105jButton5ActionPerformed
+        // TODO add your handling code here:
+        this.configureAndShow(serviceNRoom, "Phong 105");
+    }//GEN-LAST:event_P105jButton5ActionPerformed
+
+    private void P106jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P106jButton6ActionPerformed
+        // TODO add your handling code here:
+        this.configureAndShow(serviceNRoom, "Phong 106");
+    }//GEN-LAST:event_P106jButton6ActionPerformed
+
+    private void QuanLyPhongjLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuanLyPhongjLabel5MouseClicked
+        // TODO add your handling code here:
+      this.Show1(rm);
+    }//GEN-LAST:event_QuanLyPhongjLabel5MouseClicked
 
     /**
      * @param args the command line arguments
@@ -303,20 +393,20 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton P102jButton2;
+    private javax.swing.JButton P103jButton4;
+    private javax.swing.JButton P104jButton3;
+    private javax.swing.JButton P105jButton5;
+    private javax.swing.JButton P106jButton6;
     private javax.swing.JButton Phong101jButton1;
+    private javax.swing.JLabel QuanLyDichVujLabel6;
     private javax.swing.JLabel QuanLyNhanVienjLabel4;
+    private javax.swing.JLabel QuanLyPhongjLabel5;
     private javax.swing.JLabel QuanlykhachangjLabel;
+    private javax.swing.JLabel ThongKeDoanhThujLabel7;
     private javax.swing.JPanel bg;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;

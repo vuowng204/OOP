@@ -18,7 +18,30 @@ public class Login2 extends javax.swing.JFrame {
     public Login2() {
         initComponents();
     }
+    // Thêm các getter cho controller
+    public String getUsername() {
+        return oTendangnhap.getText().trim();
+    }
 
+    public String getPassword() {
+        return new String(oMatkhau.getPassword());
+    }
+
+    // Thêm phương thức để đăng ký sự kiện từ controller
+    public void addLoginListener(java.awt.event.ActionListener listener) {
+        nutDangNhap.addActionListener(listener);
+    }
+
+    // Hiển thị thông báo
+    public void showMessage(String message, String title, int messageType) {
+        JOptionPane.showMessageDialog(this, message, title, messageType);
+    }
+
+    // Chuyển sang màn hình chính
+    public void navigateToHome() {
+        new Home().setVisible(true);
+        this.dispose();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,11 +120,6 @@ public class Login2 extends javax.swing.JFrame {
         nutDangNhap.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         nutDangNhap.setText("Đăng Nhập");
         nutDangNhap.setToolTipText("");
-        nutDangNhap.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nutDangNhapActionPerformed(evt);
-            }
-        });
         Left.add(nutDangNhap);
         nutDangNhap.setBounds(30, 350, 350, 32);
 
@@ -136,29 +154,6 @@ public class Login2 extends javax.swing.JFrame {
     private void oTendangnhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oTendangnhapActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_oTendangnhapActionPerformed
-
-    private void nutDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nutDangNhapActionPerformed
-        // TODO add your handling code here:
-        //System.exit(0)-> an vao chuong trinh ket thuc;
-        String username =oTendangnhap.getText();
-        String password =new String(oMatkhau.getPassword());
-
-        StringBuilder sb= new StringBuilder();
-        if(username.equals("")){
-            sb.append("User name is empty! \n");
-        }
-        if(password.equals("")){
-            sb.append("Password is empty!!!");}
-        if(sb.length()>0){
-            JOptionPane.showConfirmDialog(this, sb.toString(),"Invalidation",JOptionPane.ERROR_MESSAGE);
-            return;}
-        else{
-            new Home().setVisible(true);
-        this.dispose();
-            
-        }
-       
-    }//GEN-LAST:event_nutDangNhapActionPerformed
         
     /**
      * @param args the command line arguments

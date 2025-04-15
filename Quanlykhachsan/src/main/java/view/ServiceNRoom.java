@@ -6,17 +6,22 @@ package view;
 
 import javax.swing.JFrame;
 
+
 /**
  *
  * @author lenovo
  */
 public class ServiceNRoom extends javax.swing.JFrame {
-
+  
+    
+    
+    
     /**
      * Creates new form ServiceNRoom
      */
     public ServiceNRoom() {
         initComponents();
+        
     }
 
     /**
@@ -126,8 +131,7 @@ public class ServiceNRoom extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jScrollPane20 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        CheckinjButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
@@ -188,6 +192,7 @@ public class ServiceNRoom extends javax.swing.JFrame {
         jTextField5 = new javax.swing.JTextField();
         jScrollPane32 = new javax.swing.JScrollPane();
         jTextPane27 = new javax.swing.JTextPane();
+        jButton18 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -760,9 +765,13 @@ public class ServiceNRoom extends javax.swing.JFrame {
         ));
         jScrollPane20.setViewportView(jTable1);
 
-        jButton4.setText("Đặt Cọc");
-
-        jButton5.setText("Check-Out");
+        CheckinjButton5.setText("Check-in");
+        CheckinjButton5.setToolTipText("");
+        CheckinjButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckinjButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Cập Nhật");
 
@@ -968,6 +977,14 @@ public class ServiceNRoom extends javax.swing.JFrame {
 
         jScrollPane32.setViewportView(jTextPane27);
 
+        jButton18.setText("Check-out");
+        jButton18.setToolTipText("");
+        jButton18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton18ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -980,10 +997,10 @@ public class ServiceNRoom extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(43, 43, 43)
+                                .addComponent(CheckinjButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(55, 55, 55)
+                                .addComponent(jButton18)
+                                .addGap(57, 57, 57)
                                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(35, 35, 35))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -1120,12 +1137,12 @@ public class ServiceNRoom extends javax.swing.JFrame {
                         .addComponent(jScrollPane20, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CheckinjButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton18))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1218,6 +1235,15 @@ public class ServiceNRoom extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton16ActionPerformed
 
+    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton18ActionPerformed
+
+    private void CheckinjButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckinjButton5ActionPerformed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_CheckinjButton5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1255,6 +1281,7 @@ public class ServiceNRoom extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CheckinjButton5;
     private javax.swing.JLabel GiaphongjLabel2;
     private javax.swing.JLabel TenphongjLabel1;
     private javax.swing.JButton jButton1;
@@ -1266,10 +1293,9 @@ public class ServiceNRoom extends javax.swing.JFrame {
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
+    private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;

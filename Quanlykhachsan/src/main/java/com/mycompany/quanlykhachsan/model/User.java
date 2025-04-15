@@ -1,5 +1,13 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.mycompany.quanlykhachsan.model;
 
+/**
+ *
+ * @author Admin
+ */
 public class User {
     private String userID;
     private String username;
@@ -43,3 +51,5 @@ public class User {
         System.out.println(fullname + " đã đăng xuất.");
     }
 }
+    
+

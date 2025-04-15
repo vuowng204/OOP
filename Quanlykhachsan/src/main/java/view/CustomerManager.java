@@ -94,7 +94,8 @@ public class CustomerManager extends javax.swing.JFrame {
 
         jTextField8.setText("Nhập Tên");
 
-        jButton6.setText("TÌm Kiếm");
+        jButton6.setText("Tìm Kiếm");
+        jButton6.setToolTipText("");
 
         tên.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Theo tên", "Theo Ngày ", "Theo CCCD" }));
 
