@@ -8,6 +8,7 @@ view\ServiceDetail$5.class
 view\Home$5.class
 view\Login2$2.class
 com\mycompany\quanlykhachsan\model\Equipment.class
+view\CustomerManager$4.class
 view\ServiceDetail$2.class
 view\RoomManager$5.class
 view\ServiceNRoom$1.class
@@ -16,9 +17,9 @@ view\Home$10.class
 view\HoaDonDatPhong$4.class
 view\CustomerManager$1.class
 view\RoomManager$2.class
+view\EmployManager$5.class
 view\RoomManager$3.class
 view\ServiceNRoom.class
-com\mycompany\quanlykhachsan\model\DashboardWindow.class
 com\mycompany\quanlykhachsan\model\Room.class
 view\Home$4.class
 view\ServiceNRoom$5.class
@@ -30,11 +31,13 @@ view\RoomManager$6.class
 view\Login2$1.class
 view\RoomManager.class
 com\mycompany\quanlykhachsan\Quanlykhachsan.class
+QuanLyKhachSan\dao\RoomDAO.class
 view\ServiceNRoom$2.class
 view\Home$7.class
 view\HoaDonDatPhong$3.class
 view\Home$12.class
 com\mycompany\quanlykhachsan\model\Employee.class
+controler\RoomController.class
 view\HoaDonDatPhong$6.class
 view\ServiceNRoom$9.class
 view\RoomManager$4.class
@@ -47,7 +50,6 @@ view\Home$6.class
 view\ServiceDetail$4.class
 QuanLyKhachSan\dao\UserDAO.class
 com\mycompany\quanlykhachsan\model\Customer.class
-com\mycompany\quanlykhachsan\model\UserDatabase.class
 view\Home$3.class
 view\Home.class
 view\HoaDonDatPhong$5.class
@@ -64,7 +66,6 @@ view\CustomerManager.class
 view\ServiceNRoom$7.class
 com\mycompany\quanlykhachsan\model\Service.class
 view\EmployManager$4.class
-com\mycompany\quanlykhachsan\model\Booking.class
 view\RoomManager$1.class
 view\EmployManager$1.class
 view\EmployManager.class

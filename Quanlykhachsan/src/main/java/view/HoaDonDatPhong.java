@@ -4,15 +4,20 @@
  */
 package view;
 
+import controler.RoomController;
+import java.awt.Color;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JButton;
+
 /**
  *
  * @author Admin
  */
 public class HoaDonDatPhong extends javax.swing.JFrame {
 
-    /**
-     * Creates new form HoaDonDatPhong
-     */
+   
+
     public HoaDonDatPhong() {
         initComponents();
     }
@@ -287,9 +292,9 @@ public class HoaDonDatPhong extends javax.swing.JFrame {
         // TODO add your handling code here:
         HoaDonTheothangjDialog1.setLocationRelativeTo(null);
         HoaDonTheothangjDialog1.setVisible(true);
-   
+
         HoaDonTheothangjDialog1.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-   
+
     }//GEN-LAST:event_ThongKeHoaDonjButton3ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -304,13 +309,14 @@ public class HoaDonDatPhong extends javax.swing.JFrame {
         // TODO add your handling code here:
         String selected = (String) jComboBox1.getSelectedItem();
         int thang = Integer.parseInt(selected.split(" ")[1]);
-        TongdoanhthujLabel6.setText("Tổng doanh thu trong "+selected +""+":");
-        DanhSachjLabel7.setText("Danh sách các phòng có sô lần đặt nhiều hơn 1 lần trong"+selected+""+":");
+        TongdoanhthujLabel6.setText("Tổng doanh thu trong " + selected + "" + ":");
+        DanhSachjLabel7.setText("Danh sách các phòng có sô lần đặt nhiều hơn 1 lần trong" + selected + "" + ":");
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void CLosejButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CLosejButton3ActionPerformed
         // TODO add your handling code here:
         HoaDonTheothangjDialog1.setVisible(false);
+        jButton2.setBackground(Color.red);
     }//GEN-LAST:event_CLosejButton3ActionPerformed
 
     /**

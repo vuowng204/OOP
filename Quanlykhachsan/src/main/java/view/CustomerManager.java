@@ -84,7 +84,12 @@ public class CustomerManager extends javax.swing.JFrame {
 
         jTextField7.setText("jTextField2");
 
-        jButton2.setText("Thêm");
+        jButton2.setText("Refresh");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Sửa");
 
@@ -180,13 +185,13 @@ public class CustomerManager extends javax.swing.JFrame {
                                     .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(245, 245, 245)
-                        .addComponent(jButton2)
-                        .addGap(62, 62, 62)
+                        .addGap(279, 279, 279)
                         .addComponent(jButton3)
-                        .addGap(82, 82, 82)
+                        .addGap(71, 71, 71)
                         .addComponent(jButton4)
-                        .addGap(70, 70, 70)
+                        .addGap(93, 93, 93)
+                        .addComponent(jButton2)
+                        .addGap(55, 55, 55)
                         .addComponent(jButton5)))
                 .addGap(41, 41, Short.MAX_VALUE))
         );
@@ -202,10 +207,10 @@ public class CustomerManager extends javax.swing.JFrame {
                     .addComponent(tên, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
                     .addComponent(jButton3)
                     .addComponent(jButton4)
-                    .addComponent(jButton5))
+                    .addComponent(jButton5)
+                    .addComponent(jButton2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -235,6 +240,10 @@ public class CustomerManager extends javax.swing.JFrame {
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

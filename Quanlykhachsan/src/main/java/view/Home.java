@@ -4,60 +4,70 @@
  */
 package view;
 
+import QuanLyKhachSan.dao.JDBCConnection;
+import QuanLyKhachSan.dao.RoomDAO;
+import controler.RoomController;
 import java.awt.Color;
 import javax.swing.JFrame;
 import java.awt.Window;
-
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JButton;
 
 /**
  *
  * @author Admin
  */
 public class Home extends javax.swing.JFrame {
-    public  ServiceNRoom serviceNRoom;
-    public  EmployManager employManager;
+
+    public EmployManager employManager;
     public HoaDonDatPhong hddp;
     public ServiceDetail sd;
     public RoomManager rm;
-   
+    private Map<Integer, JButton> phongButtons = new HashMap<>();
+    private RoomController roomController;
+    
 
+    ;
     /**
      * Creates new form Home
      */
     public Home() {
         initComponents();
         this.setLocationRelativeTo(null); // Căn giữa màn hình
-        this.serviceNRoom= new ServiceNRoom();
-        this.employManager= new EmployManager();
-        this.hddp=new HoaDonDatPhong();
-        this.sd =new ServiceDetail();
-        this.rm=new RoomManager();
-        
-       
-        
 
+        this.employManager = new EmployManager();
+        this.hddp = new HoaDonDatPhong();
+        this.sd = new ServiceDetail();
+        this.rm = new RoomManager();
+        roomController = new RoomController(new RoomDAO(JDBCConnection.getConnection()));
+        phongButtons.put(101,Phong101jButton1 );
     }
-    public static <T extends ServiceNRoom> void configureAndShow(T window, String title) {
+
+//    public static <T extends ServiceNRoom> void configureAndShow(T window, String title) {
+//        window.setLocationRelativeTo(null);
+//        window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//        window.setTenphong(title); // Ví dụ: setTitle() có sẵn trong JFrame
+//        window.setVisible(true);
+//    }
+
+    public static void Show1(java.awt.Window window) {
         window.setLocationRelativeTo(null);
-        window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        window.setTenphong(title); // Ví dụ: setTitle() có sẵn trong JFrame
+
+        if (window instanceof JFrame frame) {
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        }
+
         window.setVisible(true);
     }
-    public static void Show1(java.awt.Window window) {
-    window.setLocationRelativeTo(null);
 
-    if (window instanceof JFrame frame) {
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    public void setPhongDaCheckIn(int roomId) {
+    JButton btn = phongButtons.get(roomId);
+    if (btn != null) {
+        btn.setBackground(Color.GREEN);
     }
+}
 
-    window.setVisible(true);
-    }
-    public void setColorForCheckin(){
-        this.Phong101jButton1.setBackground(Color.red);
-    }
-        
-
- 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -291,70 +301,66 @@ public class Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void QuanlykhachangjLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuanlykhachangjLabelMouseClicked
-        CustomerManager customerManager=new CustomerManager();
-        
+        CustomerManager customerManager = new CustomerManager();
+
         customerManager.setLocationRelativeTo(null);
         customerManager.setVisible(true);
         customerManager.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
- 
+
     }//GEN-LAST:event_QuanlykhachangjLabelMouseClicked
 
     private void Phong101jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Phong101jButton1ActionPerformed
         // TODO add your handling code here:
- 
-        serviceNRoom.setLocationRelativeTo(null);
-        serviceNRoom.setVisible(true);
-        serviceNRoom.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        serviceNRoom.setTenphong("Phong 101");
-    
+             roomController.openRoomFrame(this,101);
+
     }//GEN-LAST:event_Phong101jButton1ActionPerformed
 
     private void P102jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P102jButton2ActionPerformed
         // TODO add your handling code here:
-       this.configureAndShow(serviceNRoom, "Phong 102");
+
     }//GEN-LAST:event_P102jButton2ActionPerformed
 
     private void QuanLyNhanVienjLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuanLyNhanVienjLabel4MouseClicked
         // TODO add your handling code here:
-       this.Show1(employManager);
-       
+        this.Show1(employManager);
+
     }//GEN-LAST:event_QuanLyNhanVienjLabel4MouseClicked
 
     private void ThongKeDoanhThujLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ThongKeDoanhThujLabel7MouseClicked
         // TODO add your handling code here:
         this.Show1(hddp);
-    
+
     }//GEN-LAST:event_ThongKeDoanhThujLabel7MouseClicked
 
     private void QuanLyDichVujLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuanLyDichVujLabel6MouseClicked
         // TODO add your handling code here:
         this.Show1(sd);
-        
+
     }//GEN-LAST:event_QuanLyDichVujLabel6MouseClicked
 
     private void P103jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P103jButton4ActionPerformed
         // TODO add your handling code here:
-        this.configureAndShow(serviceNRoom, "Phong 103");
+
     }//GEN-LAST:event_P103jButton4ActionPerformed
 
     private void P104jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P104jButton3ActionPerformed
         // TODO add your handling code here:
-        this.configureAndShow(serviceNRoom, "Phong 104");
+
     }//GEN-LAST:event_P104jButton3ActionPerformed
 
     private void P105jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P105jButton5ActionPerformed
         // TODO add your handling code here:
-        this.configureAndShow(serviceNRoom, "Phong 105");
+
     }//GEN-LAST:event_P105jButton5ActionPerformed
 
     private void P106jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P106jButton6ActionPerformed
         // TODO add your handling code here:
-        this.configureAndShow(serviceNRoom, "Phong 106");
+
     }//GEN-LAST:event_P106jButton6ActionPerformed
 
     private void QuanLyPhongjLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuanLyPhongjLabel5MouseClicked
         // TODO add your handling code here:
-      this.Show1(rm);
+        this.Show1(rm);
     }//GEN-LAST:event_QuanLyPhongjLabel5MouseClicked
 
     /**

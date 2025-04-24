@@ -295,7 +295,6 @@
             <Component class="javax.swing.JButton" name="P105jButton5">
               <Properties>
                 <Property name="text" type="java.lang.String" value="PH&#xd2;NG 105"/>
-                <Property name="actionCommand" type="java.lang.String" value="PH&#xd2;NG 105"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="P105jButton5ActionPerformed"/>
@@ -304,7 +303,6 @@
             <Component class="javax.swing.JButton" name="P106jButton6">
               <Properties>
                 <Property name="text" type="java.lang.String" value="PH&#xd2;NG 106"/>
-                <Property name="actionCommand" type="java.lang.String" value="PH&#xd2;NG 106"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="P106jButton6ActionPerformed"/>

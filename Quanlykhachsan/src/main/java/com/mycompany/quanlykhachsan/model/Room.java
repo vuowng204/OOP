@@ -1,36 +1,96 @@
-package com.mycompany.quanlykhachsan.model;
+ package com.mycompany.quanlykhachsan.model;
 
 public class Room {
-    private String roomID;
-    private RoomType roomType;
-    private boolean isAvailable;
-    private double price;
-
-    public Room(String roomID, RoomType roomType, boolean isAvailable, double price) {
-        this.roomID = roomID;
-        this.roomType = roomType;
-        this.isAvailable = isAvailable;
-        this.price = price;
+    private int id;
+    private String tenPhong;
+    private RoomType loaiphong;
+    private double giaPhong;
+    private String tang;
+    public Room() {
     }
 
-    // Phương thức kiểm tra phòng trống
-    public boolean checkAvailability() {
-        return isAvailable;
+    public Room(int id, String tenPhong, double giaPhong) {
+        this.id = id;
+        this.tenPhong = tenPhong;
+        this.giaPhong = giaPhong;
     }
 
-    // Phương thức đặt phòng
-    public void bookRoom() {
-        if (isAvailable) {
-            isAvailable = false;
-            System.out.println("Phòng " + roomID + " đã được đặt.");
-        } else {
-            System.out.println("Phòng " + roomID + " hiện không có sẵn.");
-        }
+    public Room(int id, String tenPhong, RoomType loaiphong, double giaPhong, String tang) {
+        this.id = id;
+        this.tenPhong = tenPhong;
+        this.loaiphong = loaiphong;
+        this.giaPhong = giaPhong;
+        this.tang = tang;
     }
 
-    // Getter và Setter
-    public String getRoomID() { return roomID; }
-    public RoomType getRoomType() { return roomType; }
-    public boolean isAvailable() { return isAvailable; }
-    public double getPrice() { return price; }
+    public RoomType getLoaiphong() {
+        return loaiphong;
+    }
+
+    public String getTang() {
+        return tang;
+    }
+
+    public void setLoaiphong(RoomType loaiphong) {
+        this.loaiphong = loaiphong;
+    }
+
+    public void setTang(String tang) {
+        this.tang = tang;
+    }
+    
+
+    public int getId() {
+        return id;
+    }
+
+    public String getTenPhong() {
+        return tenPhong;
+    }
+
+    public double getGiaPhong() {
+        return giaPhong;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTenPhong(String tenPhong) {
+        this.tenPhong = tenPhong;
+    }
+
+    public void setGiaPhong(double giaPhong) {
+        this.giaPhong = giaPhong;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
+
+    
+   
+    
+   
+
+  
