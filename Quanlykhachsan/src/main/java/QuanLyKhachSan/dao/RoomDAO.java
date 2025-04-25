@@ -20,7 +20,7 @@ public class RoomDAO {
 
     public Room getRoomById(int id) {
         try {
-            String sql = "SELECT * FROM rooms WHERE id = ?";
+            String sql = "SELECT * FROM room WHERE id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
