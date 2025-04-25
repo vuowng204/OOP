@@ -105,24 +105,15 @@
                               <Component id="jSeparator1" min="-2" pref="227" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                              <Component id="QuanlykhachangjLabel" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="QuanLyNhanVienjLabel4" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="QuanLyDichVujLabel6" min="-2" max="-2" attributes="0"/>
-                                          <Component id="ThongKeDoanhThujLabel7" min="-2" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                                              <Component id="QuanLyPhongjLabel5" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
+                                  <Component id="QuanLyDichVujLabel6" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="QuanLyNhanVienjLabel4" max="32767" attributes="0"/>
+                                      <Component id="QuanLyPhongjLabel5" max="32767" attributes="0"/>
                                   </Group>
+                                  <Component id="ThongKeDoanhThujLabel7" min="-2" max="-2" attributes="0"/>
+                                  <Component id="QuanlykhachangjLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -142,12 +133,12 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="QuanlykhachangjLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="QuanLyNhanVienjLabel4" min="-2" pref="64" max="-2" attributes="0"/>
+                      <Component id="QuanLyNhanVienjLabel4" min="-2" pref="36" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="QuanLyPhongjLabel5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="QuanLyDichVujLabel6" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="QuanLyDichVujLabel6" min="-2" pref="17" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="ThongKeDoanhThujLabel7" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -156,11 +147,6 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel1">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\ICON\leaf_188333 (1).png"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
@@ -177,10 +163,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI Black" size="12" style="0"/>
                 </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\ICON\icons8-human-50.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="  Qu&#x1ea3;n l&#xfd; kh&#xe1;ch h&#xe0;ng"/>
+                <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; kh&#xe1;ch h&#xe0;ng"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="QuanlykhachangjLabelMouseClicked"/>
@@ -190,9 +173,6 @@
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI Black" size="12" style="0"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\ICON\icons8-employee-64.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; nh&#xe2;n vi&#xea;n "/>
               </Properties>
@@ -205,10 +185,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI Black" size="12" style="0"/>
                 </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\ICON\icons8-bed-48.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="    Qu&#x1ea3;n l&#xfd; ph&#xf2;ng"/>
+                <Property name="text" type="java.lang.String" value=" Qu&#x1ea3;n l&#xfd; ph&#xf2;ng"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="QuanLyPhongjLabel5MouseClicked"/>
@@ -219,10 +196,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI Black" size="12" style="1"/>
                 </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\ICON\icons8-service-64.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="  Qu&#x1ea3;n l&#xfd; d&#x1ecb;ch v&#x1ee5;"/>
+                <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; d&#x1ecb;ch v&#x1ee5;"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="QuanLyDichVujLabel6MouseClicked"/>
@@ -233,10 +207,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI Black" size="12" style="0"/>
                 </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\ICON\icons8-report-50.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="     Th&#x1ed1;ng K&#xea; Doanh thu"/>
+                <Property name="text" type="java.lang.String" value="Th&#x1ed1;ng K&#xea; Doanh thu"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
               <Events>
