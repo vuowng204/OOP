@@ -3,6 +3,7 @@ view\ServiceNRoom$4.class
 controler\LoginController.class
 view\Home$8.class
 view\Home$1.class
+view\EmployManager$8.class
 view\HoaDonDatPhong$1.class
 view\ServiceDetail$5.class
 view\Home$5.class
@@ -31,6 +32,7 @@ view\RoomManager$6.class
 view\Login2$1.class
 view\RoomManager.class
 com\mycompany\quanlykhachsan\Quanlykhachsan.class
+view\ServiceNRoom$10.class
 QuanLyKhachSan\dao\RoomDAO.class
 view\ServiceNRoom$2.class
 view\Home$7.class
@@ -38,6 +40,7 @@ view\HoaDonDatPhong$3.class
 view\Home$12.class
 com\mycompany\quanlykhachsan\model\Employee.class
 controler\RoomController.class
+view\EmployManager$6.class
 view\HoaDonDatPhong$6.class
 view\ServiceNRoom$9.class
 view\RoomManager$4.class
@@ -61,6 +64,7 @@ view\ServiceNRoom$3.class
 view\CustomerManager$2.class
 view\Login2.class
 view\Home$11.class
+view\EmployManager$7.class
 QuanLyKhachSan\dao\JDBCConnection.class
 view\CustomerManager.class
 view\ServiceNRoom$7.class
