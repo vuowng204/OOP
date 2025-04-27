@@ -4,6 +4,7 @@
  */
 package view;
 
+import controler.LoginController;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,6 +19,7 @@ public class Login2 extends javax.swing.JFrame {
     public Login2() {
         initComponents();
     }
+
     // Thêm các getter cho controller
     public String getUsername() {
         return oTendangnhap.getText().trim();
@@ -38,10 +40,10 @@ public class Login2 extends javax.swing.JFrame {
     }
 
     // Chuyển sang màn hình chính
-    public void navigateToHome() {
-        new Home().setVisible(true);
-        this.dispose();
-    }
+//    public void navigateToHome() {
+//        new Home().setVisible(true);
+//        this.dispose();
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -154,7 +156,7 @@ public class Login2 extends javax.swing.JFrame {
     private void oTendangnhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oTendangnhapActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_oTendangnhapActionPerformed
-        
+
     /**
      * @param args the command line arguments
      */
@@ -183,10 +185,10 @@ public class Login2 extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login2().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            Login2 loginView = new Login2();
+            LoginController controller = new LoginController(loginView);
+            controller.showLoginView();
         });
     }
 

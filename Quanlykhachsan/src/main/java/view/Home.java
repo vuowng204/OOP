@@ -6,13 +6,19 @@ package view;
 
 import QuanLyKhachSan.dao.JDBCConnection;
 import QuanLyKhachSan.dao.RoomDAO;
+import com.mycompany.quanlykhachsan.model.Room;
+import com.mycompany.quanlykhachsan.model.User;
+import controler.LoginController;
 import controler.RoomController;
 import java.awt.Color;
 import javax.swing.JFrame;
 import java.awt.Window;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import view.Login2;
 
 /**
  *
@@ -26,13 +32,15 @@ public class Home extends javax.swing.JFrame {
     public RoomManager rm;
     private Map<Integer, JButton> phongButtons = new HashMap<>();
     private RoomController roomController;
+    private User currentUser;
     
 
     ;
     /**
      * Creates new form Home
      */
-    public Home() {
+    public Home(User currentUser) {
+        this.currentUser = currentUser;
         initComponents();
         this.setLocationRelativeTo(null); // Căn giữa màn hình
 
@@ -40,8 +48,15 @@ public class Home extends javax.swing.JFrame {
         this.hddp = new HoaDonDatPhong();
         this.sd = new ServiceDetail();
         this.rm = new RoomManager();
-        roomController = new RoomController(new RoomDAO(JDBCConnection.getConnection()));
-        phongButtons.put(101,Phong101jButton1 );
+        roomController = new RoomController(new RoomDAO(JDBCConnection.getConnection()), currentUser);
+        phongButtons.put(101, Phong101jButton1);
+        phongButtons.put(102, P102jButton2);
+        phongButtons.put(103, P103jButton4);
+        phongButtons.put(104, P104jButton3);
+        phongButtons.put(105, P105jButton5);
+        phongButtons.put(106, P106jButton6);
+         // Khởi tạo trạng thái ban đầu của các phòng
+        initializeRoomStatuses();
     }
 
 //    public static <T extends ServiceNRoom> void configureAndShow(T window, String title) {
@@ -50,7 +65,28 @@ public class Home extends javax.swing.JFrame {
 //        window.setTenphong(title); // Ví dụ: setTitle() có sẵn trong JFrame
 //        window.setVisible(true);
 //    }
-
+     private void initializeRoomStatuses() {
+        RoomDAO roomDAO = new RoomDAO(JDBCConnection.getConnection());
+        for (Map.Entry<Integer, JButton> entry : phongButtons.entrySet()) {
+            int roomId = entry.getKey();
+            JButton button = entry.getValue();
+            try {
+                Room room = roomDAO.getRoomById(roomId);
+                if (room != null) {
+                    if ("Đang sử dụng".equals(room.getTrangThai())) {
+                        button.setBackground(Color.GREEN);
+                    } else {
+                        button.setBackground(Color.WHITE); // Phòng trống
+                    }
+                    // Cập nhật văn bản hiển thị
+                    button.setText("Phòng " + roomId + " - " + room.getTrangThai());
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi tải trạng thái phòng " + roomId + ": " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        }
+    }
     public static void Show1(java.awt.Window window) {
         window.setLocationRelativeTo(null);
 
@@ -62,11 +98,19 @@ public class Home extends javax.swing.JFrame {
     }
 
     public void setPhongDaCheckIn(int roomId) {
-    JButton btn = phongButtons.get(roomId);
-    if (btn != null) {
-        btn.setBackground(Color.GREEN);
+        JButton btn = phongButtons.get(roomId);
+        if (btn != null) {
+            btn.setBackground(Color.GREEN);
+        }
     }
-}
+   
+    public void setPhongDaCheckOut(int roomId) {
+        JButton btn = phongButtons.get(roomId);
+        if (btn != null) {
+            btn.setBackground(Color.WHITE); // Phòng trống
+            btn.setText("Phòng " + roomId + " - Trống");
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -296,12 +340,23 @@ public class Home extends javax.swing.JFrame {
 
     private void Phong101jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Phong101jButton1ActionPerformed
         // TODO add your handling code here:
-             roomController.openRoomFrame(this,101);
-
+        try {
+            roomController.openRoomFrame(this,101);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi mở phòng: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_Phong101jButton1ActionPerformed
 
     private void P102jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P102jButton2ActionPerformed
         // TODO add your handling code here:
+        try {
+            roomController.openRoomFrame(this,102);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi mở phòng: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+        
 
     }//GEN-LAST:event_P102jButton2ActionPerformed
 
@@ -325,21 +380,45 @@ public class Home extends javax.swing.JFrame {
 
     private void P103jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P103jButton4ActionPerformed
         // TODO add your handling code here:
+           try {
+            roomController.openRoomFrame(this,103);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi mở phòng: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
 
     }//GEN-LAST:event_P103jButton4ActionPerformed
 
     private void P104jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P104jButton3ActionPerformed
         // TODO add your handling code here:
+           try {
+            roomController.openRoomFrame(this,104);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi mở phòng: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
 
     }//GEN-LAST:event_P104jButton3ActionPerformed
 
     private void P105jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P105jButton5ActionPerformed
         // TODO add your handling code here:
+           try {
+            roomController.openRoomFrame(this,105);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi mở phòng: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
 
     }//GEN-LAST:event_P105jButton5ActionPerformed
 
     private void P106jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P106jButton6ActionPerformed
         // TODO add your handling code here:
+           try {
+            roomController.openRoomFrame(this,106);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi mở phòng: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
 
     }//GEN-LAST:event_P106jButton6ActionPerformed
 
@@ -376,12 +455,29 @@ public class Home extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Home().setVisible(true);
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Home().setVisible(true);
+//            }
+//        });
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+
+        java.awt.EventQueue.invokeLater(() -> {
+            Login2 loginView = new Login2();
+            LoginController controller = new LoginController(loginView);
+            controller.showLoginView();
         });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton P102jButton2;

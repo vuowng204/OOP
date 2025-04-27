@@ -6,13 +6,10 @@ package controler;
 
 import QuanLyKhachSan.dao.UserDAO;
 import com.mycompany.quanlykhachsan.model.User;
-import javax.swing.JOptionPane;
+import view.Home;
 import view.Login2;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author Admin
- */
 public class LoginController {
     private final Login2 view;
     private final UserDAO userDAO;
@@ -36,7 +33,10 @@ public class LoginController {
             
             if (user != null) {
                 view.showMessage("Đăng nhập thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                view.navigateToHome();
+                // Tạo Home với user và đóng Login2
+                Home home = new Home(user);
+                home.setVisible(true);
+                view.dispose();
             } else {
                 view.showMessage("Sai tên đăng nhập hoặc mật khẩu", "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
             }
@@ -58,5 +58,8 @@ public class LoginController {
         }
         return true;
     }
-    
+
+    public void showLoginView() {
+        view.setVisible(true);
+    }
 }

@@ -2,12 +2,14 @@ com\mycompany\quanlykhachsan\model\ServiceUsage.class
 view\ServiceNRoom$4.class
 controler\LoginController.class
 view\Home$8.class
+view\ServiceNRoom$12.class
 view\Home$1.class
 view\EmployManager$8.class
 view\HoaDonDatPhong$1.class
 view\ServiceDetail$5.class
 view\Home$5.class
-view\Login2$2.class
+QuanLyKhachSan\dao\ServiceUsageDAO.class
+controler\ServiceNRoomController.class
 com\mycompany\quanlykhachsan\model\Equipment.class
 view\CustomerManager$4.class
 view\ServiceDetail$2.class
@@ -20,6 +22,7 @@ view\CustomerManager$1.class
 view\RoomManager$2.class
 view\EmployManager$5.class
 view\RoomManager$3.class
+view\ServiceNRoom$13.class
 view\ServiceNRoom.class
 com\mycompany\quanlykhachsan\model\Room.class
 view\Home$4.class
@@ -37,12 +40,13 @@ QuanLyKhachSan\dao\RoomDAO.class
 view\ServiceNRoom$2.class
 view\Home$7.class
 view\HoaDonDatPhong$3.class
-view\Home$12.class
 com\mycompany\quanlykhachsan\model\Employee.class
 controler\RoomController.class
 view\EmployManager$6.class
 view\HoaDonDatPhong$6.class
+view\ServiceNRoom$14.class
 view\ServiceNRoom$9.class
+QuanLyKhachSan\dao\CustomerDAO.class
 view\RoomManager$4.class
 view\CustomerManager$3.class
 view\EmployManager$3.class
@@ -52,7 +56,9 @@ com\mycompany\quanlykhachsan\model\User.class
 view\Home$6.class
 view\ServiceDetail$4.class
 QuanLyKhachSan\dao\UserDAO.class
+view\ServiceNRoom$11.class
 com\mycompany\quanlykhachsan\model\Customer.class
+QuanLyKhachSan\dao\ServiceDAO.class
 view\Home$3.class
 view\Home.class
 view\HoaDonDatPhong$5.class
@@ -61,6 +67,7 @@ view\Home$9.class
 com\mycompany\quanlykhachsan\model\EquipmentUsage.class
 view\Home$2.class
 view\ServiceNRoom$3.class
+QuanLyKhachSan\dao\BookingDAO.class
 view\CustomerManager$2.class
 view\Login2.class
 view\Home$11.class
@@ -70,6 +77,7 @@ view\CustomerManager.class
 view\ServiceNRoom$7.class
 com\mycompany\quanlykhachsan\model\Service.class
 view\EmployManager$4.class
+com\mycompany\quanlykhachsan\model\Booking.class
 view\RoomManager$1.class
 view\EmployManager$1.class
 view\EmployManager.class

@@ -5,7 +5,11 @@
 package controler;
 
 import QuanLyKhachSan.dao.RoomDAO;
+import QuanLyKhachSan.dao.UserDAO;
 import com.mycompany.quanlykhachsan.model.Room;
+import com.mycompany.quanlykhachsan.model.User;
+import java.sql.SQLException;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import view.Home;
 import view.ServiceNRoom;
@@ -16,18 +20,26 @@ import view.ServiceNRoom;
  */
 public class RoomController {
     private RoomDAO roomDAO;
+    private UserDAO userDAO;
+     private User currentUser;
+    
 
-    public RoomController(RoomDAO dao) {
-        this.roomDAO = dao;
+   
+    public RoomController(RoomDAO roomDAO, User currentUser) {
+        this.roomDAO = roomDAO;
+        this.currentUser = currentUser;
     }
 
-    public void openRoomFrame(Home home, int roomId) {
+    public void openRoomFrame(Home home, int roomId) throws SQLException {
         Room room = roomDAO.getRoomById(roomId);
-        if (room != null) {
-            ServiceNRoom sr = new ServiceNRoom(home, roomId, room);
-            sr.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(home, "Không tìm thấy phòng!");
+        if (room == null) {
+            throw new SQLException("Không tìm thấy phòng với ID: " + roomId);
         }
+        ServiceNRoom serviceNRoom = new ServiceNRoom(home, roomId, room, currentUser);
+        serviceNRoom.setVisible(true);
+        serviceNRoom.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
     }
 }
+
+

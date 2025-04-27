@@ -1,3 +1,4 @@
+C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\com\mycompany\quanlykhachsan\model\Booking.java
 C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\com\mycompany\quanlykhachsan\model\Customer.java
 C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\com\mycompany\quanlykhachsan\model\Employee.java
 C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\com\mycompany\quanlykhachsan\model\Equipment.java
@@ -10,8 +11,13 @@ C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\com\mycom
 C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\com\mycompany\quanlykhachsan\Quanlykhachsan.java
 C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\controler\LoginController.java
 C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\controler\RoomController.java
+C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\controler\ServiceNRoomController.java
+C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\QuanLyKhachSan\dao\BookingDAO.java
+C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\QuanLyKhachSan\dao\CustomerDAO.java
 C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\QuanLyKhachSan\dao\JDBCConnection.java
 C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\QuanLyKhachSan\dao\RoomDAO.java
+C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\QuanLyKhachSan\dao\ServiceDAO.java
+C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\QuanLyKhachSan\dao\ServiceUsageDAO.java
 C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\QuanLyKhachSan\dao\UserDAO.java
 C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\view\CustomerManager.java
 C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\view\EmployManager.java

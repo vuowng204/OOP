@@ -19,10 +19,10 @@ public class Quanlykhachsan {
         System.out.println("? ? ?  ?");
 ////        new Login2().setVisible(true);
 ////         new Login2().setVisible(true);
-           new Home().setVisible(true);
-//       Login2 view = new Login2();
-//       new LoginController(view);
-//       view.setLocationRelativeTo(null);
-//       view.setVisible(true);
+//           new Home().setVisible(true);
+       Login2 view = new Login2();
+       new LoginController(view);
+       view.setLocationRelativeTo(null);
+       view.setVisible(true);
     }
 }
