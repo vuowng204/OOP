@@ -1,5 +1,7 @@
 package com.mycompany.quanlykhachsan.model;
 
+import com.mycompany.quanlykhachsan.model.RoomType;
+
 public class Room {
     private int id;
     private String tenPhong;
@@ -10,6 +12,7 @@ public class Room {
 
     public Room() {
     }
+    
 
     public Room(int id, String tenPhong, double giaPhong) {
         this.id = id;

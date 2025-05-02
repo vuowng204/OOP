@@ -4,17 +4,28 @@
  */
 package view;
 
+import controler.CustomerController;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author lenovo
  */
 public class CustomerManager extends javax.swing.JFrame {
 
+    private final CustomerController controller = new CustomerController();
+    private DefaultTableModel model;
+
     /**
      * Creates new form CustomerManager
      */
     public CustomerManager() {
         initComponents();
+        model = (DefaultTableModel) jTable1.getModel();
+        controller.loadData(model);
+        buttonGroup1.add(jRadioButton1);
+        buttonGroup1.add(jRadioButton2);
     }
 
     /**
@@ -84,8 +95,18 @@ public class CustomerManager extends javax.swing.JFrame {
         });
 
         jButton3.setText("Sửa");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Xóa");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Quay Lại");
 
@@ -93,6 +114,11 @@ public class CustomerManager extends javax.swing.JFrame {
 
         jButton6.setText("Tìm Kiếm");
         jButton6.setToolTipText("");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         tên.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Theo tên", "Theo Ngày ", "Theo CCCD" }));
 
@@ -121,6 +147,11 @@ public class CustomerManager extends javax.swing.JFrame {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(jTable1);
@@ -237,11 +268,80 @@ public class CustomerManager extends javax.swing.JFrame {
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        controller.loadData(model);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        String keyword = jTextField8.getText();
+        String type = tên.getSelectedItem().toString();
+        controller.search(model, keyword, type);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        int row = jTable1.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Chọn dòng để xóa!");
+            return;
+        }
+
+        String cccd = model.getValueAt(row, 0).toString();
+        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa " + cccd + "?", "Xác nhận", JOptionPane.YES_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            controller.deleteByCCCD(cccd);
+            controller.loadData(model);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:int row = jTable1.getSelectedRow();
+        int row = jTable1.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Chọn dòng để sửa!");
+            return;
+        }
+
+        String cccd = jTextField4.getText();
+        String ten = jTextField2.getText();
+        String sdt = jTextField10.getText();
+        String gioiTinh = jRadioButton1.isSelected() ? "Nam" : "Nữ";
+
+        controller.updateCustomer(cccd, ten, sdt, gioiTinh);
+        controller.loadData(model);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        int row = jTable1.getSelectedRow();
+        if (row == -1) {
+            return;
+        }
+
+        // Đổ dữ liệu từ dòng được chọn vào các ô nhập liệu
+        jTextField4.setText(model.getValueAt(row, 0).toString()); // CCCD
+        jTextField2.setText(model.getValueAt(row, 1).toString()); // Tên khách hàng
+        jTextField10.setText(model.getValueAt(row, 2).toString()); // SĐT
+        String gioiTinh = model.getValueAt(row, 3).toString(); // Giới tính
+        jTextField9.setText(model.getValueAt(row, 4).toString()); // Số phòng
+        jTextField3.setText(model.getValueAt(row, 5).toString()); // Ngày check-in
+
+        // Nếu check-out rỗng (null), tránh lỗi
+        Object checkOutObj = model.getValueAt(row, 6);
+        jTextField5.setText(checkOutObj != null ? checkOutObj.toString() : "");
+
+        // Xử lý chọn giới tính
+        if (gioiTinh.equalsIgnoreCase("Nam")) {
+            jRadioButton1.setSelected(true);
+        } else {
+            jRadioButton2.setSelected(true);
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments

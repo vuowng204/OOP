@@ -13,18 +13,21 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import view.Home;
 import view.ServiceNRoom;
+import java.util.List;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
  * @author Admin
  */
 public class RoomController {
+
     private RoomDAO roomDAO;
     private UserDAO userDAO;
-     private User currentUser;
-    
+    private User currentUser;
 
-   
     public RoomController(RoomDAO roomDAO, User currentUser) {
         this.roomDAO = roomDAO;
         this.currentUser = currentUser;
@@ -38,8 +41,48 @@ public class RoomController {
         ServiceNRoom serviceNRoom = new ServiceNRoom(home, roomId, room, currentUser);
         serviceNRoom.setVisible(true);
         serviceNRoom.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        
+
     }
+
+    public void addRoom(Room room) {
+        try {
+            roomDAO.addRoom(room);
+            JOptionPane.showMessageDialog(null, "Thêm phòng thành công!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Lỗi khi thêm phòng: " + e.getMessage());
+        }
+    }
+
+    public void updateRoom(Room room) {
+        try {
+            roomDAO.updateRoom(room);
+            JOptionPane.showMessageDialog(null, "Cập nhật thành công!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Lỗi khi cập nhật: " + e.getMessage());
+        }
+    }
+
+    public void deleteRoom(int id) {
+        try {
+            roomDAO.deleteRoom(id);
+            JOptionPane.showMessageDialog(null, "Đã xóa phòng!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Lỗi khi xóa: " + e.getMessage());
+        }
+    }
+
+    public void searchRoomByName(String keyword, DefaultTableModel model) {
+        try {
+            List<Room> list = roomDAO.searchRoomByName(keyword);
+            model.setRowCount(0);
+            for (Room r : list) {
+                model.addRow(new Object[]{
+                    r.getId(), r.getTenPhong(), r.getLoaiphong().getTypeID(), "", r.getTang(), r.getTrangThai()
+                });
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Lỗi khi tìm kiếm: " + e.getMessage());
+        }
+    }
+
 }
-
-

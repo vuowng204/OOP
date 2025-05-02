@@ -4,17 +4,38 @@
  */
 package view;
 
+import controler.EmployeeController;
+import javax.swing.table.DefaultTableModel;
+import com.mycompany.quanlykhachsan.model.Employee;
+import java.sql.Date;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author lenovo
  */
 public class EmployManager extends javax.swing.JFrame {
 
+    private final EmployeeController controler = new EmployeeController();
+    private DefaultTableModel model;
+
     /**
      * Creates new form CustomerManager
      */
     public EmployManager() {
         initComponents();
+        model = (DefaultTableModel) jTable1.getModel();
+        controler.loadData(model);
+
+        // Nhóm giới tính
+        buttonGroup1.add(jRadioButton1);
+        buttonGroup1.add(jRadioButton2);
+
+        // Nhóm quyền
+        buttonGroup2.add(jRadioButton3);
+        buttonGroup2.add(jRadioButton4);
+        buttonGroup2.add(jRadioButton5);
+        buttonGroup2.add(jRadioButton6);
     }
 
     /**
@@ -93,10 +114,25 @@ public class EmployManager extends javax.swing.JFrame {
         jTextField7.setText("jTextField2");
 
         jButton2.setText("Thêm");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Sửa");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Xóa");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Quay Lại");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -108,6 +144,11 @@ public class EmployManager extends javax.swing.JFrame {
         jTextField8.setText("Nhập Tên");
 
         jButton6.setText("TÌm Kiếm");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         tên.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Theo tên", "Theo Ngày ", "Theo CCCD" }));
 
@@ -136,6 +177,11 @@ public class EmployManager extends javax.swing.JFrame {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(jTable1);
@@ -326,7 +372,7 @@ public class EmployManager extends javax.swing.JFrame {
 
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jRadioButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -345,6 +391,126 @@ public class EmployManager extends javax.swing.JFrame {
     private void jRadioButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton6ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        int row = jTable1.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần xóa!");
+            return;
+        }
+
+        String emID = model.getValueAt(row, 0).toString();
+        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa nhân viên này?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            controler.deleteById(emID);
+            controler.loadData(model);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        int row = jTable1.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần sửa!");
+            return;
+        }
+
+        try {
+            Employee emp = new Employee();
+            emp.setEmID(jTextField3.getText());
+            emp.setPosition(jTextField4.getText());
+            emp.setEmDateOfBirth(Date.valueOf(jTextField2.getText()));
+            emp.setSalary(Double.parseDouble(jTextField7.getText()));
+            // Lấy giới tính từ radio button
+            String gioiTinh = jRadioButton1.isSelected() ? "Nam" : "Nữ";
+            emp.setGioiTinh(gioiTinh);
+
+// Lấy quyền từ radio button
+            String quyen = jRadioButton3.isSelected() ? "Nhân viên"
+                    : jRadioButton4.isSelected() ? "Phục vụ phòng"
+                    : jRadioButton5.isSelected() ? "ADMIN" : "Nhân viên vệ sinh";
+            emp.setRole(quyen);
+
+            controler.update(emp);
+            controler.loadData(model);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi cập nhật: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try {
+            Employee emp = new Employee();
+            emp.setEmID(jTextField3.getText()); // ID nhân viên
+            emp.setPosition(jTextField4.getText()); // Chức vụ
+            emp.setEmDateOfBirth(java.sql.Date.valueOf(jTextField2.getText())); // Ngày sinh (yyyy-MM-dd)
+            emp.setSalary(Double.parseDouble(jTextField7.getText())); // Lương
+            // Lấy giới tính từ radio button
+            String gioiTinh = jRadioButton1.isSelected() ? "Nam" : "Nữ";
+            emp.setGioiTinh(gioiTinh); // thêm dòng này nếu model Employee có field này
+
+// Lấy quyền từ radio button
+            String quyen = jRadioButton3.isSelected() ? "Nhân viên"
+                    : jRadioButton4.isSelected() ? "Phục vụ phòng"
+                    : jRadioButton5.isSelected() ? "ADMIN" : "Nhân viên vệ sinh";
+            emp.setRole(quyen); // thêm dòng này nếu model Employee có field này
+
+            controler.add(emp);
+            controler.loadData(model);
+            JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi thêm nhân viên: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        int row = jTable1.getSelectedRow();
+        if (row == -1) {
+            return;
+        }
+
+        jTextField3.setText(model.getValueAt(row, 0).toString()); // ID Nhân viên
+        jTextField4.setText(model.getValueAt(row, 1).toString()); // Chức vụ
+        jTextField2.setText(model.getValueAt(row, 2).toString()); // Ngày sinh
+        jTextField7.setText(model.getValueAt(row, 3).toString()); // Lương
+        // Set lại radio giới tính
+        String gioiTinh = model.getValueAt(row, 4).toString();
+        if (gioiTinh.equalsIgnoreCase("Nam")) {
+            jRadioButton1.setSelected(true);
+        } else {
+            jRadioButton2.setSelected(true);
+        }
+
+// Set lại radio quyền
+        String quyen = model.getValueAt(row, 9).toString();
+        switch (quyen) {
+            case "Nhân viên" ->
+                jRadioButton3.setSelected(true);
+            case "Phục vụ phòng" ->
+                jRadioButton4.setSelected(true);
+            case "ADMIN" ->
+                jRadioButton5.setSelected(true);
+            case "Nhân viên vệ sinh" ->
+                jRadioButton6.setSelected(true);
+        }
+
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        String keyword = jTextField8.getText().trim();
+        String type = tên.getSelectedItem().toString(); // ComboBox
+
+        if (keyword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập từ khóa tìm kiếm!");
+            return;
+        }
+
+        controler.search(keyword, type, model);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments

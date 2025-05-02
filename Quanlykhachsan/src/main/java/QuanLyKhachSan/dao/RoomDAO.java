@@ -11,8 +11,11 @@ package QuanLyKhachSan.dao;
 import com.mycompany.quanlykhachsan.model.Room;
 import com.mycompany.quanlykhachsan.model.RoomType;
 import java.sql.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class RoomDAO {
+
     private Connection connection;
 
     public RoomDAO(Connection connection) {
@@ -49,6 +52,59 @@ public class RoomDAO {
             pstmt.executeUpdate();
         }
     }
+    // Thêm phòng
+
+    public void addRoom(Room room) throws SQLException {
+        String sql = "INSERT INTO rooms (id, ten_phong, loai_phong, gia_phong, tang, trang_thai) VALUES (?, ?, ?, ?, ?, ?)";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, room.getId());
+        stmt.setString(2, room.getTenPhong());
+        stmt.setString(3, room.getLoaiphong().getTypeID());
+        stmt.setDouble(4, room.getGiaPhong());
+        stmt.setString(5, room.getTang());
+        stmt.setString(6, room.getTrangThai());
+        stmt.executeUpdate();
+    }
+
+// Cập nhật phòng
+    public void updateRoom(Room room) throws SQLException {
+        String sql = "UPDATE rooms SET ten_phong=?, loai_phong=?, gia_phong=?, tang=?, trang_thai=? WHERE id=?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setString(1, room.getTenPhong());
+        stmt.setString(2, room.getLoaiphong().getTypeID());
+        stmt.setDouble(3, room.getGiaPhong());
+        stmt.setString(4, room.getTang());
+        stmt.setString(5, room.getTrangThai());
+        stmt.setInt(6, room.getId());
+        stmt.executeUpdate();
+    }
+
+// Xóa phòng
+    public void deleteRoom(int roomId) throws SQLException {
+        String sql = "DELETE FROM rooms WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, roomId);
+        stmt.executeUpdate();
+    }
+
+// Tìm kiếm phòng theo tên
+    public List<Room> searchRoomByName(String keyword) throws SQLException {
+        List<Room> result = new ArrayList<>();
+        String sql = "SELECT * FROM rooms WHERE ten_phong LIKE ?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setString(1, "%" + keyword + "%");
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Room room = new Room();
+            room.setId(rs.getInt("id"));
+            room.setTenPhong(rs.getString("ten_phong"));
+            room.setGiaPhong(rs.getDouble("gia_phong"));
+            room.setTang(rs.getString("tang"));
+            room.setTrangThai(rs.getString("trang_thai"));
+            room.setLoaiphong(new RoomType(rs.getString("loai_phong"), ""));
+            result.add(room);
+        }
+        return result;
+    }
 
 }
-
