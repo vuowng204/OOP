@@ -168,7 +168,7 @@ public class EmployManager extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID Nhân Viên", "Tên Nhân Viên", "SĐT", "Ngày sinh", "Giới tính", "Email", "Tên Đăng Nhập", "Mật Khẩu", "Hình Ảnh", "Quyền"
+                "ID Nhân Viên", "Tên Nhân Viên", "SĐT", "lương", "Giới tính", "Email", "Tên Đăng Nhập", "Mật Khẩu", "Hình Ảnh", "Quyền"
             }
         ) {
             Class[] types = new Class [] {

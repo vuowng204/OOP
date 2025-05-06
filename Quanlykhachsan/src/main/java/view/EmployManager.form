@@ -373,7 +373,7 @@
                   <Data value="null"/>
                 </Column>
                 <Column editable="true" title="S&#x110;T" type="java.lang.String"/>
-                <Column editable="true" title="Ng&#xe0;y sinh" type="java.lang.String"/>
+                <Column editable="true" title="l&#x1b0;&#x1a1;ng" type="java.lang.String"/>
                 <Column editable="true" title="Gi&#x1edb;i t&#xed;nh" type="java.lang.String"/>
                 <Column editable="true" title="Email" type="java.lang.String"/>
                 <Column editable="true" title="T&#xea;n &#x110;&#x103;ng Nh&#x1ead;p" type="java.lang.String"/>

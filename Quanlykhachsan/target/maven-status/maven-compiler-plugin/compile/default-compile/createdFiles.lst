@@ -74,6 +74,7 @@ view\Home$7.class
 view\RoomManager$10.class
 QuanLyKhachSan\dao\RoomTypeDAO.class
 controler\RoomController.class
+view\CustomerManager$10.class
 view\HoaDonDatPhong$6.class
 view\CustomerManager$3.class
 view\EmployManager$3.class

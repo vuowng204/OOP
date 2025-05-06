@@ -5,6 +5,8 @@
 package view;
 
 import controler.CustomerController;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 
@@ -62,6 +64,7 @@ public class CustomerManager extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 204));
@@ -169,6 +172,13 @@ public class CustomerManager extends javax.swing.JFrame {
 
         jTextField5.setText("jTextField2");
 
+        jButton7.setText("Lưu");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -219,11 +229,13 @@ public class CustomerManager extends javax.swing.JFrame {
                                     .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(279, 279, 279)
+                        .addGap(169, 169, 169)
+                        .addComponent(jButton7)
+                        .addGap(56, 56, 56)
                         .addComponent(jButton3)
-                        .addGap(71, 71, 71)
+                        .addGap(65, 65, 65)
                         .addComponent(jButton4)
-                        .addGap(93, 93, 93)
+                        .addGap(81, 81, 81)
                         .addComponent(jButton2)
                         .addGap(55, 55, 55)
                         .addComponent(jButton5)))
@@ -244,7 +256,8 @@ public class CustomerManager extends javax.swing.JFrame {
                     .addComponent(jButton3)
                     .addComponent(jButton4)
                     .addComponent(jButton5)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton7))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -353,6 +366,28 @@ public class CustomerManager extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+   int row = jTable1.getSelectedRow();
+    if (row == -1) {
+        JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng trong bảng để cập nhật!");
+        return;
+    }
+
+    String cccd = jTextField4.getText().trim();        // CCCD
+    String ten = jTextField2.getText().trim();         // Tên khách hàng
+    String sdt = jTextField10.getText().trim();        // Số điện thoại
+    String gioiTinh = jRadioButton1.isSelected() ? "Nam" : "Nữ"; // Giới tính
+
+    if (cccd.isEmpty() || ten.isEmpty() || sdt.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin cần sửa!");
+        return;
+    }
+
+    controller.updateCustomer(cccd, ten, sdt, gioiTinh);
+    JOptionPane.showMessageDialog(this, "Cập nhật khách hàng thành công!");
+    controller.loadData(model);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -397,6 +432,7 @@ public class CustomerManager extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
