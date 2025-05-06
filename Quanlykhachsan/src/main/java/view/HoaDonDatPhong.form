@@ -187,11 +187,6 @@
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\ICON\leaf_188333 (1).png"/>
-            </Property>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="CLosejButton3">
           <Properties>
@@ -319,11 +314,6 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Admin\Documents\NetBeansProjects\Quanlykhachsan\src\main\java\ICON\leaf_188333 (1).png"/>
-        </Property>
-      </Properties>
     </Component>
     <Component class="javax.swing.JProgressBar" name="jProgressBar1">
       <Properties>
@@ -387,7 +377,7 @@
                   <Data value="6"/>
                   <Data value="null"/>
                 </Column>
-                <Column editable="true" title="ID Kh&#xe1;ch h&#xe0;ng" type="java.lang.Object"/>
+                <Column editable="true" title="CCCD" type="java.lang.Object"/>
                 <Column editable="true" title="ID Ph&#xf2;ng" type="java.lang.Object"/>
                 <Column editable="true" title="Check in" type="java.lang.Object"/>
                 <Column editable="true" title="Check out" type="java.lang.Object"/>

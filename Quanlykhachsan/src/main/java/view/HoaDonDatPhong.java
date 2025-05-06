@@ -107,8 +107,6 @@ public class HoaDonDatPhong extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\Quanlykhachsan\\src\\main\\java\\ICON\\leaf_188333 (1).png")); // NOI18N
-
         CLosejButton3.setBackground(new java.awt.Color(153, 153, 153));
         CLosejButton3.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         CLosejButton3.setForeground(new java.awt.Color(255, 255, 255));
@@ -173,8 +171,6 @@ public class HoaDonDatPhong extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\Quanlykhachsan\\src\\main\\java\\ICON\\leaf_188333 (1).png")); // NOI18N
-
         jProgressBar1.setBackground(new java.awt.Color(0, 102, 102));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
@@ -204,7 +200,7 @@ public class HoaDonDatPhong extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "ID Khách hàng", "ID Phòng", "Check in", "Check out", "Chiết Khấu", "Tổng tiền"
+                "STT", "CCCD", "ID Phòng", "Check in", "Check out", "Chiết Khấu", "Tổng tiền"
             }
         ));
         jScrollPane1.setViewportView(jTable1);

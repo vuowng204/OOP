@@ -12,6 +12,7 @@ view\CustomerManager$4.class
 view\ServiceDetail$2.class
 view\RoomManager$5.class
 view\ServiceNRoom$1.class
+controler\ServiceController.class
 view\HoaDonDatPhong.class
 view\CustomerManager$1.class
 view\RoomManager$2.class
@@ -26,6 +27,7 @@ view\Login2$1.class
 view\EmployManager$13.class
 com\mycompany\quanlykhachsan\Quanlykhachsan.class
 view\ServiceNRoom$10.class
+view\ServiceDetail$8.class
 view\HoaDonDatPhong$3.class
 com\mycompany\quanlykhachsan\model\Employee.class
 view\CustomerManager$6.class
@@ -39,6 +41,8 @@ view\HoaDonDatPhong$2.class
 com\mycompany\quanlykhachsan\model\User.class
 view\Home$6.class
 QuanLyKhachSan\dao\UserDAO.class
+view\ServiceDetail$7.class
+view\ServiceDetail$6.class
 view\ServiceDetail.class
 com\mycompany\quanlykhachsan\model\EquipmentUsage.class
 view\ServiceNRoom$3.class

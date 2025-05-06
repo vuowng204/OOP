@@ -28,7 +28,7 @@ public class ServiceDAO {
                 rs.getString("service_id"),
                 rs.getString("service_name"),
                 rs.getDouble("service_price"),
-                rs.getInt("quantity_in_stock") // Lấy số lượng tồn kho
+                rs.getInt("quantity_in_stock")
             );
             services.add(service);
         }
@@ -47,7 +47,7 @@ public class ServiceDAO {
                 rs.getString("service_id"),
                 rs.getString("service_name"),
                 rs.getDouble("service_price"),
-                rs.getInt("quantity_in_stock") // Lấy số lượng tồn kho
+                rs.getInt("quantity_in_stock")
             );
             services.add(service);
         }
@@ -74,21 +74,55 @@ public class ServiceDAO {
         }
         return 0;
     }
+
+    // Lấy dịch vụ theo ID
     public Service getServiceById(String serviceId) throws SQLException {
-    String sql = "SELECT * FROM services WHERE service_id = ?";
-    try (Connection conn = JDBCConnection.getConnection();
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        pstmt.setString(1, serviceId);
-        ResultSet rs = pstmt.executeQuery();
-        if (rs.next()) {
-            Service service = new Service();
-            service.setServiceID(rs.getString("service_id"));
-            service.setServiceName(rs.getString("service_name"));
-            service.setServicePrice(rs.getDouble("service_price"));
-            service.setQuantityInStock(rs.getInt("quantity_in_stock"));
-            return service;
+        String sql = "SELECT * FROM services WHERE service_id = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, serviceId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                Service service = new Service();
+                service.setServiceID(rs.getString("service_id"));
+                service.setServiceName(rs.getString("service_name"));
+                service.setServicePrice(rs.getDouble("service_price"));
+                service.setQuantityInStock(rs.getInt("quantity_in_stock"));
+                return service;
+            }
         }
         return null;
     }
-}
+
+    // Thêm dịch vụ
+    public void addService(Service service) throws SQLException {
+        String sql = "INSERT INTO services (service_id, service_name, service_price, quantity_in_stock) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, service.getServiceID());
+            stmt.setString(2, service.getServiceName());
+            stmt.setDouble(3, service.getServicePrice());
+            stmt.setInt(4, service.getQuantityInStock());
+            stmt.executeUpdate();
+        }
+    }
+
+    // Cập nhật dịch vụ
+    public void updateService(Service service) throws SQLException {
+        String sql = "UPDATE services SET service_name = ?, service_price = ?, quantity_in_stock = ? WHERE service_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, service.getServiceName());
+            stmt.setDouble(2, service.getServicePrice());
+            stmt.setInt(3, service.getQuantityInStock());
+            stmt.setString(4, service.getServiceID());
+            stmt.executeUpdate();
+        }
+    }
+
+    // Xóa dịch vụ
+    public void deleteService(String serviceId) throws SQLException {
+        String sql = "DELETE FROM services WHERE service_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, serviceId);
+            stmt.executeUpdate();
+        }
+    }
 }
