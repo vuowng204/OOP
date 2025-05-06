@@ -28,6 +28,7 @@ public class RoomManager extends javax.swing.JFrame {
         model = (DefaultTableModel) jTable1.getModel();
         controller = new RoomController(new QuanLyKhachSan.dao.RoomDAO(QuanLyKhachSan.dao.JDBCConnection.getConnection()), new User()); // truyền User thực tế vào nếu có
         controller.searchRoomByName("", model); // load toàn bộ dữ liệu ban đầu
+        jTextField4.setEditable(false);
     }
 
     /**
@@ -52,7 +53,6 @@ public class RoomManager extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         BackjButton5 = new javax.swing.JButton();
         jTextField8 = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
@@ -71,7 +71,7 @@ public class RoomManager extends javax.swing.JFrame {
 
         jLabel2.setText("ID Phòng");
 
-        jLabel3.setText("ID Phòng");
+        jLabel3.setText("Giá Phòng");
 
         jLabel4.setText("Trạng Thái");
 
@@ -79,13 +79,6 @@ public class RoomManager extends javax.swing.JFrame {
 
         jLabel6.setText("Tên Phòng ");
 
-        jTextField2.setText("jTextField2");
-
-        jTextField3.setText("jTextField2");
-
-        jTextField4.setText("jTextField2");
-
-        jTextField7.setText("jTextField2");
         jTextField7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField7ActionPerformed(evt);
@@ -96,13 +89,6 @@ public class RoomManager extends javax.swing.JFrame {
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
-            }
-        });
-
-        jButton4.setText("Xóa");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
             }
         });
 
@@ -133,8 +119,6 @@ public class RoomManager extends javax.swing.JFrame {
             }
         });
 
-        jTextField9.setText("jTextField2");
-
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", null, null, null, null, null},
@@ -147,7 +131,7 @@ public class RoomManager extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ID Phòng", "Tên Phòng", "Loại Phòng", "ID Loại phòng", "Tầng", "Trạng Thái Phòng"
+                "ID Phòng", "Tên Phòng", "Loại Phòng", "Giá phòng", "Tầng", "Trạng Thái Phòng"
             }
         ) {
             Class[] types = new Class [] {
@@ -199,8 +183,7 @@ public class RoomManager extends javax.swing.JFrame {
                                     .addGap(163, 163, 163)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)))
-                                .addComponent(jButton4)))
+                                        .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)))))
                         .addGap(95, 95, 95)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -226,11 +209,11 @@ public class RoomManager extends javax.swing.JFrame {
                                 .addComponent(tên, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton3)
-                                .addGap(198, 198, 198)
+                                .addGap(106, 106, 106)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(50, 50, 50)
+                                .addGap(115, 115, 115)
                                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(63, 63, 63)
+                                .addGap(90, 90, 90)
                                 .addComponent(BackjButton5)))))
                 .addGap(241, 241, Short.MAX_VALUE))
         );
@@ -247,7 +230,6 @@ public class RoomManager extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
-                    .addComponent(jButton4)
                     .addComponent(BackjButton5)
                     .addComponent(jButton1)
                     .addComponent(jButton5))
@@ -347,21 +329,6 @@ public class RoomManager extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        int row = jTable1.getSelectedRow();
-        if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn phòng cần xóa.");
-            return;
-        }
-        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa phòng này?", "Xác nhận", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
-            int id = Integer.parseInt(model.getValueAt(row, 0).toString());
-            controller.deleteRoom(id);
-            controller.searchRoomByName("", model);
-        }
-    }//GEN-LAST:event_jButton4ActionPerformed
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         int row = jTable1.getSelectedRow();
@@ -426,7 +393,6 @@ public class RoomManager extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;

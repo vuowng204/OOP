@@ -129,6 +129,8 @@ INSERT INTO service_usage (booking_id, service_id, quantity, customer_id) VALUES
 (2, 'DV004', 3, '987654321'),
 (2, 'DV005', 1, '987654321');
 
+
+
 CREATE TABLE `employees` (
   `emID` varchar(50) NOT NULL,
   `userID` varchar(50) DEFAULT NULL,
@@ -139,6 +141,8 @@ CREATE TABLE `employees` (
   KEY `userID` (`userID`),
   CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
 
 CREATE TABLE `users` (
   `userID` varchar(50) NOT NULL,

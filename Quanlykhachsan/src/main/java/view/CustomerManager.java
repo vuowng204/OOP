@@ -86,10 +86,6 @@ public class CustomerManager extends javax.swing.JFrame {
 
         jRadioButton2.setText("Nữ");
 
-        jTextField2.setText("jTextField2");
-
-        jTextField4.setText("jTextField2");
-
         jButton2.setText("Refresh");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,10 +126,6 @@ public class CustomerManager extends javax.swing.JFrame {
 
         tên.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Theo tên", "Theo Ngày ", "Theo CCCD" }));
 
-        jTextField9.setText("jTextField2");
-
-        jTextField10.setText("jTextField2");
-
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -168,10 +160,6 @@ public class CustomerManager extends javax.swing.JFrame {
 
         jLabel8.setText("Ngày check-out");
 
-        jTextField3.setText("jTextField2");
-
-        jTextField5.setText("jTextField2");
-
         jButton7.setText("Lưu");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -193,9 +181,7 @@ public class CustomerManager extends javax.swing.JFrame {
                         .addGap(56, 56, 56)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(232, 232, 232)
-                                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(435, 435, 435)
                                 .addComponent(jButton6)
                                 .addGap(55, 55, 55)
                                 .addComponent(tên, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -230,15 +216,19 @@ public class CustomerManager extends javax.swing.JFrame {
                                     .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(169, 169, 169)
-                        .addComponent(jButton7)
-                        .addGap(56, 56, 56)
-                        .addComponent(jButton3)
-                        .addGap(65, 65, 65)
-                        .addComponent(jButton4)
-                        .addGap(81, 81, 81)
-                        .addComponent(jButton2)
-                        .addGap(55, 55, 55)
-                        .addComponent(jButton5)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton7)
+                                .addGap(56, 56, 56)
+                                .addComponent(jButton3)
+                                .addGap(65, 65, 65)
+                                .addComponent(jButton4)
+                                .addGap(81, 81, 81)
+                                .addComponent(jButton2)
+                                .addGap(55, 55, 55)
+                                .addComponent(jButton5)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(41, 41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

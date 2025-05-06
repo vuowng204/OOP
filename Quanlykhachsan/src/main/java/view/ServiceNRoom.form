@@ -90,13 +90,11 @@
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="TinhtienthoilaijButton1" min="-2" pref="160" max="-2" attributes="0"/>
-                                                  <Component id="TinhTienjButton7" min="-2" pref="164" max="-2" attributes="0"/>
-                                              </Group>
+                                              <Component id="TinhTienjButton7" min="-2" pref="164" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="195" max="-2" attributes="0"/>
                                           </Group>
                                           <Component id="InhoadonjButton4" alignment="1" min="-2" pref="359" max="-2" attributes="0"/>
+                                          <Component id="TinhtienthoilaijButton1" min="-2" pref="164" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -166,19 +164,24 @@
                               <Component id="jScrollPane15" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="TienKhachtra" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
-                                  <Component id="TienkhactrajTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="TinhtienthoilaijButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="TienKhachtra" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
+                                      <Component id="TienkhactrajTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="14" pref="14" max="-2" attributes="0"/>
+                                      <Component id="TinhtienthoilaijButton1" min="-2" pref="37" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jScrollPane3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="InhoadonjButton4" min="-2" pref="34" max="-2" attributes="0"/>
+                                  <Component id="InhoadonjButton4" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>

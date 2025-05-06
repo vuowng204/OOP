@@ -77,7 +77,7 @@ public class RoomController {
             model.setRowCount(0);
             for (Room r : list) {
                 model.addRow(new Object[]{
-                    r.getId(), r.getTenPhong(), r.getLoaiphong().getTypeID(), "", r.getTang(), r.getTrangThai()
+                    r.getId(), r.getTenPhong(), r.getLoaiphong().getTypeID(),r.getGiaPhong(), r.getTang(), r.getTrangThai()
                 });
             }
         } catch (SQLException e) {
