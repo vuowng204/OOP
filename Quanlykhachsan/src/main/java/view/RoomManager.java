@@ -147,7 +147,7 @@ public class RoomManager extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ID Phòng", "Tên Phòng", "Loại Phòng", "ID Loại phòng", "Tầng", "Số Lượng ngườii"
+                "ID Phòng", "Tên Phòng", "Loại Phòng", "ID Loại phòng", "Tầng", "Trạng Thái Phòng"
             }
         ) {
             Class[] types = new Class [] {

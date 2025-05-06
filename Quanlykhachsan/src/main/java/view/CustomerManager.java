@@ -109,6 +109,11 @@ public class CustomerManager extends javax.swing.JFrame {
         });
 
         jButton5.setText("Quay Lại");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jTextField8.setText("Nhập Tên");
 
@@ -342,6 +347,11 @@ public class CustomerManager extends javax.swing.JFrame {
             jRadioButton2.setSelected(true);
         }
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
