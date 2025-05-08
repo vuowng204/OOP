@@ -286,8 +286,8 @@ public class CustomerManager extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        String keyword = jTextField8.getText();
-        String type = tên.getSelectedItem().toString();
+        String keyword = jTextField8.getText().trim();
+        String type = tên.getSelectedItem().toString(); // "Theo tên", "Theo CCCD"
         controller.search(model, keyword, type);
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -300,7 +300,7 @@ public class CustomerManager extends javax.swing.JFrame {
         }
 
         String cccd = model.getValueAt(row, 0).toString();
-        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa " + cccd + "?", "Xác nhận", JOptionPane.YES_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa khách hàng " + cccd + "?", "Xác nhận", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
             controller.deleteByCCCD(cccd);
             controller.loadData(model);
@@ -315,10 +315,15 @@ public class CustomerManager extends javax.swing.JFrame {
             return;
         }
 
-        String cccd = jTextField4.getText();
-        String ten = jTextField2.getText();
-        String sdt = jTextField10.getText();
+        String cccd = jTextField4.getText().trim();
+        String ten = jTextField2.getText().trim();
+        String sdt = jTextField10.getText().trim();
         String gioiTinh = jRadioButton1.isSelected() ? "Nam" : "Nữ";
+
+        if (cccd.isEmpty() || ten.isEmpty() || sdt.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
+            return;
+        }
 
         controller.updateCustomer(cccd, ten, sdt, gioiTinh);
         controller.loadData(model);
@@ -327,27 +332,21 @@ public class CustomerManager extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         int row = jTable1.getSelectedRow();
-        if (row == -1) {
-            return;
-        }
+        if (row != -1) {
+            jTextField4.setText(model.getValueAt(row, 0).toString()); // CCCD
+            jTextField2.setText(model.getValueAt(row, 1).toString()); // Tên
+            jTextField10.setText(model.getValueAt(row, 2).toString()); // SĐT
 
-        // Đổ dữ liệu từ dòng được chọn vào các ô nhập liệu
-        jTextField4.setText(model.getValueAt(row, 0).toString()); // CCCD
-        jTextField2.setText(model.getValueAt(row, 1).toString()); // Tên khách hàng
-        jTextField10.setText(model.getValueAt(row, 2).toString()); // SĐT
-        String gioiTinh = model.getValueAt(row, 3).toString(); // Giới tính
-        jTextField9.setText(model.getValueAt(row, 4).toString()); // Số phòng
-        jTextField3.setText(model.getValueAt(row, 5).toString()); // Ngày check-in
+            String gender = model.getValueAt(row, 3).toString();
+            if (gender.equalsIgnoreCase("Nam")) {
+                jRadioButton1.setSelected(true);
+            } else {
+                jRadioButton2.setSelected(true);
+            }
 
-        // Nếu check-out rỗng (null), tránh lỗi
-        Object checkOutObj = model.getValueAt(row, 6);
-        jTextField5.setText(checkOutObj != null ? checkOutObj.toString() : "");
-
-        // Xử lý chọn giới tính
-        if (gioiTinh.equalsIgnoreCase("Nam")) {
-            jRadioButton1.setSelected(true);
-        } else {
-            jRadioButton2.setSelected(true);
+            jTextField9.setText(String.valueOf(model.getValueAt(row, 4))); // Số phòng
+            jTextField3.setText(String.valueOf(model.getValueAt(row, 5))); // Ngày checkin
+            jTextField5.setText(String.valueOf(model.getValueAt(row, 6))); // Ngày checkout
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -357,25 +356,25 @@ public class CustomerManager extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-   int row = jTable1.getSelectedRow();
-    if (row == -1) {
-        JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng trong bảng để cập nhật!");
-        return;
-    }
+        int row = jTable1.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng trong bảng để cập nhật!");
+            return;
+        }
 
-    String cccd = jTextField4.getText().trim();        // CCCD
-    String ten = jTextField2.getText().trim();         // Tên khách hàng
-    String sdt = jTextField10.getText().trim();        // Số điện thoại
-    String gioiTinh = jRadioButton1.isSelected() ? "Nam" : "Nữ"; // Giới tính
+        String cccd = jTextField4.getText().trim();        // CCCD
+        String ten = jTextField2.getText().trim();         // Tên khách hàng
+        String sdt = jTextField10.getText().trim();        // Số điện thoại
+        String gioiTinh = jRadioButton1.isSelected() ? "Nam" : "Nữ"; // Giới tính
 
-    if (cccd.isEmpty() || ten.isEmpty() || sdt.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin cần sửa!");
-        return;
-    }
+        if (cccd.isEmpty() || ten.isEmpty() || sdt.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin cần sửa!");
+            return;
+        }
 
-    controller.updateCustomer(cccd, ten, sdt, gioiTinh);
-    JOptionPane.showMessageDialog(this, "Cập nhật khách hàng thành công!");
-    controller.loadData(model);
+        controller.updateCustomer(cccd, ten, sdt, gioiTinh);
+        JOptionPane.showMessageDialog(this, "Cập nhật khách hàng thành công!");
+        controller.loadData(model);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**

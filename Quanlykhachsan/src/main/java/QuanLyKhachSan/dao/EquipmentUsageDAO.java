@@ -41,5 +41,33 @@ public class EquipmentUsageDAO {
         }
         return usages;
     }
-}
+    public List<EquipmentUsage> getDetailedEquipmentUsageByRoomId(int roomId) {
+        List<EquipmentUsage> usages = new ArrayList<>();
+
+        String sql = "SELECT eu.quantity, e.equipment_id, e.name, e.description "
+                + "FROM equipment_usage eu "
+                + "JOIN equipment e ON eu.equipment_id = e.equipment_id "
+                + "WHERE eu.room_id = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, roomId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Equipment equipment = new Equipment(
+                        rs.getString("equipment_id"),
+                        rs.getString("name"),
+                        rs.getString("description")
+                );
+
+                EquipmentUsage usage = new EquipmentUsage(null, equipment, rs.getInt("quantity"));
+                usages.add(usage);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return usages;
+    }
+   }
 

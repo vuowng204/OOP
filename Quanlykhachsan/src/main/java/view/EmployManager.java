@@ -9,6 +9,8 @@ import javax.swing.table.DefaultTableModel;
 import com.mycompany.quanlykhachsan.model.Employee;
 import java.sql.Date;
 import javax.swing.JOptionPane;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -74,15 +76,18 @@ public class EmployManager extends javax.swing.JFrame {
         jRadioButton4 = new javax.swing.JRadioButton();
         jRadioButton5 = new javax.swing.JRadioButton();
         jRadioButton6 = new javax.swing.JRadioButton();
+        jButton7 = new javax.swing.JButton();
+        jTextField11 = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 204));
 
-        jLabel1.setText("ID khách hàng");
+        jLabel1.setText("CCCD");
 
         jLabel2.setText("Ngày sinh");
 
-        jLabel3.setText("Email");
+        jLabel3.setText("Lương");
 
         jLabel4.setText("SĐT");
 
@@ -132,25 +137,25 @@ public class EmployManager extends javax.swing.JFrame {
             }
         });
 
-        tên.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Theo tên", "Theo Ngày ", "Theo CCCD" }));
+        tên.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Theo tên", "Theo CCCD", "Theo Chức Vụ" }));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", null, null, null, null, null, null, null},
-                {"2", "", null, null, null, null, null, null},
-                {"", null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {"1", null, null, null, null, null, null},
+                {"2", "", null, null, null, null, null},
+                {"", null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID Nhân Viên", "Tên Nhân Viên", "SĐT", "Giới tính", "Email", "Lương", "Quyền", "Tên Đăng Nhập"
+                "CCCD Nhân Viên", "Tên Nhân Viên", "SĐT", "Giới tính", "Email", "Lương", "Tên Chức Vụ"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -192,6 +197,15 @@ public class EmployManager extends javax.swing.JFrame {
             }
         });
 
+        jButton7.setText("Refresh");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Email");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -202,61 +216,70 @@ public class EmployManager extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(290, 290, 290)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(102, 102, 102)
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addGap(114, 114, 114)
-                        .addComponent(jButton3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton3)
+                        .addGap(76, 76, 76)
+                        .addComponent(jButton4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(jButton4)
-                        .addGap(127, 127, 127)
-                        .addComponent(jButton5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton7)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(54, 54, 54)
+                                                .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(76, 76, 76)
+                                        .addComponent(jButton5)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(41, 41, 41)
+                                .addGap(18, 18, 18)
                                 .addComponent(jRadioButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(44, 44, 44)
-                                .addComponent(jRadioButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(54, 54, 54)
-                                .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(30, 30, 30)
+                                .addComponent(jRadioButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                                .addComponent(jRadioButton6))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(tên, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton6)
-                    .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(209, 209, 209))
+                        .addGap(354, 464, Short.MAX_VALUE)
+                        .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(tên, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(261, 261, 261))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,7 +290,7 @@ public class EmployManager extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton5)
-                            .addComponent(jButton4))
+                            .addComponent(jButton7))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -285,20 +308,24 @@ public class EmployManager extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton2)
-                            .addComponent(jButton3))
+                            .addComponent(jButton3)
+                            .addComponent(jButton4))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(94, 94, 94)
+                                .addGap(54, 54, 54)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(9, 9, 9)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jRadioButton3)
                                     .addComponent(jRadioButton5)
                                     .addComponent(jRadioButton4)
                                     .addComponent(jRadioButton6)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(24, 24, 24)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -307,12 +334,12 @@ public class EmployManager extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(55, Short.MAX_VALUE))))
+                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(36, Short.MAX_VALUE))))
         );
 
         pack();
@@ -357,6 +384,7 @@ public class EmployManager extends javax.swing.JFrame {
         if (confirm == JOptionPane.YES_OPTION) {
             controler.deleteById(emID);
             controler.loadData(model);
+            JOptionPane.showMessageDialog(this, "Đã xóa nhân viên.");
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -370,22 +398,21 @@ public class EmployManager extends javax.swing.JFrame {
 
         try {
             Employee emp = new Employee();
-            emp.setEmID(jTextField3.getText());
-            emp.setPosition(jTextField4.getText());
-            emp.setEmDateOfBirth(Date.valueOf(jTextField2.getText()));
-            
-            // Lấy giới tính từ radio button
-            String gioiTinh = jRadioButton1.isSelected() ? "Nam" : "Nữ";
-            emp.setGioiTinh(gioiTinh);
-
-// Lấy quyền từ radio button
-            String quyen = jRadioButton3.isSelected() ? "Nhân viên"
+            emp.setEmID(jTextField3.getText().trim());
+            emp.setName(jTextField4.getText().trim());
+            emp.setEmDateOfBirth(Date.valueOf(jTextField2.getText().trim()));
+            emp.setPhone(jTextField10.getText().trim());
+            emp.setGender(jRadioButton1.isSelected() ? "Nam" : "Nữ");
+            emp.setEmail(jTextField9.getText().trim());
+            emp.setSalary(Double.parseDouble(jTextField11.getText().trim()));
+            String role = jRadioButton3.isSelected() ? "Nhân viên"
                     : jRadioButton4.isSelected() ? "Phục vụ phòng"
                     : jRadioButton5.isSelected() ? "ADMIN" : "Nhân viên vệ sinh";
-            emp.setRole(quyen);
+            emp.setRole(role);
 
             controler.update(emp);
             controler.loadData(model);
+            JOptionPane.showMessageDialog(this, "Cập nhật nhân viên thành công!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Lỗi khi cập nhật: " + e.getMessage());
         }
@@ -395,25 +422,69 @@ public class EmployManager extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             Employee emp = new Employee();
-            emp.setEmID(jTextField3.getText()); // ID nhân viên
-            emp.setPosition(jTextField4.getText()); // Chức vụ
-            emp.setEmDateOfBirth(java.sql.Date.valueOf(jTextField2.getText())); // Ngày sinh (yyyy-MM-dd)
-           
-            // Lấy giới tính từ radio button
-            String gioiTinh = jRadioButton1.isSelected() ? "Nam" : "Nữ";
-            emp.setGioiTinh(gioiTinh); // thêm dòng này nếu model Employee có field này
 
-// Lấy quyền từ radio button
-            String quyen = jRadioButton3.isSelected() ? "Nhân viên"
+            // Lấy CCCD
+            emp.setEmID(jTextField2.getText().trim());
+
+            // Lấy tên nhân viên
+            emp.setName(jTextField4.getText().trim());
+
+            // Lấy ngày sinh - định dạng yyyy-MM-dd
+            String inputDate = jTextField3.getText().trim();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            sdf.setLenient(false);
+
+            java.util.Date utilDate = sdf.parse(inputDate);
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+            emp.setEmDateOfBirth(sqlDate);
+
+            // Lấy số điện thoại
+            emp.setPhone(jTextField10.getText().trim());
+
+            // Lấy email
+            emp.setEmail(jTextField9.getText().trim());
+
+            // Lấy lương
+            try {
+                double salary = Double.parseDouble(jTextField11.getText().trim());
+                emp.setSalary(salary);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Lương phải là số hợp lệ!");
+                return;
+            }
+
+            // Lấy giới tính từ RadioButton
+            String gender = jRadioButton1.isSelected() ? "Nam"
+                    : jRadioButton2.isSelected() ? "Nữ"
+                    : ""; // fallback nếu chưa chọn
+            if (gender.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn giới tính!");
+                return;
+            }
+            emp.setGender(gender);
+
+            // Lấy chức vụ từ radio role
+            String role = jRadioButton3.isSelected() ? "Nhân viên"
                     : jRadioButton4.isSelected() ? "Phục vụ phòng"
-                    : jRadioButton5.isSelected() ? "ADMIN" : "Nhân viên vệ sinh";
-            emp.setRole(quyen); // thêm dòng này nếu model Employee có field này
+                    : jRadioButton5.isSelected() ? "ADMIN"
+                    : jRadioButton6.isSelected() ? "Nhân viên vệ sinh"
+                    : "";
+            if (role.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn chức vụ!");
+                return;
+            }
+            emp.setRole(role);
 
+            // Gọi controller để thêm nhân viên
             controler.add(emp);
             controler.loadData(model);
             JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công!");
+
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(this, "Ngày sinh không hợp lệ! Vui lòng nhập đúng định dạng yyyy-MM-dd");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Lỗi khi thêm nhân viên: " + e.getMessage());
+            e.printStackTrace();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -424,21 +495,32 @@ public class EmployManager extends javax.swing.JFrame {
             return;
         }
 
-        jTextField3.setText(model.getValueAt(row, 0).toString()); // ID Nhân viên
-        jTextField4.setText(model.getValueAt(row, 1).toString()); // Chức vụ
-        jTextField2.setText(model.getValueAt(row, 2).toString()); // Ngày sinh
-       
-        // Set lại radio giới tính
-        String gioiTinh = model.getValueAt(row, 4).toString();
-        if (gioiTinh.equalsIgnoreCase("Nam")) {
+        // Cột 0: CCCD
+        jTextField2.setText(model.getValueAt(row, 0).toString());
+
+        // Cột 1: Tên
+        jTextField4.setText(model.getValueAt(row, 1).toString());
+
+        // Cột 2: SĐT
+        jTextField10.setText(model.getValueAt(row, 2).toString());
+
+        // Cột 3: Giới tính
+        String gender = model.getValueAt(row, 3).toString();
+        if ("Nam".equalsIgnoreCase(gender)) {
             jRadioButton1.setSelected(true);
-        } else {
+        } else if ("Nữ".equalsIgnoreCase(gender)) {
             jRadioButton2.setSelected(true);
         }
 
-// Set lại radio quyền
-        String quyen = model.getValueAt(row, 9).toString();
-        switch (quyen) {
+        // Cột 4: Email
+        jTextField9.setText(model.getValueAt(row, 4).toString());
+
+        // Cột 5: Lương
+        jTextField11.setText(model.getValueAt(row, 5).toString());
+
+        // Cột 6: Chức vụ
+        String role = model.getValueAt(row, 6).toString();
+        switch (role) {
             case "Nhân viên" ->
                 jRadioButton3.setSelected(true);
             case "Phục vụ phòng" ->
@@ -447,22 +529,29 @@ public class EmployManager extends javax.swing.JFrame {
                 jRadioButton5.setSelected(true);
             case "Nhân viên vệ sinh" ->
                 jRadioButton6.setSelected(true);
+            default -> {
+                buttonGroup2.clearSelection(); // nếu không khớp
+            }
         }
-
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         String keyword = jTextField8.getText().trim();
-        String type = tên.getSelectedItem().toString(); // ComboBox
+        String type = tên.getSelectedItem().toString(); // Lấy giá trị từ combobox
 
         if (keyword.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập từ khóa tìm kiếm!");
             return;
         }
 
-        controler.search(keyword, type, model);
+        controler.searchEmployee(model, keyword, type);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        controler.loadData(model);
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -510,10 +599,12 @@ public class EmployManager extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
@@ -524,6 +615,7 @@ public class EmployManager extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;

@@ -1,26 +1,28 @@
 package com.mycompany.quanlykhachsan.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Employee {
-
     private String emID;
-    private String userID;
-    private String position;
+    private String name;
     private Date emDateOfBirth;
+    private String phone;
+    private String gender;
+    private String email;
     private double salary;
-    private String gioiTinh;
     private String role;
 
-    public Employee() {
-    }
+    public Employee() {}
 
-    public Employee(String emID, String userID, String position, Date emDateOfBirth, double salary) {
+    public Employee(String emID, String name, Date emDateOfBirth, String phone, String gender, String email, double salary, String role) {
         this.emID = emID;
-        this.userID = userID;
-        this.position = position;
+        this.name = name;
         this.emDateOfBirth = emDateOfBirth;
+        this.phone = phone;
+        this.gender = gender;
+        this.email = email;
         this.salary = salary;
+        this.role = role;
     }
 
     public String getEmID() {
@@ -31,20 +33,12 @@ public class Employee {
         this.emID = emID;
     }
 
-    public String getUserID() {
-        return userID;
+    public String getName() {
+        return name;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getEmDateOfBirth() {
@@ -55,6 +49,30 @@ public class Employee {
         this.emDateOfBirth = emDateOfBirth;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public double getSalary() {
         return salary;
     }
@@ -63,12 +81,11 @@ public class Employee {
         this.salary = salary;
     }
 
-    public void setGioiTinh(String gioiTinh) {
-        this.gioiTinh = gioiTinh;
+    public String getRole() {
+        return role;
     }
 
     public void setRole(String role) {
         this.role = role;
     }
-
 }

@@ -115,6 +115,11 @@ public class ServiceDetail extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
@@ -148,7 +153,7 @@ public class ServiceDetail extends javax.swing.JFrame {
         });
 
         jButton4.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        jButton4.setText("Cập nhật");
+        jButton4.setText("Refresh");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -252,34 +257,34 @@ public class ServiceDetail extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        String id = jTextField2.getText().trim();
+        String name = jTextField1.getText().trim();
+        String priceText = jTextField3.getText().trim();
+
+        if (id.isEmpty() || name.isEmpty() || priceText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
+            return;
+        }
+
+        double price;
+        try {
+            price = Double.parseDouble(priceText);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Giá phải là một số hợp lệ!");
+            return;
+        }
+
+        Service service = new Service(id, name, price, 0);
+        controller.addService(service, model);
+        JOptionPane.showMessageDialog(this, "Thêm dịch vụ thành công!");
+
         clearForm();
-        jTextField2.setEditable(true); // Cho phép nhập ID
-        isEditMode = false; // Đang ở chế độ thêm
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        String id = jTextField2.getText().trim();
-        String name = jTextField1.getText().trim();
-        double price;
-
-        try {
-            price = Double.parseDouble(jTextField3.getText().trim());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Giá không hợp lệ!");
-            return;
-        }
-
-        com.mycompany.quanlykhachsan.model.Service service = new com.mycompany.quanlykhachsan.model.Service(id, name, price, 0);
-
-        if (isEditMode) {
-            controller.updateService(service, model);
-        } else {
-            controller.addService(service, model);
-        }
-
+        controller.loadAllServices(model);
         clearForm();
-        jTextField2.setEditable(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void ClosejButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClosejButton5ActionPerformed
@@ -292,34 +297,67 @@ public class ServiceDetail extends javax.swing.JFrame {
         // TODO add your handling code here:
         int row = jTable1.getSelectedRow();
         if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần sửa!");
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng để sửa!");
             return;
         }
 
-        jTextField2.setText(model.getValueAt(row, 0).toString());
-        jTextField1.setText(model.getValueAt(row, 1).toString());
-        jTextField3.setText(model.getValueAt(row, 2).toString());
+        String id = model.getValueAt(row, 0).toString();
+        String name = jTextField1.getText().trim();
+        String priceText = jTextField3.getText().trim();
 
-        jTextField2.setEditable(false); // Không cho sửa ID
-        isEditMode = true; // Chuyển sang chế độ sửa
+        if (name.isEmpty() || priceText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin để sửa!");
+            return;
+        }
+
+        double price;
+        try {
+            price = Double.parseDouble(priceText);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Giá không hợp lệ!");
+            return;
+        }
+
+        Service service = new Service(id, name, price, 0);
+        controller.updateService(service, model);
+        JOptionPane.showMessageDialog(this, "Cập nhật dịch vụ thành công!");
+
+        clearForm();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         int row = jTable1.getSelectedRow();
-    if (row == -1) {
-        JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần xóa!");
-        return;
-    }
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng để xóa!");
+            return;
+        }
 
-    String id = model.getValueAt(row, 0).toString();
-    int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa dịch vụ này?", "Xác nhận", JOptionPane.YES_NO_OPTION);
-    if (confirm == JOptionPane.YES_OPTION) {
-        controller.deleteService(id, model);
-        clearForm();
-        jTextField2.setEditable(true);
-    }
+        String id = model.getValueAt(row, 0).toString(); // Mã dịch vụ
+
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Bạn có chắc chắn muốn xóa dịch vụ có mã: " + id + " ?",
+                "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            controller.deleteService(id, model);
+            JOptionPane.showMessageDialog(this, "Đã xóa dịch vụ thành công!");
+            clearForm();
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        int row = jTable1.getSelectedRow();
+        if (row == -1) {
+            return;
+        }
+
+        jTextField2.setText(model.getValueAt(row, 0).toString()); // ID
+        jTextField1.setText(model.getValueAt(row, 1).toString()); // Tên
+        jTextField3.setText(model.getValueAt(row, 2).toString()); // Giá
+        jTextField2.setEditable(false); // Không cho sửa ID
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments

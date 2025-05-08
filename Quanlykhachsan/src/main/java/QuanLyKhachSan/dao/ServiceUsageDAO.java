@@ -65,4 +65,31 @@ public class ServiceUsageDAO {
         }
         return serviceUsages;
     }
+    public List<ServiceUsage> getServiceUsageByCustomer(String cccd) {
+        List<ServiceUsage> list = new ArrayList<>();
+        String sql = "SELECT su.quantity, s.service_id, s.service_name, s.service_price "
+                + "FROM service_usage su "
+                + "JOIN services s ON su.service_id = s.service_id "
+                + "WHERE su.customer_cccd = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, cccd);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Service service = new Service(
+                        rs.getString("service_id"),
+                        rs.getString("service_name"),
+                        rs.getDouble("service_price")
+                );
+
+                ServiceUsage usage = new ServiceUsage();
+                usage.setService(service);
+                usage.setQuantity(rs.getInt("quantity"));
+                list.add(usage);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

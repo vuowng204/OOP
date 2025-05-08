@@ -106,5 +106,33 @@ public class RoomDAO {
         }
         return result;
     }
+    public Room getRoomByIdWithTypeInfo(int id) throws SQLException {
+        String sql = "SELECT r.*, rt.description FROM rooms r "
+                + "LEFT JOIN room_types rt ON r.loai_phong = rt.typeID "
+                + "WHERE r.id = ?";
 
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Room room = new Room();
+                room.setId(rs.getInt("id"));
+                room.setTenPhong(rs.getString("ten_phong"));
+                room.setGiaPhong(rs.getDouble("gia_phong"));
+                room.setTang(rs.getString("tang"));
+                room.setTrangThai(rs.getString("trang_thai"));
+
+                String typeID = rs.getString("loai_phong");
+                String description = rs.getString("description") != null ? rs.getString("description") : "";
+
+                RoomType roomType = new RoomType(typeID, description);
+                room.setLoaiphong(roomType);
+
+                return room;
+            }
+        }
+
+        return null;
+    }
 }

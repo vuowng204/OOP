@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JButton;
+import controler.InvoiceController;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -206,6 +208,11 @@ public class HoaDonDatPhong extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jButton2.setText("In Hóa đơn");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         ThongKeHoaDonjButton3.setText("Thống Kê Hóa Đơn Theo tháng");
         ThongKeHoaDonjButton3.setToolTipText("");
@@ -314,6 +321,22 @@ public class HoaDonDatPhong extends javax.swing.JFrame {
         HoaDonTheothangjDialog1.setVisible(false);
         jButton2.setBackground(Color.red);
     }//GEN-LAST:event_CLosejButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+         int selectedRow = jTable1.getSelectedRow();
+
+    if (selectedRow >= 0) {
+        // Lấy bookingId từ cột 0 của bảng (tuỳ theo bạn thiết kế bảng)
+        int bookingId = Integer.parseInt(jTable1.getValueAt(selectedRow, 0).toString());
+
+        // Gọi controller để mở giao diện chi tiết hóa đơn
+        controler.InvoiceController controller = new controler.InvoiceController();
+        controller.openInvoiceView(bookingId);
+    } else {
+        JOptionPane.showMessageDialog(this, "Vui lòng chọn một hóa đơn trong bảng!");
+    }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
