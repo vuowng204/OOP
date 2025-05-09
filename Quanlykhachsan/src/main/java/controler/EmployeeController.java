@@ -20,13 +20,14 @@ public class EmployeeController {
             model.setRowCount(0);
             for (Employee e : list) {
                 model.addRow(new Object[]{
-                    e.getEmID(),
-                    e.getName(),
-                    e.getPhone(),
-                    e.getGender(),
-                    e.getEmail(),
-                    e.getSalary(),
-                    e.getRole()
+                    e.getEmID(), // 0: CCCD
+                    e.getName(), // 1: Tên
+                    e.getPhone(), // 2: SĐT
+                    e.getGender(), // 3: Giới tính
+                    e.getEmail(), // 4: Email
+                    e.getSalary(), // 5: Lương
+                    e.getRole(), // 6: Chức vụ
+                    e.getEmDateOfBirth() // 7: Ngày sinh (phải khớp với jTable1)
                 });
             }
         } catch (SQLException e) {
@@ -35,9 +36,11 @@ public class EmployeeController {
     }
 
     // Thêm nhân viên
-    public void add(Employee emp) {
+    public void add(Employee emp, DefaultTableModel model) {
         try {
             dao.add(emp);
+            loadData(model); // cập nhật bảng ngay sau khi thêm
+            JOptionPane.showMessageDialog(null, "Thêm nhân viên thành công!");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Lỗi khi thêm nhân viên: " + e.getMessage());
         }
@@ -61,24 +64,35 @@ public class EmployeeController {
         }
     }
 
-    // Tìm kiếm nhân viên theo tên, ngày hoặc CCCD
+    // Tìm kiếm nhân viên theo tên, ngày hoặc CCCD, hoặc chức vụ
     public void searchEmployee(DefaultTableModel model, String keyword, String type) {
+        model.setRowCount(0);
         try {
-            List<Employee> result = dao.search(keyword, type);
-            model.setRowCount(0);
-            for (Employee emp : result) {
+            List<Employee> list = dao.search(keyword, type);
+            for (Employee e : list) {
                 model.addRow(new Object[]{
-                    emp.getEmID(),
-                    emp.getName(),
-                    emp.getPhone(),
-                    emp.getGender(),
-                    emp.getEmail(),
-                    emp.getSalary(),
-                    emp.getRole()
+                    e.getEmID(),
+                    e.getName(),
+                    e.getPhone(),
+                    e.getGender(),
+                    e.getEmail(),
+                    e.getSalary(),
+                    e.getRole(),
+                    e.getEmDateOfBirth()
                 });
             }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Lỗi khi tìm kiếm: " + ex.getMessage());
+        }
+    }
+
+    public boolean exists(String emID) {
+        try {
+            return dao.exists(emID);
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 }

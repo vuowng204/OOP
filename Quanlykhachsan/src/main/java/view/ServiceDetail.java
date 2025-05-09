@@ -22,6 +22,24 @@ public class ServiceDetail extends javax.swing.JFrame {
     private final ServiceController controller = new ServiceController(new ServiceDAO(JDBCConnection.getConnection()));
     private boolean isEditMode = false;
     private DefaultTableModel model;
+    
+    private String generateServiceID() {
+        int max = 0;
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String id = model.getValueAt(i, 0).toString(); // VD: SV001
+            if (id.startsWith("SV")) {
+                try {
+                    int num = Integer.parseInt(id.substring(2));
+                    if (num > max) {
+                        max = num;
+                    }
+                } catch (NumberFormatException e) {
+                    // bỏ qua nếu không hợp lệ
+                }
+            }
+        }
+        return String.format("SV%03d", max + 1);
+    }
 
     /**
      * Creates new form bdv
@@ -30,6 +48,10 @@ public class ServiceDetail extends javax.swing.JFrame {
         initComponents();
         model = (DefaultTableModel) jTable1.getModel();
         controller.loadAllServices(model);
+        
+        jTextField2.setEditable(false);
+        jTextField1.setEditable(false);
+        jTextField3.setEditable(false);
     }
 
     private void clearForm() {
@@ -269,28 +291,16 @@ public class ServiceDetail extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String id = jTextField2.getText().trim();
-        String name = jTextField1.getText().trim();
-        String priceText = jTextField3.getText().trim();
-
-        if (id.isEmpty() || name.isEmpty() || priceText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
-            return;
-        }
-
-        double price;
-        try {
-            price = Double.parseDouble(priceText);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Giá phải là một số hợp lệ!");
-            return;
-        }
-
-        Service service = new Service(id, name, price, 0);
-        controller.addService(service, model);
-        JOptionPane.showMessageDialog(this, "Thêm dịch vụ thành công!");
-
         clearForm();
+
+        String newID = generateServiceID();
+        jTextField2.setText(newID);
+        jTextField2.setEditable(false); // không cho sửa mã dịch vụ
+
+        jTextField1.setEditable(true); // tên dịch vụ
+        jTextField3.setEditable(true); // giá
+
+        isEditMode = false;
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -313,28 +323,15 @@ public class ServiceDetail extends javax.swing.JFrame {
             return;
         }
 
-        String id = model.getValueAt(row, 0).toString();
-        String name = jTextField1.getText().trim();
-        String priceText = jTextField3.getText().trim();
+        jTextField2.setText(model.getValueAt(row, 0).toString()); // ID
+        jTextField1.setText(model.getValueAt(row, 1).toString()); // Tên
+        jTextField3.setText(model.getValueAt(row, 2).toString()); // Giá
 
-        if (name.isEmpty() || priceText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin để sửa!");
-            return;
-        }
+        jTextField2.setEditable(false); // ID không sửa
+        jTextField1.setEditable(true);
+        jTextField3.setEditable(true);
 
-        double price;
-        try {
-            price = Double.parseDouble(priceText);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Giá không hợp lệ!");
-            return;
-        }
-
-        Service service = new Service(id, name, price, 0);
-        controller.updateService(service, model);
-        JOptionPane.showMessageDialog(this, "Cập nhật dịch vụ thành công!");
-
-        clearForm();
+        isEditMode = true;
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -373,6 +370,39 @@ public class ServiceDetail extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        String id = jTextField2.getText().trim();
+        String name = jTextField1.getText().trim();
+        String priceText = jTextField3.getText().trim();
+
+        if (id.isEmpty() || name.isEmpty() || priceText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
+            return;
+        }
+
+        double price;
+        try {
+            price = Double.parseDouble(priceText);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Giá phải là một số hợp lệ!");
+            return;
+        }
+
+        Service service = new Service(id, name, price, 0);
+
+        if (isEditMode) {
+            controller.updateService(service, model);
+            JOptionPane.showMessageDialog(this, "Đã cập nhật dịch vụ.");
+        } else {
+            controller.addService(service, model);
+            JOptionPane.showMessageDialog(this, "Đã thêm dịch vụ mới.");
+        }
+
+        controller.loadAllServices(model);
+        clearForm();
+
+        jTextField2.setEditable(false);
+        jTextField1.setEditable(false);
+        jTextField3.setEditable(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**

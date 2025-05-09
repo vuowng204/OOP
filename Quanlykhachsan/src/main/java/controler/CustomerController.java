@@ -4,7 +4,6 @@ import QuanLyKhachSan.dao.BookingDAO;
 import QuanLyKhachSan.dao.CustomerDAO;
 import QuanLyKhachSan.dao.JDBCConnection;
 import com.mycompany.quanlykhachsan.model.Customer;
-
 import java.sql.*;
 import java.util.HashSet;
 import javax.swing.JOptionPane;
@@ -19,16 +18,14 @@ public class CustomerController {
     public void loadData(DefaultTableModel model) {
         model.setRowCount(0);
         HashSet<String> cccdDaThem = new HashSet<>();
-
         try {
-            // 1. Khách từ bookings
             String sql1 = """
-            SELECT 
-                c.cccd, c.ten_khach_hang, c.so_dien_thoai, c.gioi_tinh,
-                b.room_id, b.check_in_date, b.check_out_date
-            FROM customers c
-            JOIN bookings b ON c.cccd = b.customer_cccd
-        """;
+                SELECT 
+                    c.cccd, c.ten_khach_hang, c.so_dien_thoai, c.gioi_tinh,
+                    b.room_id, b.check_in_date, b.check_out_date
+                FROM customers c
+                JOIN bookings b ON c.cccd = b.customer_cccd
+            """;
             ResultSet rs1 = connection.createStatement().executeQuery(sql1);
             while (rs1.next()) {
                 String cccd = rs1.getString("cccd");
@@ -43,8 +40,6 @@ public class CustomerController {
                     rs1.getTimestamp("check_out_date")
                 });
             }
-
-            // 2. Khách chỉ có trong bảng customers
             String sql2 = "SELECT * FROM customers";
             ResultSet rs2 = connection.createStatement().executeQuery(sql2);
             while (rs2.next()) {
@@ -66,16 +61,12 @@ public class CustomerController {
 
     public void deleteByCCCD(String cccd) {
         try {
-            // Xóa ở bookings trước
             if (bookingDAO.existsInBooking(cccd)) {
                 bookingDAO.deleteFromBooking(cccd);
             }
-
-            // Xóa ở bảng customers
             if (customerDAO.customerExists(cccd)) {
                 customerDAO.deleteFromCustomer(cccd);
             }
-
             JOptionPane.showMessageDialog(null, "Xóa khách hàng thành công!");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Lỗi khi xóa khách hàng: " + e.getMessage());
@@ -103,33 +94,46 @@ public class CustomerController {
     public void search(DefaultTableModel model, String keyword, String type) {
         model.setRowCount(0);
         String sql = "";
-
         if (type.equals("Theo tên")) {
             sql = """
-            SELECT c.cccd, c.ten_khach_hang, c.so_dien_thoai, c.gioi_tinh, b.room_id, b.check_in_date, b.check_out_date
-            FROM customers c
-            LEFT JOIN bookings b ON c.cccd = b.customer_cccd
-            WHERE c.ten_khach_hang LIKE ?
-        """;
+                SELECT c.cccd, c.ten_khach_hang, c.so_dien_thoai, c.gioi_tinh, b.room_id, b.check_in_date, b.check_out_date
+                FROM customers c
+                LEFT JOIN bookings b ON c.cccd = b.customer_cccd
+                WHERE c.ten_khach_hang LIKE ?
+            """;
         } else if (type.equals("Theo CCCD")) {
             sql = """
-            SELECT c.cccd, c.ten_khach_hang, c.so_dien_thoai, c.gioi_tinh, b.room_id, b.check_in_date, b.check_out_date
-            FROM customers c
-            LEFT JOIN bookings b ON c.cccd = b.customer_cccd
-            WHERE c.cccd LIKE ?
-        """;
+                SELECT c.cccd, c.ten_khach_hang, c.so_dien_thoai, c.gioi_tinh, b.room_id, b.check_in_date, b.check_out_date
+                FROM customers c
+                LEFT JOIN bookings b ON c.cccd = b.customer_cccd
+                WHERE c.cccd LIKE ?
+            """;
+        } else if (type.equals("Theo Ngày Check-in")) {
+            sql = """
+                SELECT c.cccd, c.ten_khach_hang, c.so_dien_thoai, c.gioi_tinh, b.room_id, b.check_in_date, b.check_out_date
+                FROM customers c
+                JOIN bookings b ON c.cccd = b.customer_cccd
+                WHERE DATE(b.check_in_date) = ?
+            """;
+        } else if (type.equals("Theo Ngày Check-out")) {
+            sql = """
+                SELECT c.cccd, c.ten_khach_hang, c.so_dien_thoai, c.gioi_tinh, b.room_id, b.check_in_date, b.check_out_date
+                FROM customers c
+                JOIN bookings b ON c.cccd = b.customer_cccd
+                WHERE DATE(b.check_out_date) = ?
+            """;
         } else {
             sql = """
-            SELECT c.cccd, c.ten_khach_hang, c.so_dien_thoai, c.gioi_tinh, b.room_id, b.check_in_date, b.check_out_date
-            FROM customers c
-            LEFT JOIN bookings b ON c.cccd = b.customer_cccd
-        """;
+                SELECT c.cccd, c.ten_khach_hang, c.so_dien_thoai, c.gioi_tinh, b.room_id, b.check_in_date, b.check_out_date
+                FROM customers c
+                LEFT JOIN bookings b ON c.cccd = b.customer_cccd
+            """;
         }
 
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            if (!type.equals("Theo Ngày")) {
-                stmt.setString(1, "%" + keyword + "%");
+            if (!type.equals("") && !type.equals("Tất cả")) {
+                stmt.setString(1, keyword);
             }
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {

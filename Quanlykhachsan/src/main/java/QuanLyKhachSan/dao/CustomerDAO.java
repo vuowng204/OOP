@@ -55,4 +55,32 @@ public class CustomerDAO {
             return rs.next() && rs.getInt(1) > 0;
         }
     }
+    public ResultSet search(String keyword, String type) throws SQLException {
+        String query = "";
+        switch (type) {
+            case "Theo tên":
+                query = "SELECT * FROM bookings WHERE ten_khach_hang LIKE ?";
+                break;
+            case "Theo CCCD":
+                query = "SELECT * FROM bookings WHERE cccd LIKE ?";
+                break;
+            case "Theo Ngày Check-in":
+                query = "SELECT * FROM bookings WHERE DATE(check_in) = ?";
+                break;
+            case "Theo Ngày Check-out":
+                query = "SELECT * FROM bookings WHERE DATE(check_out) = ?";
+                break;
+            default:
+                throw new IllegalArgumentException("Loại tìm kiếm không hợp lệ: " + type);
+        }
+
+        PreparedStatement stmt = connection.prepareStatement(query);
+        if (type.equals("Theo tên") || type.equals("Theo CCCD")) {
+            stmt.setString(1, "%" + keyword + "%");
+        } else {
+            stmt.setString(1, keyword); // ngày đã chuẩn hóa định dạng yyyy-MM-dd
+        }
+
+        return stmt.executeQuery();
+    }
 }

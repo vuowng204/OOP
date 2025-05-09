@@ -16,18 +16,21 @@ public class EmployeeDAO {
     // Thêm nhân viên
     public void add(Employee emp) throws SQLException {
         String sql = "INSERT INTO employees (emID, name, emDateOfBirth, phone, gender, email, salary, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setString(1, emp.getEmID());
-        stmt.setString(2, emp.getName());
-        stmt.setDate(3, emp.getEmDateOfBirth());
-        stmt.setString(4, emp.getPhone());
-        stmt.setString(5, emp.getGender());
-        stmt.setString(6, emp.getEmail());
-        stmt.setDouble(7, emp.getSalary());
-        stmt.setString(8, emp.getRole());
-        stmt.executeUpdate();
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, emp.getEmID());
+            stmt.setString(2, emp.getName());
+            stmt.setDate(3, emp.getEmDateOfBirth());
+            stmt.setString(4, emp.getPhone());
+            stmt.setString(5, emp.getGender());
+            stmt.setString(6, emp.getEmail());
+            stmt.setDouble(7, emp.getSalary());
+            stmt.setString(8, emp.getRole());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(); // In lỗi ra console để dễ phát hiện
+            throw e; // Rất cần để Controller hiển thị được lỗi
+        }
     }
-
     // Cập nhật nhân viên
     public void update(Employee emp) throws SQLException {
         String sql = "UPDATE employees SET name = ?, emDateOfBirth = ?, phone = ?, gender = ?, email = ?, salary = ?, role = ? WHERE emID = ?";
@@ -81,14 +84,16 @@ public class EmployeeDAO {
             sql = "SELECT * FROM employees WHERE name LIKE ?";
         } else if ("Theo CCCD".equals(type)) {
             sql = "SELECT * FROM employees WHERE emID LIKE ?";
-        } else if ("Theo quyền".equals(type)) {
+        } else if ("Theo Chức Vụ".equals(type)) {
             sql = "SELECT * FROM employees WHERE role LIKE ?";
         } else {
-            sql = "SELECT * FROM employees"; // fallback nếu sai type
+            sql = "SELECT * FROM employees"; // fallback nếu type không hợp lệ
         }
 
         PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setString(1, "%" + keyword + "%");
+        if (!"Tất cả".equals(type)) {
+            stmt.setString(1, "%" + keyword + "%");
+        }
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
@@ -103,7 +108,17 @@ public class EmployeeDAO {
             emp.setRole(rs.getString("role"));
             list.add(emp);
         }
-
         return list;
+    }
+    public boolean exists(String emID) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM employees WHERE emID = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, emID);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        }
+        return false;
     }
 }

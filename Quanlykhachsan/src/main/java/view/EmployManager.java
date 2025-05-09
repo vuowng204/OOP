@@ -11,6 +11,8 @@ import java.sql.Date;
 import javax.swing.JOptionPane;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javax.swing.JPopupMenu;
+import javax.swing.JMenuItem;
 
 /**
  *
@@ -20,6 +22,8 @@ public class EmployManager extends javax.swing.JFrame {
 
     private final EmployeeController controler = new EmployeeController();
     private DefaultTableModel model;
+    private javax.swing.JPopupMenu popupMenuChucVu;
+    private javax.swing.JMenuItem itemNhanVien, itemPhucVu, itemAdmin, itemVeSinh;
 
     /**
      * Creates new form CustomerManager
@@ -38,6 +42,44 @@ public class EmployManager extends javax.swing.JFrame {
         buttonGroup2.add(jRadioButton4);
         buttonGroup2.add(jRadioButton5);
         buttonGroup2.add(jRadioButton6);
+
+        jTextField2.setEditable(false);
+        jTextField3.setEditable(false);
+        jTextField4.setEditable(false);
+        jTextField9.setEditable(false);
+        jTextField10.setEditable(false);
+        jTextField11.setEditable(false);
+
+        jRadioButton1.setEnabled(false);
+        jRadioButton2.setEnabled(false);
+
+        jRadioButton3.setEnabled(false);
+        jRadioButton4.setEnabled(false);
+        jRadioButton5.setEnabled(false);
+        jRadioButton6.setEnabled(false);
+        
+        popupMenuChucVu = new JPopupMenu();
+
+        itemNhanVien = new JMenuItem("Nhân viên");
+        itemPhucVu = new JMenuItem("Phục vụ phòng");
+        itemAdmin = new JMenuItem("ADMIN");
+        itemVeSinh = new JMenuItem("Nhân viên vệ sinh");
+
+        itemNhanVien.addActionListener(e -> jTextField8.setText("Nhân viên"));
+        itemPhucVu.addActionListener(e -> jTextField8.setText("Phục vụ phòng"));
+        itemAdmin.addActionListener(e -> jTextField8.setText("ADMIN"));
+        itemVeSinh.addActionListener(e -> jTextField8.setText("Nhân viên vệ sinh"));
+
+        popupMenuChucVu.add(itemNhanVien);
+        popupMenuChucVu.add(itemPhucVu);
+        popupMenuChucVu.add(itemAdmin);
+        popupMenuChucVu.add(itemVeSinh);
+        
+        tên.addActionListener(e -> {
+            if (tên.getSelectedItem().toString().equals("Theo Chức Vụ")) {
+                popupMenuChucVu.show(jTextField8, 0, jTextField8.getHeight());
+            }
+        });
     }
 
     /**
@@ -104,6 +146,11 @@ public class EmployManager extends javax.swing.JFrame {
         jRadioButton2.setText("Nữ");
 
         jButton2.setText("Thêm");
+        jButton2.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                jButton2ComponentHidden(evt);
+            }
+        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -142,21 +189,21 @@ public class EmployManager extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", null, null, null, null, null, null},
-                {"2", "", null, null, null, null, null},
-                {"", null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {"", null, null, null, null, null, null, null},
+                {"", "", null, null, null, null, null, null},
+                {"", null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "CCCD Nhân Viên", "Tên Nhân Viên", "SĐT", "Giới tính", "Email", "Lương", "Tên Chức Vụ"
+                "CCCD Nhân Viên", "Tên Nhân Viên", "SĐT", "Giới tính", "Email", "Lương", "Tên Chức Vụ", "Ngày Sinh"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -208,6 +255,11 @@ public class EmployManager extends javax.swing.JFrame {
         jLabel5.setText("Email");
 
         LuujButton1.setText("Lưu");
+        LuujButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LuujButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -406,96 +458,48 @@ public class EmployManager extends javax.swing.JFrame {
             return;
         }
 
-        try {
-            Employee emp = new Employee();
-            emp.setEmID(jTextField3.getText().trim());
-            emp.setName(jTextField4.getText().trim());
-            emp.setEmDateOfBirth(Date.valueOf(jTextField2.getText().trim()));
-            emp.setPhone(jTextField10.getText().trim());
-            emp.setGender(jRadioButton1.isSelected() ? "Nam" : "Nữ");
-            emp.setEmail(jTextField9.getText().trim());
-            emp.setSalary(Double.parseDouble(jTextField11.getText().trim()));
-            String role = jRadioButton3.isSelected() ? "Nhân viên"
-                    : jRadioButton4.isSelected() ? "Phục vụ phòng"
-                    : jRadioButton5.isSelected() ? "ADMIN" : "Nhân viên vệ sinh";
-            emp.setRole(role);
+        // Cho phép nhập liệu để sửa
+        jTextField2.setEditable(true);   // CCCD
+        jTextField4.setEditable(true);   // Tên
+        jTextField3.setEditable(true);   // Ngày sinh
+        jTextField10.setEditable(true);  // SĐT
+        jTextField9.setEditable(true);   // Email
+        jTextField11.setEditable(true);  // Lương
 
-            controler.update(emp);
-            controler.loadData(model);
-            JOptionPane.showMessageDialog(this, "Cập nhật nhân viên thành công!");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi khi cập nhật: " + e.getMessage());
-        }
+        jRadioButton1.setEnabled(true);  // Nam
+        jRadioButton2.setEnabled(true);  // Nữ
+        jRadioButton3.setEnabled(true);  // Nhân viên
+        jRadioButton4.setEnabled(true);  // Phục vụ phòng
+        jRadioButton5.setEnabled(true);  // ADMIN
+        jRadioButton6.setEnabled(true);  // Nhân viên vệ sinh
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        try {
-            Employee emp = new Employee();
+        // Reset tất cả ô nhập về trắng
+        jTextField2.setText(""); // CCCD
+        jTextField3.setText(""); // Ngày sinh
+        jTextField4.setText(""); // Tên
+        jTextField9.setText(""); // Email
+        jTextField10.setText(""); // SĐT
+        jTextField11.setText(""); // Lương
+        buttonGroup1.clearSelection(); // Giới tính
+        buttonGroup2.clearSelection(); // Chức vụ
 
-            // Lấy CCCD
-            emp.setEmID(jTextField2.getText().trim());
+        // Cho phép chỉnh sửa tất cả các ô
+        jTextField2.setEditable(true);
+        jTextField3.setEditable(true);
+        jTextField4.setEditable(true);
+        jTextField9.setEditable(true);
+        jTextField10.setEditable(true);
+        jTextField11.setEditable(true);
 
-            // Lấy tên nhân viên
-            emp.setName(jTextField4.getText().trim());
-
-            // Lấy ngày sinh - định dạng yyyy-MM-dd
-            String inputDate = jTextField3.getText().trim();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            sdf.setLenient(false);
-
-            java.util.Date utilDate = sdf.parse(inputDate);
-            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-            emp.setEmDateOfBirth(sqlDate);
-
-            // Lấy số điện thoại
-            emp.setPhone(jTextField10.getText().trim());
-
-            // Lấy email
-            emp.setEmail(jTextField9.getText().trim());
-
-            // Lấy lương
-            try {
-                double salary = Double.parseDouble(jTextField11.getText().trim());
-                emp.setSalary(salary);
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Lương phải là số hợp lệ!");
-                return;
-            }
-
-            // Lấy giới tính từ RadioButton
-            String gender = jRadioButton1.isSelected() ? "Nam"
-                    : jRadioButton2.isSelected() ? "Nữ"
-                    : ""; // fallback nếu chưa chọn
-            if (gender.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Vui lòng chọn giới tính!");
-                return;
-            }
-            emp.setGender(gender);
-
-            // Lấy chức vụ từ radio role
-            String role = jRadioButton3.isSelected() ? "Nhân viên"
-                    : jRadioButton4.isSelected() ? "Phục vụ phòng"
-                    : jRadioButton5.isSelected() ? "ADMIN"
-                    : jRadioButton6.isSelected() ? "Nhân viên vệ sinh"
-                    : "";
-            if (role.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Vui lòng chọn chức vụ!");
-                return;
-            }
-            emp.setRole(role);
-
-            // Gọi controller để thêm nhân viên
-            controler.add(emp);
-            controler.loadData(model);
-            JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công!");
-
-        } catch (ParseException e) {
-            JOptionPane.showMessageDialog(this, "Ngày sinh không hợp lệ! Vui lòng nhập đúng định dạng yyyy-MM-dd");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi khi thêm nhân viên: " + e.getMessage());
-            e.printStackTrace();
-        }
+        jRadioButton1.setEnabled(true);
+        jRadioButton2.setEnabled(true);
+        jRadioButton3.setEnabled(true);
+        jRadioButton4.setEnabled(true);
+        jRadioButton5.setEnabled(true);
+        jRadioButton6.setEnabled(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -515,21 +519,23 @@ public class EmployManager extends javax.swing.JFrame {
         jTextField10.setText(model.getValueAt(row, 2).toString());
 
         // Cột 3: Giới tính
-        String gender = model.getValueAt(row, 3).toString();
+        String gender = model.getValueAt(row, 3) != null ? model.getValueAt(row, 3).toString() : "";
         if ("Nam".equalsIgnoreCase(gender)) {
             jRadioButton1.setSelected(true);
         } else if ("Nữ".equalsIgnoreCase(gender)) {
             jRadioButton2.setSelected(true);
+        } else {
+            buttonGroup1.clearSelection();
         }
 
         // Cột 4: Email
-        jTextField9.setText(model.getValueAt(row, 4).toString());
+        jTextField9.setText(model.getValueAt(row, 4) != null ? model.getValueAt(row, 4).toString() : "");
 
         // Cột 5: Lương
-        jTextField11.setText(model.getValueAt(row, 5).toString());
+        jTextField11.setText(model.getValueAt(row, 5) != null ? model.getValueAt(row, 5).toString() : "");
 
         // Cột 6: Chức vụ
-        String role = model.getValueAt(row, 6).toString();
+        String role = model.getValueAt(row, 6) != null ? model.getValueAt(row, 6).toString() : "";
         switch (role) {
             case "Nhân viên" ->
                 jRadioButton3.setSelected(true);
@@ -539,9 +545,16 @@ public class EmployManager extends javax.swing.JFrame {
                 jRadioButton5.setSelected(true);
             case "Nhân viên vệ sinh" ->
                 jRadioButton6.setSelected(true);
-            default -> {
-                buttonGroup2.clearSelection(); // nếu không khớp
-            }
+            default ->
+                buttonGroup2.clearSelection();
+        }
+
+        // Cột 7: Ngày sinh
+        Object dateObj = model.getValueAt(row, 7);
+        if (dateObj != null) {
+            jTextField3.setText(dateObj.toString());
+        } else {
+            jTextField3.setText("");
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -555,13 +568,148 @@ public class EmployManager extends javax.swing.JFrame {
             return;
         }
 
+        // Gọi controller để tìm kiếm theo loại
         controler.searchEmployee(model, keyword, type);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        // Load lại dữ liệu bảng
         controler.loadData(model);
+
+        // Reset các ô nhập về trắng
+        jTextField2.setText("");  // CCCD
+        jTextField3.setText("");  // Ngày sinh
+        jTextField4.setText("");  // Tên
+        jTextField9.setText("");  // Email
+        jTextField10.setText(""); // SĐT
+        jTextField11.setText(""); // Lương
+        buttonGroup1.clearSelection(); // Giới tính
+        buttonGroup2.clearSelection(); // Chức vụ
+
+        // Vô hiệu hóa chỉnh sửa
+        jTextField2.setEditable(false);
+        jTextField3.setEditable(false);
+        jTextField4.setEditable(false);
+        jTextField9.setEditable(false);
+        jTextField10.setEditable(false);
+        jTextField11.setEditable(false);
+
+        jRadioButton1.setEnabled(false);
+        jRadioButton2.setEnabled(false);
+        jRadioButton3.setEnabled(false);
+        jRadioButton4.setEnabled(false);
+        jRadioButton5.setEnabled(false);
+        jRadioButton6.setEnabled(false);
     }//GEN-LAST:event_jButton7ActionPerformed
+    private boolean isAdding = false;
+    private void LuujButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LuujButton1ActionPerformed
+        // TODO add your handling code here:
+        try {
+            String emID = jTextField2.getText().trim();
+            String name = jTextField4.getText().trim();
+            String dobStr = jTextField3.getText().trim();
+            String phone = jTextField10.getText().trim();
+            String email = jTextField9.getText().trim();
+            String salaryStr = jTextField11.getText().trim();
+
+            // Kiểm tra rỗng
+            if (emID.isEmpty() || name.isEmpty() || dobStr.isEmpty() || phone.isEmpty() || email.isEmpty() || salaryStr.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
+                return;
+            }
+
+            // Parse ngày sinh
+            java.sql.Date dob;
+            try {
+                dob = java.sql.Date.valueOf(dobStr); // yêu cầu định dạng yyyy-MM-dd
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(this, "Ngày sinh sai định dạng (yyyy-MM-dd)!");
+                return;
+            }
+
+            // Parse lương
+            double salary;
+            try {
+                salary = Double.parseDouble(salaryStr);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Lương phải là số!");
+                return;
+            }
+
+            // Giới tính
+            String gender = jRadioButton1.isSelected() ? "Nam"
+                    : jRadioButton2.isSelected() ? "Nữ" : "";
+            if (gender.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn giới tính!");
+                return;
+            }
+
+            // Chức vụ
+            String role = jRadioButton3.isSelected() ? "Nhân viên"
+                    : jRadioButton4.isSelected() ? "Phục vụ phòng"
+                    : jRadioButton5.isSelected() ? "ADMIN"
+                    : jRadioButton6.isSelected() ? "Nhân viên vệ sinh" : "";
+            if (role.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn chức vụ!");
+                return;
+            }
+
+            // Tạo đối tượng Employee
+            Employee emp = new Employee();
+            emp.setEmID(emID);
+            emp.setName(name);
+            emp.setEmDateOfBirth(dob);
+            emp.setPhone(phone);
+            emp.setEmail(email);
+            emp.setSalary(salary);
+            emp.setGender(gender);
+            emp.setRole(role);
+
+            // Gọi controller xử lý
+            if (controler.exists(emID)) {
+                controler.update(emp); // sửa
+                JOptionPane.showMessageDialog(this, "Đã cập nhật nhân viên.");
+            } else {
+                controler.add(emp, model);   // thêm
+                JOptionPane.showMessageDialog(this, "Đã thêm nhân viên mới.");
+            }
+
+            // Cập nhật lại bảng và reset form
+            controler.loadData(model);
+            jTextField2.setText("");  // CCCD
+            jTextField3.setText("");  // Ngày sinh
+            jTextField4.setText("");  // Tên
+            jTextField9.setText("");  // Email
+            jTextField10.setText(""); // SĐT
+            jTextField11.setText(""); // Lương
+            buttonGroup1.clearSelection(); // Giới tính
+            buttonGroup2.clearSelection(); // Chức vụ
+
+            // Vô hiệu hóa chỉnh sửa
+            jTextField2.setEditable(false);
+            jTextField3.setEditable(false);
+            jTextField4.setEditable(false);
+            jTextField9.setEditable(false);
+            jTextField10.setEditable(false);
+            jTextField11.setEditable(false);
+
+            jRadioButton1.setEnabled(false);
+            jRadioButton2.setEnabled(false);
+            jRadioButton3.setEnabled(false);
+            jRadioButton4.setEnabled(false);
+            jRadioButton5.setEnabled(false);
+            jRadioButton6.setEnabled(false);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi lưu: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_LuujButton1ActionPerformed
+
+    private void jButton2ComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton2ComponentHidden
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ComponentHidden
 
     /**
      * @param args the command line arguments
@@ -600,6 +748,7 @@ public class EmployManager extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LuujButton1;
