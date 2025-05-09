@@ -131,17 +131,17 @@ INSERT INTO service_usage (booking_id, service_id, quantity, customer_id) VALUES
 
 
 
-CREATE TABLE `employees` (
-  `emID` varchar(50) NOT NULL,
-  `userID` varchar(50) DEFAULT NULL,
-  `position` varchar(100) DEFAULT NULL,
-  `emDateOfBirth` date DEFAULT NULL,
-  `salary` double DEFAULT NULL,
-  PRIMARY KEY (`emID`),
-  KEY `userID` (`userID`),
-  CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`)
+CREATE TABLE employees (
+  emID varchar(20) NOT NULL,
+  name varchar(100) NOT NULL,
+  emDateOfBirth date NOT NULL,
+  phone varchar(15) DEFAULT NULL,
+  gender varchar(10) DEFAULT NULL,
+  email varchar(100) DEFAULT NULL,
+  salary double DEFAULT '0',
+  role varchar(50) DEFAULT NULL,
+  PRIMARY KEY (emID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
-
 
 
 CREATE TABLE `users` (
