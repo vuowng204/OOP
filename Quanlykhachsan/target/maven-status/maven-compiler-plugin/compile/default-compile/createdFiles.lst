@@ -45,6 +45,7 @@ view\HoaDonDatPhong$2.class
 com\mycompany\quanlykhachsan\model\User.class
 view\Home$6.class
 QuanLyKhachSan\dao\UserDAO.class
+view\ServiceDetail$10.class
 view\ServiceDetail$7.class
 view\ServiceDetail$6.class
 view\ServiceDetail.class

@@ -207,7 +207,7 @@ public class HoaDonDatPhong extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButton2.setText("In Hóa đơn");
+        jButton2.setText("Biểu đồ thống kê");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -319,7 +319,7 @@ public class HoaDonDatPhong extends javax.swing.JFrame {
     private void CLosejButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CLosejButton3ActionPerformed
         // TODO add your handling code here:
         HoaDonTheothangjDialog1.setVisible(false);
-        jButton2.setBackground(Color.red);
+       
     }//GEN-LAST:event_CLosejButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

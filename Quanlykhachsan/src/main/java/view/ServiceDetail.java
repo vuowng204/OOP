@@ -63,6 +63,7 @@ public class ServiceDetail extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         ClosejButton5 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -173,6 +174,14 @@ public class ServiceDetail extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel3.setText("Green Leaves Hotel");
 
+        jButton5.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jButton5.setText("Lưu");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -185,14 +194,16 @@ public class ServiceDetail extends javax.swing.JFrame {
                 .addGap(289, 289, 289))
             .addGroup(layout.createSequentialGroup()
                 .addGap(92, 92, 92)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(102, 102, 102)
-                        .addComponent(jButton2)
-                        .addGap(124, 124, 124)
-                        .addComponent(jButton3)
+                        .addGap(54, 54, 54)
+                        .addComponent(jButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addGap(84, 84, 84)
+                        .addComponent(jButton3)
+                        .addGap(86, 86, 86)
                         .addComponent(jButton4)
                         .addGap(104, 104, 104)
                         .addComponent(ClosejButton5))
@@ -238,7 +249,8 @@ public class ServiceDetail extends javax.swing.JFrame {
                     .addComponent(jButton2)
                     .addComponent(jButton3)
                     .addComponent(jButton4)
-                    .addComponent(ClosejButton5))
+                    .addComponent(ClosejButton5)
+                    .addComponent(jButton5))
                 .addGap(79, 79, 79))
             .addGroup(layout.createSequentialGroup()
                 .addGap(58, 58, 58)
@@ -359,6 +371,10 @@ public class ServiceDetail extends javax.swing.JFrame {
         jTextField2.setEditable(false); // Không cho sửa ID
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -403,6 +419,7 @@ public class ServiceDetail extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

@@ -106,12 +106,30 @@ public class BookingDAO {
         }
     }
 
-    public void deleteFromBooking(String cccd) throws SQLException {
-        String query = "DELETE FROM bookings WHERE customer_cccd = ?";
-        PreparedStatement stmt = connection.prepareStatement(query);
-        stmt.setString(1, cccd);
-        stmt.executeUpdate();
+public void deleteFromBooking(String cccd) throws SQLException {
+    // 1. Lấy danh sách booking_id tương ứng với khách hàng có CCCD
+    String getBookingIds = "SELECT id FROM bookings WHERE customer_cccd = ?";
+    PreparedStatement getStmt = connection.prepareStatement(getBookingIds);
+    getStmt.setString(1, cccd);
+    ResultSet rs = getStmt.executeQuery();
+
+    while (rs.next()) {
+        int bookingId = rs.getInt("id");
+
+        // 2. Xóa các dòng liên quan trong service_usage trước
+        String deleteServiceUsage = "DELETE FROM service_usage WHERE booking_id = ?";
+        PreparedStatement deleteServiceStmt = connection.prepareStatement(deleteServiceUsage);
+        deleteServiceStmt.setInt(1, bookingId);
+        deleteServiceStmt.executeUpdate();
     }
+
+    // 3. Xóa chính booking
+    String deleteBooking = "DELETE FROM bookings WHERE customer_cccd = ?";
+    PreparedStatement deleteBookingStmt = connection.prepareStatement(deleteBooking);
+    deleteBookingStmt.setString(1, cccd);
+    deleteBookingStmt.executeUpdate();
+}
+
     public Booking getBookingById(int id) {
     String sql = "SELECT * FROM bookings WHERE id = ?";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {

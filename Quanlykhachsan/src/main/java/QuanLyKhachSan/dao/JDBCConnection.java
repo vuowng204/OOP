@@ -16,10 +16,11 @@ public class JDBCConnection {
     
     private static final String URL = "jdbc:mysql://localhost:3306/quanlynhahang";
     private static final String USER = "root"; // thay bằng username MySQL của bạn
-    private static final String PASSWORD = "987654321"; // thay bằng mật khẩu MySQL của bạn
+    private static final String PASSWORD = "123456"; // thay bằng mật khẩu MySQL của bạn
 
     public static Connection getConnection() {
         try {
+            
             // Tải driver JDBC cho MySQL
             Class.forName("com.mysql.cj.jdbc.Driver");
 
