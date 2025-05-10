@@ -8,6 +8,7 @@ import QuanLyKhachSan.dao.BookingDAO;
 import QuanLyKhachSan.dao.CustomerDAO;
 import QuanLyKhachSan.dao.JDBCConnection;
 import QuanLyKhachSan.dao.RoomDAO;
+import QuanLyKhachSan.dao.ServiceUsageDAO;
 import com.mycompany.quanlykhachsan.model.Booking;
 import com.mycompany.quanlykhachsan.model.Customer;
 import com.mycompany.quanlykhachsan.model.Room;
@@ -25,6 +26,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
+import com.mycompany.quanlykhachsan.model.ServiceUsage;
+import java.io.*;
+import java.awt.Desktop;
+import javax.swing.JTable;
+import javax.swing.table.TableModel;
+import javax.swing.JOptionPane;
+import java.awt.Component;
+import javax.swing.JDialog;
 
 /**
  *
@@ -40,7 +51,6 @@ public class ServiceNRoom extends javax.swing.JFrame {
     private int bookingId;
     private ServiceNRoomController controller;
     private boolean isRoomCheckedOut; // Biến để kiểm tra trạng thái phòng
-    private HoaDonDialog dialog;
 
     /**
      * Creates new form ServiceNRoom
@@ -156,7 +166,65 @@ public class ServiceNRoom extends javax.swing.JFrame {
             });
         }
     }
+
     // Getter cho các thành phần giao diện
+    public javax.swing.JTextPane getJTextPane5() {
+        return jTextPane5;
+    }
+
+    public javax.swing.JTextField getJTextField4() {
+        return jTextField4;
+    }
+
+  
+
+    public javax.swing.JTextField getJTextField2() {
+        return jTextField2;
+    }
+
+    public javax.swing.JTextField getJTextField7() {
+        return jTextField7;
+    }
+
+    public javax.swing.JTextField getJTextField10() {
+        return jTextField10;
+    }
+
+    public javax.swing.JTextField getJTextField12() {
+        return jTextField12;
+    }
+
+    public javax.swing.JTextField getJTextField13() {
+        return jTextField13;
+    }
+
+    public javax.swing.JTextField getJTextField8() {
+        return jTextField8;
+    }
+
+    public javax.swing.JTextPane getTongtienjTextPane4() {
+        return tongtienjTextPane4;
+    }
+
+    public javax.swing.JLabel getGiaphongjLabel2() {
+        return GiaphongjLabel2;
+    }
+
+    public javax.swing.JTextField getTongTienTextField() {
+        return jTextField5;
+    }
+
+    public JTable getJTable4() {
+        return jTable4;
+    }
+
+    public JDialog getJDialog1() {
+        return jDialog1;
+    }
+
+    public String getTenPhong() {
+        return TenphongjLabel1.getText();
+    }
 
     public JTable getJTable2() {
         return jTable2;
@@ -247,28 +315,20 @@ public class ServiceNRoom extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jDialog1 = new javax.swing.JDialog();
-        jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
         jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
         jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
         jTextField12 = new javax.swing.JTextField();
         jTextField13 = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        jTextField14 = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
@@ -279,9 +339,10 @@ public class ServiceNRoom extends javax.swing.JFrame {
         jLabel36 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel37 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
+        jLabel42 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         TenphongjLabel1 = new javax.swing.JLabel();
         GiaphongjLabel2 = new javax.swing.JLabel();
@@ -377,21 +438,15 @@ public class ServiceNRoom extends javax.swing.JFrame {
             }
         });
 
-        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+        jTextField8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField9ActionPerformed(evt);
+                jTextField8ActionPerformed(evt);
             }
         });
 
         jTextField10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField10ActionPerformed(evt);
-            }
-        });
-
-        jTextField11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField11ActionPerformed(evt);
             }
         });
 
@@ -409,12 +464,6 @@ public class ServiceNRoom extends javax.swing.JFrame {
 
         jLabel19.setText("___________________________________________________________________________________________________________________________________________________");
 
-        jTextField14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField14ActionPerformed(evt);
-            }
-        });
-
         jLabel20.setText("___________________________________________________________________________________________________________________________________________________");
 
         jLabel21.setText("Tên Khách Hàng :");
@@ -423,21 +472,13 @@ public class ServiceNRoom extends javax.swing.JFrame {
 
         jLabel23.setText("Ngày Trả Phòng :");
 
-        jLabel24.setText("Loại Phòng :");
-
         jLabel25.setText("___________________________________________________________________________________________________________________________________________________");
 
         jLabel26.setText("___________________________________________________________________________________________________________________________________________________");
 
-        jLabel27.setText("___________________________________________________________________________________________________________________________________________________");
-
         jLabel28.setText("Phòng :");
 
-        jLabel29.setText("Thời Gian Đến :");
-
-        jLabel30.setText("Thời Gian Trả :");
-
-        jLabel31.setText("Số Đêm Lưu Trú :");
+        jLabel31.setText("Số Ngày Lưu Trú");
 
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -496,42 +537,69 @@ public class ServiceNRoom extends javax.swing.JFrame {
         jLabel37.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel37.setText("ID Hóa Đơn :");
 
-        jLabel39.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel39.setText("Ngày Đặt Phòng :");
-
         jLabel40.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel40.setText("Mã Phòng :");
+
+        jLabel42.setText("Tổng Tiền");
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
         jDialog1Layout.setHorizontalGroup(
             jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDialog1Layout.createSequentialGroup()
+                .addGap(72, 72, 72)
                 .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDialog1Layout.createSequentialGroup()
-                        .addGap(408, 408, 408)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 818, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jDialog1Layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel36)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE))))
-                .addGap(86, 86, 86))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialog1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialog1Layout.createSequentialGroup()
+                        .addComponent(jLabel36)
+                        .addGap(118, 118, 118)
                         .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(137, 137, 137)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel33)
-                        .addGap(86, 86, 86))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialog1Layout.createSequentialGroup()
+                        .addGap(79, 79, 79))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialog1Layout.createSequentialGroup()
+                .addGap(100, 674, Short.MAX_VALUE)
+                .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(118, 118, 118))
+            .addGroup(jDialog1Layout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel37)
+                    .addComponent(jLabel22))
+                .addGap(38, 38, 38)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDialog1Layout.createSequentialGroup()
                         .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(289, 289, 289))))
+                            .addGroup(jDialog1Layout.createSequentialGroup()
+                                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jDialog1Layout.createSequentialGroup()
+                                        .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(136, 136, 136)
+                                        .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel40)
+                                            .addComponent(jLabel31))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jDialog1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(289, 289, 289))
+                    .addGroup(jDialog1Layout.createSequentialGroup()
+                        .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jDialog1Layout.createSequentialGroup()
+                                .addGap(177, 177, 177)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jDialog1Layout.createSequentialGroup()
                     .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -548,45 +616,12 @@ public class ServiceNRoom extends javax.swing.JFrame {
                                 .addComponent(jLabel19)
                                 .addGroup(jDialog1Layout.createSequentialGroup()
                                     .addComponent(jLabel21)
-                                    .addGap(52, 52, 52)
-                                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(130, 130, 130)
+                                    .addGap(284, 284, 284)
                                     .addComponent(jLabel28))
                                 .addComponent(jLabel20)
-                                .addGroup(jDialog1Layout.createSequentialGroup()
-                                    .addComponent(jLabel23)
-                                    .addGap(54, 54, 54)
-                                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(127, 127, 127)
-                                    .addComponent(jLabel29))
+                                .addComponent(jLabel23)
                                 .addComponent(jLabel25)
-                                .addGroup(jDialog1Layout.createSequentialGroup()
-                                    .addComponent(jLabel22)
-                                    .addGap(50, 50, 50)
-                                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(130, 130, 130)
-                                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabel26)
-                                .addComponent(jLabel27)
-                                .addGroup(jDialog1Layout.createSequentialGroup()
-                                    .addComponent(jLabel24)
-                                    .addGap(80, 80, 80)
-                                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(128, 128, 128)
-                                    .addComponent(jLabel31))
-                                .addGroup(jDialog1Layout.createSequentialGroup()
-                                    .addGap(21, 21, 21)
-                                    .addComponent(jLabel37)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(28, 28, 28)
-                                    .addComponent(jLabel39)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLabel40)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jLabel26))))
                     .addContainerGap(208, Short.MAX_VALUE)))
         );
         jDialog1Layout.setVerticalGroup(
@@ -594,68 +629,58 @@ public class ServiceNRoom extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialog1Layout.createSequentialGroup()
                 .addGap(68, 68, 68)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(102, 102, 102)
-                .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(48, 48, 48)
                 .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel37)
+                    .addComponent(jLabel40)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel31)
+                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(173, 173, 173)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel42)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel36)
                     .addComponent(jLabel32)
                     .addComponent(jLabel33))
-                .addGap(1, 1, 1)
-                .addComponent(jLabel36)
-                .addGap(85, 85, 85))
+                .addGap(36, 36, 36))
             .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jDialog1Layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jLabel35)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(jLabel34)
-                    .addGap(96, 96, 96)
-                    .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel37)
-                        .addComponent(jLabel39)
-                        .addComponent(jLabel40)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGap(124, 124, 124)
                     .addComponent(jLabel19)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel21)
-                        .addComponent(jLabel28)
-                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel28))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jLabel20)
                     .addGap(18, 18, 18)
-                    .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel23)
-                        .addComponent(jLabel29)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel23)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel22)
-                        .addComponent(jLabel30)
-                        .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(9, 9, 9)
+                    .addGap(46, 46, 46)
                     .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(17, 17, 17)
-                    .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel24)
-                        .addComponent(jLabel31)
-                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(495, Short.MAX_VALUE)))
+                    .addContainerGap(568, Short.MAX_VALUE)))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1447,17 +1472,9 @@ public class ServiceNRoom extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
 
-    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField9ActionPerformed
-
     private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField10ActionPerformed
-
-    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField11ActionPerformed
 
     private void jTextField12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField12ActionPerformed
         // TODO add your handling code here:
@@ -1467,58 +1484,71 @@ public class ServiceNRoom extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField13ActionPerformed
 
-    private void jTextField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField14ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField14ActionPerformed
-
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void InhoadonjButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InhoadonjButton4ActionPerformed
 // TODO add your handling code here:
-        // Lấy mã hóa đơn từ textfield
-        String maHDText = jTextPane1.getText().trim();
-        if (maHDText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Không tìm thấy mã hóa đơn!");
+        // Kiểm tra trạng thái
+        if (!isCheckedIn || bookingId == -1) {
+            JOptionPane.showMessageDialog(this, "Phòng chưa được check-in hoặc không có hóa đơn!", "Thông báo", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-// Tách phần số trong mã HĐ, ví dụ: "HD0001" -> "0001"
-        String soHD = maHDText.replaceAll("[^0-9]", ""); // loại bỏ tất cả ký tự không phải số
-
-        int maHD;
         try {
-            maHD = Integer.parseInt(soHD);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Mã hóa đơn không hợp lệ!");
-            return;
-        }
+            // Lấy dữ liệu từ database
+            BookingDAO bookingDAO = new BookingDAO(JDBCConnection.getConnection());
+            RoomDAO roomDAO = new RoomDAO(JDBCConnection.getConnection());
 
-        BookingDAO bookingDAO = new BookingDAO(JDBCConnection.getConnection());
-        RoomDAO roomDAO = new RoomDAO(JDBCConnection.getConnection());
-
-        try {
-            Booking booking = bookingDAO.getBookingById(maHD);
+            Booking booking = bookingDAO.getBookingById(bookingId);
             if (booking == null) {
-                JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin đặt phòng!");
+                JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn!", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            Room room = roomDAO.getRoomByIdWithTypeInfo(booking.getRoomId());
-            tkhd dialog = new tkhd(booking, room);
-            dialog.setVisible(true);
-            dialog.setLocationRelativeTo(this);
+            Room room = roomDAO.getRoomById(booking.getRoomId());
+            if (room == null) {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin phòng!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Customer customer = booking.getCustomer();
+            if (customer == null) {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin khách hàng!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Fill dữ liệu vào jDialog1
+            controller.fillInvoiceInfo(booking, room, customer);
+
+            // Hiển thị jDialog1 tạm thời để lấy kích thước đúng
+            if (!getJDialog1().isDisplayable()) {
+                getJDialog1().pack();
+                getJDialog1().setVisible(true);
+                getJDialog1().setVisible(false);
+            }
+
+            // Xuất PDF
+            String fileName = "invoice_HD" + booking.getId() + ".pdf";
+            controller.exportComponentToPDF(getJDialog1().getContentPane(), fileName);
+            JOptionPane.showMessageDialog(this, "Xuất hóa đơn PDF thành công!");
+
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi khi hiển thị hóa đơn: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Lỗi khi in hóa đơn: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
+
     }//GEN-LAST:event_InhoadonjButton4ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
 
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1595,14 +1625,10 @@ public class ServiceNRoom extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
@@ -1611,10 +1637,10 @@ public class ServiceNRoom extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel6;
@@ -1650,17 +1676,14 @@ public class ServiceNRoom extends javax.swing.JFrame {
     private javax.swing.JTable jTable4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JTextPane jTextPane11;
     private javax.swing.JTextPane jTextPane5;
