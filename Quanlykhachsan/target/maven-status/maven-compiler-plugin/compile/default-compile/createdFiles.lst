@@ -1,7 +1,6 @@
 com\mycompany\quanlykhachsan\model\ServiceUsage.class
 view\EmployManager$10.class
 view\ServiceNRoom$4.class
-view\HoaDonDialog.class
 view\Home$8.class
 view\ServiceNRoom$19.class
 view\tkhd$1.class
@@ -93,7 +92,6 @@ view\ServiceDetail$1.class
 QuanLyKhachSan\dao\EquipmentDAO.class
 view\RoomManager$6.class
 view\EmployManager$9.class
-view\ServiceNRoom$25.class
 view\RoomManager.class
 QuanLyKhachSan\dao\RoomDAO.class
 view\ServiceNRoom$2.class
@@ -105,7 +103,6 @@ view\CustomerManager$10.class
 view\HoaDonDatPhong$6.class
 view\ServiceNRoom$17.class
 controler\InvoiceController.class
-view\ServiceNRoom$24.class
 view\CustomerManager$3.class
 view\tkhd$3.class
 view\EmployManager$3.class
