@@ -1510,64 +1510,42 @@ public class ServiceNRoom extends javax.swing.JFrame {
     private void InhoadonjButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InhoadonjButton4ActionPerformed
 // TODO add your handling code here:
         // Kiểm tra trạng thái
-        if (!isCheckedIn || bookingId == -1) {
-            JOptionPane.showMessageDialog(this, "Phòng chưa được check-in hoặc không có hóa đơn!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+    // Kiểm tra trạng thái
+    if (!isCheckedIn || bookingId == -1) {
+        JOptionPane.showMessageDialog(this, "Phòng chưa được check-in hoặc không có hóa đơn!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    try {
+        BookingDAO bookingDAO = new BookingDAO(JDBCConnection.getConnection());
+        RoomDAO roomDAO = new RoomDAO(JDBCConnection.getConnection());
+
+        Booking booking = bookingDAO.getBookingById(bookingId);
+        if (booking == null) {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn!", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        try {
-            // Lấy dữ liệu từ database
-            BookingDAO bookingDAO = new BookingDAO(JDBCConnection.getConnection());
-            RoomDAO roomDAO = new RoomDAO(JDBCConnection.getConnection());
-
-            Booking booking = bookingDAO.getBookingById(bookingId);
-            if (booking == null) {
-                JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            Room room = roomDAO.getRoomById(booking.getRoomId());
-            if (room == null) {
-                JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin phòng!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            Customer customer = booking.getCustomer();
-            if (customer == null) {
-                JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin khách hàng!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            // Fill dữ liệu vào jDialog1
-            // Lấy danh sách dịch vụ đã sử dụng
-            // Tạo PDF trực tiếp
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setSelectedFile(new File("HD_" + String.format("%04d", booking.getId()) + ".pdf"));
-            int userSelection = fileChooser.showSaveDialog(null);
-
-            if (userSelection == JFileChooser.APPROVE_OPTION) {
-                String filePath = fileChooser.getSelectedFile().getAbsolutePath();
-                if (!filePath.toLowerCase().endsWith(".pdf")) {
-                    filePath += ".pdf";
-                }
-                controller.createInvoicePDF(filePath, booking, room, customer);
-            }
-            // Hiển thị jDialog1 tạm thời để lấy kích thước đúng
-            if (!getJDialog1().isDisplayable()) {
-                getJDialog1().pack();
-                getJDialog1().setVisible(true);
-                getJDialog1().setVisible(false);
-            }
-
-//            // Xuất PDF
-//            String fileName = "invoice_HD" + booking.getId() + ".pdf";
-//            controller.exportComponentToPDF(getJDialog1().getContentPane(), fileName);
-//            JOptionPane.showMessageDialog(this, "Xuất hóa đơn PDF thành công!");
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi khi in hóa đơn: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
+        Room room = roomDAO.getRoomById(booking.getRoomId());
+        if (room == null) {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin phòng!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+
+        Customer customer = booking.getCustomer();
+        if (customer == null) {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin khách hàng!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Gọi phương thức createInvoicePDF với các tham số
+        controller.createInvoicePDF(booking, room, customer);
+        JOptionPane.showMessageDialog(this, "Hóa đơn đã được lưu tại: " + System.getProperty("user.dir") + File.separator + "invoices", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Lỗi khi in hóa đơn: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
 
     }//GEN-LAST:event_InhoadonjButton4ActionPerformed
 

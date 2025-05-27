@@ -466,8 +466,22 @@ public class ServiceNRoomController {
         }
     }
 
- public void createInvoicePDF(String filePath, Booking booking, Room room, Customer customer) {
+public void createInvoicePDF(Booking booking, Room room, Customer customer) {
     try {
+        // Đường dẫn thư mục invoices trong dự án
+        String projectDir = System.getProperty("user.dir");
+        String invoicesDir = projectDir + File.separator + "invoices";
+        
+        // Tạo thư mục invoices nếu chưa tồn tại
+        File dir = new File(invoicesDir);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        // Tạo tên file dựa trên mã hóa đơn
+        String fileName = "HD_" + String.format("%04d", booking.getId()) + ".pdf";
+        String filePath = invoicesDir + File.separator + fileName;
+
         URL fontUrl = getClass().getResource(FONT_PATH);
         if (fontUrl == null) {
             System.err.println("Không tìm thấy file font tại đường dẫn: " + FONT_PATH);
@@ -479,7 +493,7 @@ public class ServiceNRoomController {
 
         // 1. Khởi tạo font
         BaseFont baseFont = BaseFont.createFont(
-            fontPath, // Sử dụng fontPath đã xử lý
+            fontPath,
             BaseFont.IDENTITY_H,
             BaseFont.EMBEDDED
         );
@@ -523,11 +537,11 @@ public class ServiceNRoomController {
         serviceTable.setWidths(new float[]{10, 40, 15, 15, 20});
 
         // Tiêu đề bảng
-        serviceTable.addCell(new Phrase("STT", vietnameseBoldFont)); // Sử dụng vietnameseBoldFont
-        serviceTable.addCell(new Phrase("Tên dịch vụ", vietnameseBoldFont)); // Sử dụng vietnameseBoldFont
-        serviceTable.addCell(new Phrase("Số lượng", vietnameseBoldFont)); // Sử dụng vietnameseBoldFont
-        serviceTable.addCell(new Phrase("Đơn giá", vietnameseBoldFont)); // Sử dụng vietnameseBoldFont
-        serviceTable.addCell(new Phrase("Thành tiền", vietnameseBoldFont)); // Sử dụng vietnameseBoldFont
+        serviceTable.addCell(new Phrase("STT", vietnameseBoldFont));
+        serviceTable.addCell(new Phrase("Tên dịch vụ", vietnameseBoldFont));
+        serviceTable.addCell(new Phrase("Số lượng", vietnameseBoldFont));
+        serviceTable.addCell(new Phrase("Đơn giá", vietnameseBoldFont));
+        serviceTable.addCell(new Phrase("Thành tiền", vietnameseBoldFont));
 
         // Dữ liệu dịch vụ
         int stt = 1;
@@ -549,6 +563,7 @@ public class ServiceNRoomController {
 
         document.add(serviceTable);
         document.add(new Paragraph("\n"));
+
         // Tính thời gian check-out
         Timestamp checkOutDate = new Timestamp(System.currentTimeMillis());
 
@@ -562,8 +577,9 @@ public class ServiceNRoomController {
         double roomPrice = hours * hourlyRate + (minutes > 0 ? hourlyRate : 0);
 
         total = total + roomPrice;
+
         // 4. Tổng tiền
-        Paragraph totalParagraph = new Paragraph("TỔNG TIỀN: " + String.format("%,.0f", total), vietnameseBoldFont); // Sử dụng vietnameseBoldFont
+        Paragraph totalParagraph = new Paragraph("TỔNG TIỀN: " + String.format("%,.0f", total), vietnameseBoldFont);
         totalParagraph.setAlignment(Element.ALIGN_RIGHT);
         document.add(totalParagraph);
 
