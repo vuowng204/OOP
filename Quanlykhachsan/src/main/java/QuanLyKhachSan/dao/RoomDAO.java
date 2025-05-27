@@ -90,9 +90,29 @@ public class RoomDAO {
 // Tìm kiếm phòng theo tên
     public List<Room> searchRoomByName(String keyword) throws SQLException {
         List<Room> result = new ArrayList<>();
-        String sql = "SELECT * FROM rooms WHERE ten_phong LIKE ?";
+        String sql = "SELECT * FROM rooms WHERE ten_phong LIKE ? ";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setString(1, "%" + keyword + "%");
+      
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Room room = new Room();
+            room.setId(rs.getInt("id"));
+            room.setTenPhong(rs.getString("ten_phong"));
+            room.setGiaPhong(rs.getDouble("gia_phong"));
+            room.setTang(rs.getString("tang"));
+            room.setTrangThai(rs.getString("trang_thai"));
+            room.setLoaiphong(new RoomType(rs.getString("loai_phong"), ""));
+            result.add(room);
+        }
+        return result;
+    }
+        public List<Room> searchRoomByID(String keyword) throws SQLException {
+        List<Room> result = new ArrayList<>();
+        String sql = "SELECT * FROM rooms WHERE id LIKE ? ";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setString(1, "%" + keyword + "%");
+      
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             Room room = new Room();
@@ -135,4 +155,20 @@ public class RoomDAO {
 
         return null;
     }
+    public List<Room> getAvailableRooms() throws SQLException {
+    List<Room> rooms = new ArrayList<>();
+    String sql = "SELECT * FROM rooms WHERE trang_thai = 'Trống'";
+    try (PreparedStatement stmt = connection.prepareStatement(sql);
+         ResultSet rs = stmt.executeQuery()) {
+        while (rs.next()) {
+            Room room = new Room();
+            room.setId(rs.getInt("id"));
+            room.setTenPhong(rs.getString("ten_phong"));
+            room.setGiaPhong(rs.getDouble("gia_phong"));
+            room.setTrangThai(rs.getString("trang_thai"));
+            rooms.add(room);
+        }
+    }
+    return rooms;
+}
 }

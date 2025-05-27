@@ -38,7 +38,7 @@ public class ServiceDAO {
     // Lấy tất cả dịch vụ
     public List<Service> getAllServices() throws SQLException {
         List<Service> services = new ArrayList<>();
-        String query = "SELECT * FROM services";
+        String query = "SELECT * FROM services WHERE is_deleted = FALSE;";
         PreparedStatement stmt = connection.prepareStatement(query);
         ResultSet rs = stmt.executeQuery();
 
@@ -119,7 +119,7 @@ public class ServiceDAO {
 
     // Xóa dịch vụ
     public void deleteService(String serviceId) throws SQLException {
-        String sql = "DELETE FROM services WHERE service_id = ?";
+        String sql = "UPDATE services SET is_deleted = TRUE WHERE service_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, serviceId);
             stmt.executeUpdate();

@@ -1,0 +1,23 @@
+ALTER TABLE bookings
+ADD COLUMN Ma_HD VARCHAR(255);
+
+ALTER TABLE services ADD COLUMN is_deleted BOOLEAN DEFAULT FALSE;
+
+
+
+DELIMITER //
+
+CREATE TRIGGER update_bookings_after_customer_update
+AFTER UPDATE ON customers
+FOR EACH ROW
+BEGIN
+    UPDATE bookings
+    SET customer_name = NEW.ten_khach_hang,
+        customer_cccd = NEW.cccd,
+        customer_phone = NEW.so_dien_thoai,
+        customer_gender = NEW.gioi_tinh
+    WHERE customer.cccd = NEW.cccd;
+ END //
+
+DELIMITER ;
+

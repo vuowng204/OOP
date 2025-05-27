@@ -1,0 +1,95 @@
+USE quanlynhahang;
+
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(101, 'Nguyen Van A', '123456789011', '0912345678', 'Nam', 'ST001', '2023-01-05 14:00:00', '2023-01-07 12:00:00', 'Đã thanh toán', 2, 1000000.00, 500000.00, 1500000.00, 'HD202301001'),
+(102, 'Tran Thi B', '123456789012', '0987654321', 'Nu', 'ST001', '2023-01-10 15:00:00', '2023-01-12 11:00:00', 'Đã thanh toán', 1, 600000.00, 200000.00, 800000.00, 'HD202301002');
+
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(103, 'Le Van C', '123456789013', '0901234567', 'Nam', 'ST001', '2023-02-01 13:00:00', '2023-02-03 10:00:00', 'Đã thanh toán', 3, 1500000.00, 500000.00, 2000000.00, 'HD202302001'),
+(101, 'Pham Thi D', '123456789014', '0976543210', 'Nu', 'ST001', '2023-02-15 16:00:00', '2023-02-17 14:00:00', 'Đã thanh toán', 2, 1200000.00, 400000.00, 1600000.00, 'HD202302002');
+
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(104, 'Hoang Minh E', '123456789015', '0965432109', 'Nam', 'ST001', '2023-03-08 10:00:00', '2023-03-10 09:00:00', 'Đã thanh toán', 1, 700000.00, 250000.00, 950000.00, 'HD202303001');
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(102, 'Bui Thi F', '123456789016', '0943210987', 'Nu', 'ST001', '2023-04-20 11:00:00', '2023-04-22 13:00:00', 'Đã thanh toán', 2, 1300000.00, 500000.00, 1800000.00, 'HD202304001');
+
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(101, 'Nguyen Van G', '123456789017', '0932109876', 'Nam', 'ST001', '2023-05-01 14:00:00', '2023-05-03 12:00:00', 'Đã thanh toán', 3, 2000000.00, 500000.00, 2500000.00, 'HD202305001');
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(105, 'Tran Minh H', '123456789018', '0921098765', 'Nam', 'ST001', '2023-06-12 15:00:00', '2023-06-14 11:00:00', 'Đã thanh toán', 2, 1300000.00, 400000.00, 1700000.00, 'HD202306001');
+
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(103, 'Phan Thi I', '123456789019', '0910987654', 'Nu', 'ST001', '2023-07-25 10:00:00', '2023-07-27 12:00:00', 'Đã thanh toán', 1, 750000.00, 250000.00, 1000000.00, 'HD202307001');
+
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(104, 'Vo Van K', '123456789020', '0909876543', 'Nam', 'ST001', '2023-08-05 13:00:00', '2023-08-07 10:00:00', 'Đã thanh toán', 4, 2500000.00, 500000.00, 3000000.00, 'HD202308001');
+
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(101, 'Tran Kim L', '123456789021', '0987654321', 'Nu', 'ST001', '2023-09-18 16:00:00', '2023-09-20 14:00:00', 'Đã thanh toán', 2, 1500000.00, 400000.00, 1900000.00, 'HD202309001');
+
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(102, 'Nguyen Quang M', '123456789022', '0976543210', 'Nam', 'ST001', '2023-10-02 11:00:00', '2023-10-04 09:00:00', 'Đã thanh toán', 1, 650000.00, 200000.00, 850000.00, 'HD202310001');
+
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(103, 'Dinh Thi N', '123456789023', '0965432109', 'Nu', 'ST001', '2023-11-10 14:00:00', '2023-11-12 12:00:00', 'Đã thanh toán', 2, 1200000.00, 350000.00, 1550000.00, 'HD202311001');
+
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(105, 'Truong Duc P', '123456789024', '0943210987', 'Nam', 'ST001', '2023-12-25 15:00:00', '2023-12-28 11:00:00', 'Đã thanh toán', 5, 3000000.00, 1000000.00, 4000000.00, 'HD202312001');
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(101, 'Vu Thi Q', '223456789011', '0911223344', 'Nu', 'ST001', '2024-01-08 14:00:00', '2024-01-10 12:00:00', 'Đã thanh toán', 2, 1300000.00, 400000.00, 1700000.00, 'HD202401001'),
+(102, 'Nguyen Hoang R', '223456789012', '0988776655', 'Nam', 'ST001', '2024-01-20 15:00:00', '2024-01-22 11:00:00', 'Đã thanh toán', 1, 700000.00, 200000.00, 900000.00, 'HD202401002');
+
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(103, 'Duong Thi S', '223456789013', '0900112233', 'Nu', 'ST001', '2024-02-05 13:00:00', '2024-02-07 10:00:00', 'Đã thanh toán', 3, 1700000.00, 500000.00, 2200000.00, 'HD202402001');
+
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(104, 'Mai Van T', '223456789014', '0977889900', 'Nam', 'ST001', '2024-03-15 10:00:00', '2024-03-17 09:00:00', 'Đã thanh toán', 1, 800000.00, 250000.00, 1050000.00, 'HD202403001');
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(101, 'Do Thi U', '223456789015', '0966554433', 'Nu', 'ST001', '2024-04-01 11:00:00', '2024-04-03 13:00:00', 'Đã thanh toán', 2, 1600000.00, 400000.00, 2000000.00, 'HD202404001');
+
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(105, 'Cao Van V', '223456789016', '0944332211', 'Nam', 'ST001', '2024-05-10 14:00:00', '2024-05-12 12:00:00', 'Đã thanh toán', 3, 2200000.00, 600000.00, 2800000.00, 'HD202405001');
+
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(102, 'Ngo Thi X', '223456789017', '0933221100', 'Nu', 'ST001', '2024-06-22 15:00:00', '2024-06-24 11:00:00', 'Đã thanh toán', 2, 1550000.00, 400000.00, 1950000.00, 'HD202406001');
+
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(103, 'Tran Duy Y', '223456789018', '0922110099', 'Nam', 'ST001', '2024-07-03 10:00:00', '2024-07-05 12:00:00', 'Đã thanh toán', 1, 850000.00, 250000.00, 1100000.00, 'HD202407001');
+
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(104, 'Le Thi Z', '223456789019', '0911009988', 'Nu', 'ST001', '2024-08-18 13:00:00', '2024-08-20 10:00:00', 'Đã thanh toán', 4, 2800000.00, 700000.00, 3500000.00, 'HD202408001');
+
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(101, 'Nguyen Ba AA', '223456789020', '0900998877', 'Nam', 'ST001', '2024-09-01 16:00:00', '2024-09-03 14:00:00', 'Đã thanh toán', 2, 1700000.00, 400000.00, 2100000.00, 'HD202409001');
+
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(105, 'Pham Van BB', '223456789021', '0988776655', 'Nam', 'ST001', '2024-10-14 11:00:00', '2024-10-16 09:00:00', 'Đã thanh toán', 1, 750000.00, 230000.00, 980000.00, 'HD202410001');
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(102, 'Doan Thi CC', '223456789022', '0977665544', 'Nu', 'ST001', '2024-11-25 14:00:00', '2024-11-27 12:00:00', 'Đã thanh toán', 2, 1450000.00, 400000.00, 1850000.00, 'HD202411001');
+
+INSERT INTO bookings (room_id, customer_name, customer_cccd, customer_phone, customer_gender, user_id, check_in_date, check_out_date, status, number_of_people, room_price, service_price, total_price, Ma_HD) VALUES
+(103, 'Nguyen Viet DD', '223456789023', '0966554433', 'Nam', 'ST001', '2024-12-05 15:00:00', '2024-12-08 11:00:00', 'Đã thanh toán', 5, 3500000.00, 1000000.00, 4500000.00, 'HD202412001');
+

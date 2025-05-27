@@ -24,5 +24,6 @@ public class Quanlykhachsan {
        new LoginController(view);
        view.setLocationRelativeTo(null);
        view.setVisible(true);
+       
     }
 }

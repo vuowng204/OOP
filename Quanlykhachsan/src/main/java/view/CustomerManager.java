@@ -139,6 +139,11 @@ public class CustomerManager extends javax.swing.JFrame {
         });
 
         tên.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Theo tên", "Theo Ngày Check-in", "Theo Ngày Check-out", "Theo CCCD" }));
+        tên.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tênActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -473,6 +478,10 @@ public class CustomerManager extends javax.swing.JFrame {
         getContentPane().revalidate();
         getContentPane().repaint();
     }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void tênActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tênActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tênActionPerformed
 
     /**
      * @param args the command line arguments

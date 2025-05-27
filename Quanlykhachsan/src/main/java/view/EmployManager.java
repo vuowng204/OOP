@@ -145,6 +145,12 @@ public class EmployManager extends javax.swing.JFrame {
 
         jRadioButton2.setText("Nữ");
 
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+
         jButton2.setText("Thêm");
         jButton2.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentHidden(java.awt.event.ComponentEvent evt) {
@@ -710,6 +716,10 @@ public class EmployManager extends javax.swing.JFrame {
     private void jButton2ComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton2ComponentHidden
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ComponentHidden
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
 
     /**
      * @param args the command line arguments

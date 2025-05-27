@@ -84,5 +84,18 @@ public class RoomController {
             JOptionPane.showMessageDialog(null, "Lỗi khi tìm kiếm: " + e.getMessage());
         }
     }
+    public void searchRoomByID(String keyword, DefaultTableModel model) {
+        try {
+            List<Room> list = roomDAO.searchRoomByID(keyword);
+            model.setRowCount(0);
+            for (Room r : list) {
+                model.addRow(new Object[]{
+                    r.getId(), r.getTenPhong(), r.getLoaiphong().getTypeID(),r.getGiaPhong(), r.getTang(), r.getTrangThai()
+                });
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Lỗi khi tìm kiếm: " + e.getMessage());
+        }
+    }
 
 }

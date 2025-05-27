@@ -66,15 +66,15 @@
                                   <Component id="jLabel5" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jTextField9" min="-2" pref="210" max="-2" attributes="0"/>
-                                  <Component id="jTextField7" min="-2" pref="210" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jTextField9" pref="210" max="32767" attributes="0"/>
+                                  <Component id="jTextField7" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel4" min="-2" pref="114" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tên1" max="32767" attributes="0"/>
+                              <Component id="tên1" pref="210" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -141,7 +141,7 @@
                   <Component id="jLabel1" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                   <Component id="jTextField3" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                   <Component id="jLabel5" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                  <Component id="jTextField7" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                  <Component id="jTextField7" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
           </Group>
@@ -185,11 +185,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField4">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField7">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField7ActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JButton" name="jButton3">
       <Properties>
         <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
@@ -222,12 +217,12 @@
     <Component class="javax.swing.JComboBox" name="t&#xea;n">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
+          <StringArray count="2">
             <StringItem index="0" value="Theo t&#xea;n"/>
-            <StringItem index="1" value="Theo Ng&#xe0;y"/>
-            <StringItem index="2" value="Theo CCCD"/>
+            <StringItem index="1" value="Theo ID"/>
           </StringArray>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="t&#xea;nActionPerformed"/>
@@ -346,6 +341,23 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="jTextField7">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value="&#x110;&#xf4;i"/>
+            <StringItem index="1" value="&#x110;&#x1a1;n"/>
+            <StringItem index="2" value="VIP"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField7ActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

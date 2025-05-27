@@ -37,6 +37,8 @@ import com.itextpdf.text.pdf.*;
 import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import javax.swing.JDialog;
 import javax.swing.table.TableModel;
 
@@ -54,6 +56,8 @@ public class ServiceNRoomController {
     private Timestamp checkOutDate;
     private RoomDAO roomDAO;
     private ServiceNRoom serviceNRoom;
+    private static final String FONT_PATH = "/Unicode/arial unicode ms bold.otf"; // Đường dẫn đến font Unicode
+    private BaseFont vietnameseFont;
 
     public ServiceNRoomController(ServiceNRoom view, int bookingId, boolean isCheckedIn) {
         this.view = view;
@@ -82,6 +86,7 @@ public class ServiceNRoomController {
                     service.getServiceName(),
                     String.format("%,.0f VND", service.getServicePrice()),
                     service.getQuantityInStock()
+
                 });
             }
         } catch (SQLException e) {
@@ -346,13 +351,15 @@ public class ServiceNRoomController {
                 view.getJTextField10().setText(sdf.format(booking.getCheckInDate()));
             }
 
-         
-
             // 8. Ngày lưu trú
             view.getJTextField12().setText(view.getJTextPane11().getText());
 
             // 9. Trạng thái hóa đơn
-            view.getJTextField13().setText(booking.getStatus());
+            view.getJTextField13().setText(view.getTenphongjLabel1().getText());
+            //10. TOng tien
+            view.getHoadonTongTien().setText(view.getTongtienjTextPane4().getText());
+
+            loadServiceInvoiceTable();
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Lỗi khi điền thông tin hóa đơn: " + e.getMessage());
@@ -361,27 +368,22 @@ public class ServiceNRoomController {
     }
 
     // Hiển thị danh sách dịch vụ đã sử dụng lên bảng jTable4 trong jDialog1
-    public void loadServiceInvoiceTable(List<ServiceUsage> usages) {
+    public void loadServiceInvoiceTable() throws SQLException {
+        List<ServiceUsage> serviceUsages = serviceUsageDAO.getServiceUsagesByBookingId(bookingId);
         DefaultTableModel model = (DefaultTableModel) view.getJTable4().getModel();
         model.setRowCount(0); // Xóa dữ liệu cũ
 
         int stt = 1;
-        double tongDichVu = 0;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        for (ServiceUsage usage : usages) {
-            String ngay = sdf.format(new java.util.Date());
-            String phong = view.getTenPhong();
+        for (ServiceUsage usage : serviceUsages) {
+
             String tenDV = usage.getService().getServiceName();
             int soLuong = usage.getQuantity();
             double donGia = usage.getService().getServicePrice();
             double thanhTien = donGia * soLuong;
-            tongDichVu += thanhTien;
 
             model.addRow(new Object[]{
                 stt++,
-                ngay,
-                phong,
                 tenDV,
                 soLuong,
                 String.format("%,.0f", donGia),
@@ -389,28 +391,26 @@ public class ServiceNRoomController {
             });
         }
 
-        // Lấy giá phòng (chuỗi dạng "450.000 VND") → cần xử lý lại thành số
-        String giaPhongStr = view.getGiaphongjLabel2().getText(); // Ví dụ: "|  Giá Phòng 450.000d"
-        double giaPhong = 0;
-        try {
-            giaPhongStr = giaPhongStr.replaceAll("[^0-9]", ""); // Xóa ký tự không phải số
-            giaPhong = Double.parseDouble(giaPhongStr);
-        } catch (NumberFormatException e) {
-            // Nếu không lấy được giá thì báo lỗi, vẫn tiếp tục
-            System.err.println("Lỗi chuyển đổi giá phòng: " + e.getMessage());
-        }
-
-        double tongTien = tongDichVu + giaPhong;
-
+//        // Lấy giá phòng (chuỗi dạng "450.000 VND") → cần xử lý lại thành số
+//        String giaPhongStr = view.getGiaphongjLabel2().getText(); // Ví dụ: "|  Giá Phòng 450.000d"
+//        double giaPhong = 0;
+//        try {
+//            giaPhongStr = giaPhongStr.replaceAll("[^0-9]", ""); // Xóa ký tự không phải số
+//            giaPhong = Double.parseDouble(giaPhongStr);
+//        } catch (NumberFormatException e) {
+//            // Nếu không lấy được giá thì báo lỗi, vẫn tiếp tục
+//            System.err.println("Lỗi chuyển đổi giá phòng: " + e.getMessage());
+//        }
+//
+//        double tongTien = tongDichVu + giaPhong;
         // Thêm dòng Tổng cộng vào bảng
-        model.addRow(new Object[]{
-            "", "", "", "Tổng cộng", "", "", String.format("%,.0f", tongTien)
-        });
-
+//        model.addRow(new Object[]{
+//            "", "", "", "Tổng cộng", "", "", String.format("%,.0f", tongTien)
+//        });
         // Ghi tổng tiền vào TextField trong hóa đơn nếu có
         if (view.getJDialog1() != null) {
             try {
-                view.getTongTienTextField().setText(String.format("%,.0f", tongTien));
+                view.getHoadonTongTien().setText(String.format("%,.0f", view.getTongtienjTextPane4().getText()));
             } catch (Exception e) {
                 System.err.println("Không thể setText cho tổng tiền: " + e.getMessage());
             }
@@ -466,26 +466,123 @@ public class ServiceNRoomController {
         }
     }
 
-    public void setTotalAmountToDialog() {
-        try {
-            double tongTien = 0;
-            JTable table = view.getJTable4();
-            TableModel model = table.getModel();
-            for (int row = 0; row < model.getRowCount(); row++) {
-                String giaStr = model.getValueAt(row, 6).toString().replace(",", "");
-                tongTien += Double.parseDouble(giaStr);
-            }
-
-            // Cộng thêm tiền phòng
-            String giaPhongText = view.getJTextPane2().getText().replace(",", "").replace("VND", "").trim();
-            if (!giaPhongText.isEmpty()) {
-                tongTien += Double.parseDouble(giaPhongText);
-            }
-
-            view.getTongtienjTextPane4().setText(String.format("%,.0f", tongTien));
-
-        } catch (Exception e) {
-            System.err.println("Không thể tính tổng tiền: " + e.getMessage());
+ public void createInvoicePDF(String filePath, Booking booking, Room room, Customer customer) {
+    try {
+        URL fontUrl = getClass().getResource(FONT_PATH);
+        if (fontUrl == null) {
+            System.err.println("Không tìm thấy file font tại đường dẫn: " + FONT_PATH);
+            return; // Dừng lại nếu không tìm thấy font
         }
+        String fontPath = fontUrl.getPath();
+        // Xử lý trường hợp đường dẫn có chứa dấu cách bị mã hóa (%20)
+        fontPath = fontPath.replaceAll("%20", " ");
+
+        // 1. Khởi tạo font
+        BaseFont baseFont = BaseFont.createFont(
+            fontPath, // Sử dụng fontPath đã xử lý
+            BaseFont.IDENTITY_H,
+            BaseFont.EMBEDDED
+        );
+
+        Font vietnameseFont = new Font(baseFont, 12);
+        Font vietnameseBoldFont = new Font(baseFont, 12, Font.BOLD);
+        Font titleFont = new Font(baseFont, 18, Font.BOLD);
+
+        List<ServiceUsage> serviceUsages = serviceUsageDAO.getServiceUsagesByBookingId(booking.getId());
+
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream(filePath));
+        document.open();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+        // 1. Tiêu đề hóa đơn
+        Paragraph title = new Paragraph("HÓA ĐƠN THANH TOÁN", titleFont);
+        title.setAlignment(Element.ALIGN_CENTER);
+        document.add(title);
+
+        document.add(new Paragraph("\n"));
+
+        // 2. Thông tin cơ bản
+        PdfPTable infoTable = new PdfPTable(2);
+        infoTable.setWidthPercentage(100);
+        infoTable.setWidths(new float[]{30, 70});
+
+        addInfoRow(infoTable, "Mã HD", new Phrase(String.format("HD%04d", booking.getId()), vietnameseFont));
+        addInfoRow(infoTable, "Ngày check-in:", new Phrase(booking.getCheckInDate() != null ? sdf.format(booking.getCheckInDate()) : "", vietnameseFont));
+        addInfoRow(infoTable, "Ngày check-out:", new Phrase(booking.getCheckOutDate() != null ? sdf.format(booking.getCheckOutDate()) : "", vietnameseFont));
+        addInfoRow(infoTable, "Mã phòng:", new Phrase(String.valueOf(room.getId()), vietnameseFont));
+        addInfoRow(infoTable, "Tên khách hàng:", new Phrase(customer.getTenKhachHang(), vietnameseFont));
+
+        document.add(infoTable);
+        document.add(new Paragraph("\n"));
+
+        // 3. Bảng dịch vụ đã sử dụng
+        PdfPTable serviceTable = new PdfPTable(5);
+        serviceTable.setWidthPercentage(100);
+        serviceTable.setWidths(new float[]{10, 40, 15, 15, 20});
+
+        // Tiêu đề bảng
+        serviceTable.addCell(new Phrase("STT", vietnameseBoldFont)); // Sử dụng vietnameseBoldFont
+        serviceTable.addCell(new Phrase("Tên dịch vụ", vietnameseBoldFont)); // Sử dụng vietnameseBoldFont
+        serviceTable.addCell(new Phrase("Số lượng", vietnameseBoldFont)); // Sử dụng vietnameseBoldFont
+        serviceTable.addCell(new Phrase("Đơn giá", vietnameseBoldFont)); // Sử dụng vietnameseBoldFont
+        serviceTable.addCell(new Phrase("Thành tiền", vietnameseBoldFont)); // Sử dụng vietnameseBoldFont
+
+        // Dữ liệu dịch vụ
+        int stt = 1;
+        double total = 0;
+
+        for (ServiceUsage usage : serviceUsages) {
+            String tenDV = usage.getService().getServiceName();
+            int soLuong = usage.getQuantity();
+            double donGia = usage.getService().getServicePrice();
+            double thanhTien = donGia * soLuong;
+            total += thanhTien;
+
+            serviceTable.addCell(new Phrase(String.valueOf(stt++), vietnameseFont));
+            serviceTable.addCell(new Phrase(tenDV, vietnameseFont));
+            serviceTable.addCell(new Phrase(String.valueOf(soLuong), vietnameseFont));
+            serviceTable.addCell(new Phrase(String.format("%,.0f", donGia), vietnameseFont));
+            serviceTable.addCell(new Phrase(String.format("%,.0f", thanhTien), vietnameseFont));
+        }
+
+        document.add(serviceTable);
+        document.add(new Paragraph("\n"));
+        // Tính thời gian check-out
+        Timestamp checkOutDate = new Timestamp(System.currentTimeMillis());
+
+        // Tính tổng thời gian
+        long durationMillis = checkOutDate.getTime() - booking.getCheckInDate().getTime();
+        long hours = durationMillis / (1000 * 60 * 60);
+        long minutes = (durationMillis % (1000 * 60 * 60)) / (1000 * 60);
+
+        // Tính tiền phòng
+        double hourlyRate = room.getGiaPhong();
+        double roomPrice = hours * hourlyRate + (minutes > 0 ? hourlyRate : 0);
+
+        total = total + roomPrice;
+        // 4. Tổng tiền
+        Paragraph totalParagraph = new Paragraph("TỔNG TIỀN: " + String.format("%,.0f", total), vietnameseBoldFont); // Sử dụng vietnameseBoldFont
+        totalParagraph.setAlignment(Element.ALIGN_RIGHT);
+        document.add(totalParagraph);
+
+        document.close();
+
+        // Mở file PDF sau khi tạo
+        Desktop.getDesktop().open(new File(filePath));
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Lỗi khi tạo PDF: " + e.getMessage());
+        e.printStackTrace();
     }
+}
+
+private void addInfoRow(PdfPTable table, String label, Phrase content) {
+    table.addCell(new Phrase(label, new Font(Font.FontFamily.HELVETICA, 12))); // Giữ nguyên Helvetica cho nhãn
+    table.addCell(content); // Nội dung sử dụng font Unicode
+}
+  public List<Booking> getAllBookings(int id){
+      return bookingDAO.getBookingByRoomID2(id);
+}
+  
 }

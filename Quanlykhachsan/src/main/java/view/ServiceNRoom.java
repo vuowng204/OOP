@@ -35,7 +35,11 @@ import javax.swing.JTable;
 import javax.swing.table.TableModel;
 import javax.swing.JOptionPane;
 import java.awt.Component;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 
 /**
  *
@@ -58,28 +62,36 @@ public class ServiceNRoom extends javax.swing.JFrame {
     public ServiceNRoom() {
         initComponents();
 //        TenNhanvien.setBackground(Color.lightGray);
+        
 
     }
 
     public ServiceNRoom(Home home, int roomId, Room room, User currentUser) {
+        initComponents();
         this.home = home;
         this.roomId = roomId;
         this.currentUser = currentUser;
         this.isCheckedIn = false;
         this.bookingId = -1;
         this.isRoomCheckedOut = false; // Thêm dòng này
-        initComponents();
+      
+        
+        
 
         setTitle("Chi tiết phòng");
         TenphongjLabel1.setText(room.getTenPhong());
         GiaphongjLabel2.setText(String.format("%,.0f VND", room.getGiaPhong()));
         TenNhanvien.setText(currentUser != null && currentUser.getFullname() != null ? currentUser.getFullname() : "Không xác định");
-
+       
         // Khởi tạo Controller
         this.controller = new ServiceNRoomController(this, bookingId, isCheckedIn);
 
         // Tải danh sách dịch vụ mặc định
         controller.searchServices("");
+         
+
+        loadtb();
+        
 
         // Kiểm tra xem phòng đã check-in chưa
         try {
@@ -114,7 +126,7 @@ public class ServiceNRoom extends javax.swing.JFrame {
 
                 jTextPane1.setText(String.format("HD%04d", booking.getId()));
                 CheckinjButton5.setEnabled(!isCheckedIn);
-                jButton18.setEnabled(isCheckedIn);
+                checkout.setEnabled(isCheckedIn);
                 TinhTienjButton7.setEnabled(isCheckedIn); // Thêm dòng này
 
                 // Tải danh sách dịch vụ đã sử dụng
@@ -127,7 +139,23 @@ public class ServiceNRoom extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-
+    private  void loadtb(){
+        
+        DefaultTableModel defaultTableModel = new DefaultTableModel();
+        jTable1.setModel(defaultTableModel);
+        defaultTableModel.addColumn("Mã Hóa Đơn");
+        defaultTableModel.addColumn("Mã Phòng");
+        defaultTableModel.addColumn("Tên Khách hàng");
+        defaultTableModel.addColumn("Check in");
+        defaultTableModel.addColumn("Check out");
+        defaultTableModel.addColumn("Tổng Tiền");
+        defaultTableModel.addColumn("Trạng thái HD");
+      
+        List<Booking> bookings = controller.getAllBookings(roomId);
+        for (Booking bk : bookings) {
+            defaultTableModel.addRow(new Object[]{bk.getMaHD(), bk.getRoomId(),bk.getCustomer().getTenKhachHang(), bk.getCheckInDate(), bk.getCheckOutDate(), bk.getTongTien(),bk.getStatus()});
+        }
+    }
     private void resetForm() {
         Tenkh.setText("");
         CCCD.setText("");
@@ -153,7 +181,30 @@ public class ServiceNRoom extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
         model.setRowCount(0);
     }
-
+    private  void setDisForm(){
+        
+        Tenkh.setEnabled(false);
+        CCCD.setEnabled(false);
+        jTextField6.setEnabled(false);
+        jComboBox1.setEnabled(false); // Đặt lại về giá trị mặc định (Nam)
+        jTextPane5.setEnabled(false);
+        jTextPane8.setEnabled(false);// Check-in
+        jTextPane9.setEnabled(false);// Check-out
+        jTextPane11.setEnabled(false); // Tổng thời gian
+        jTextPane1.setEnabled(false); // Mã HĐ
+        TrangThaiHD.setEnabled(false);
+       
+    }
+    private void setOpeForm(){
+         Tenkh.setEnabled(true);
+        CCCD.setEnabled(true);
+        jTextField6.setEnabled(true);
+        jComboBox1.setEnabled(true); // Đặt lại về giá trị mặc định (Nam)
+        jTextPane5.setEnabled(true);
+       
+      
+    }
+            
     private void loadServicesToTable(List<Service> services) {
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         model.setRowCount(0); // Xóa dữ liệu cũ
@@ -176,7 +227,9 @@ public class ServiceNRoom extends javax.swing.JFrame {
         return jTextField4;
     }
 
-  
+    public JLabel getTenphongjLabel1() {
+        return TenphongjLabel1;
+    }
 
     public javax.swing.JTextField getJTextField2() {
         return jTextField2;
@@ -210,8 +263,8 @@ public class ServiceNRoom extends javax.swing.JFrame {
         return GiaphongjLabel2;
     }
 
-    public javax.swing.JTextField getTongTienTextField() {
-        return jTextField5;
+    public JLabel getHoadonTongTien() {
+        return jLabel24;
     }
 
     public JTable getJTable4() {
@@ -287,7 +340,7 @@ public class ServiceNRoom extends javax.swing.JFrame {
     }
 
     public javax.swing.JButton getJButton18() {
-        return jButton18;
+        return checkout;
     }
 
     public javax.swing.JButton getTinhTienjButton7() {
@@ -321,32 +374,27 @@ public class ServiceNRoom extends javax.swing.JFrame {
         jTextField10 = new javax.swing.JTextField();
         jTextField12 = new javax.swing.JTextField();
         jTextField13 = new javax.swing.JTextField();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
-        jLabel32 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel37 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel42 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         TenphongjLabel1 = new javax.swing.JLabel();
         GiaphongjLabel2 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
+        cccdjPanel5 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         jTextPane8 = new javax.swing.JTextPane();
         jScrollPane9 = new javax.swing.JScrollPane();
@@ -358,23 +406,23 @@ public class ServiceNRoom extends javax.swing.JFrame {
         jScrollPane11 = new javax.swing.JScrollPane();
         jTextPane11 = new javax.swing.JTextPane();
         jLabel6 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        checkinjLabel11 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        cojLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        tenjLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        songuoijLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         Tenkh = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         CCCD = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        sdtjLabel2 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel9 = new javax.swing.JLabel();
+        gtjLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -400,9 +448,9 @@ public class ServiceNRoom extends javax.swing.JFrame {
         jScrollPane20 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         CheckinjButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        Capnhat = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
+        checkout = new javax.swing.JButton();
         TienKhachtra = new javax.swing.JLabel();
         TinhTienjButton7 = new javax.swing.JButton();
         InhoadonjButton4 = new javax.swing.JButton();
@@ -462,17 +510,11 @@ public class ServiceNRoom extends javax.swing.JFrame {
             }
         });
 
-        jLabel19.setText("___________________________________________________________________________________________________________________________________________________");
-
-        jLabel20.setText("___________________________________________________________________________________________________________________________________________________");
-
         jLabel21.setText("Tên Khách Hàng :");
 
         jLabel22.setText("Ngày Đặt Phòng :");
 
         jLabel23.setText("Ngày Trả Phòng :");
-
-        jLabel25.setText("___________________________________________________________________________________________________________________________________________________");
 
         jLabel26.setText("___________________________________________________________________________________________________________________________________________________");
 
@@ -482,24 +524,24 @@ public class ServiceNRoom extends javax.swing.JFrame {
 
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "STT", "Ngày", "Phòng", "Thiết Bị Dịch Vụ", "Số Lượng", "Đơn Gía", "Thành Tiền"
+                "STT", "Dịch vụ", "Số Lượng", "Đơn Gía", "Thành Tiền"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -507,12 +549,6 @@ public class ServiceNRoom extends javax.swing.JFrame {
             }
         });
         jScrollPane6.setViewportView(jTable4);
-
-        jLabel32.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel32.setText("Lễ Tân");
-
-        jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel33.setText("Khách Hàng");
 
         jLabel34.setText("Địa chỉ:20 hàng bè-tây hồ- Hà Nội");
 
@@ -522,84 +558,72 @@ public class ServiceNRoom extends javax.swing.JFrame {
         jLabel35.setText("GREEN LEAVES HOTEL");
         jLabel35.setOpaque(true);
 
-        jLabel36.setFont(new java.awt.Font("Segoe UI Black", 0, 20)); // NOI18N
-        jLabel36.setForeground(new java.awt.Color(171, 17, 103));
-        jLabel36.setText("Vui Lòng  Khách Đến Vừa Lòng Khách Đi ");
-
-        jTextField1.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
-        jTextField1.setText("Hóa Đơn");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
         jLabel37.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel37.setText("ID Hóa Đơn :");
 
         jLabel40.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel40.setText("Mã Phòng :");
 
+        jLabel42.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel42.setText("Tổng Tiền");
+
+        jLabel24.setFont(new java.awt.Font("Segoe UI Black", 2, 14)); // NOI18N
+        jLabel24.setText("100.000");
+
+        jLabel27.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel27.setText("VND");
+
+        jLabel30.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
+        jLabel30.setText("HÓA ĐƠN");
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
         jDialog1Layout.setHorizontalGroup(
             jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDialog1Layout.createSequentialGroup()
-                .addGap(72, 72, 72)
                 .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDialog1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 818, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jDialog1Layout.createSequentialGroup()
-                        .addComponent(jLabel36)
-                        .addGap(118, 118, 118)
-                        .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel33)
-                        .addGap(79, 79, 79))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialog1Layout.createSequentialGroup()
-                .addGap(100, 674, Short.MAX_VALUE)
-                .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(118, 118, 118))
-            .addGroup(jDialog1Layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel37)
-                    .addComponent(jLabel22))
-                .addGap(38, 38, 38)
-                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDialog1Layout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel37)
+                            .addComponent(jLabel21)
+                            .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(37, 37, 37)
                         .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jDialog1Layout.createSequentialGroup()
                                 .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jDialog1Layout.createSequentialGroup()
-                                        .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(136, 136, 136)
                                         .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel40)
-                                            .addComponent(jLabel31))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel31)))
+                                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jDialog1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(289, 289, 289))
+                                    .addGroup(jDialog1Layout.createSequentialGroup()
+                                        .addGap(56, 56, 56)
+                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialog1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTextField10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jDialog1Layout.createSequentialGroup()
+                        .addGap(89, 89, 89)
                         .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 744, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jDialog1Layout.createSequentialGroup()
-                                .addGap(177, 177, 177)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel24)
+                                .addGap(56, 56, 56)
+                                .addComponent(jLabel27))))
+                    .addGroup(jDialog1Layout.createSequentialGroup()
+                        .addGap(339, 339, 339)
+                        .addComponent(jLabel30)))
+                .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jDialog1Layout.createSequentialGroup()
                     .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -613,23 +637,18 @@ public class ServiceNRoom extends javax.swing.JFrame {
                         .addGroup(jDialog1Layout.createSequentialGroup()
                             .addGap(94, 94, 94)
                             .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel19)
                                 .addGroup(jDialog1Layout.createSequentialGroup()
-                                    .addComponent(jLabel21)
-                                    .addGap(284, 284, 284)
+                                    .addGap(378, 378, 378)
                                     .addComponent(jLabel28))
-                                .addComponent(jLabel20)
-                                .addComponent(jLabel23)
-                                .addComponent(jLabel25)
                                 .addComponent(jLabel26))))
-                    .addContainerGap(208, Short.MAX_VALUE)))
+                    .addContainerGap(24, Short.MAX_VALUE)))
         );
         jDialog1Layout.setVerticalGroup(
             jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialog1Layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addGap(65, 65, 65)
+                .addComponent(jLabel30)
+                .addGap(34, 34, 34)
                 .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel37)
@@ -638,49 +657,39 @@ public class ServiceNRoom extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
+                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
+                .addGap(18, 18, 18)
                 .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23)
+                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel31)
                     .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel22)
                     .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(173, 173, 173)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(56, 56, 56)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel42)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
-                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel36)
-                    .addComponent(jLabel32)
-                    .addComponent(jLabel33))
-                .addGap(36, 36, 36))
+                    .addComponent(jLabel24)
+                    .addComponent(jLabel27))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jDialog1Layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jLabel35)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(jLabel34)
-                    .addGap(124, 124, 124)
-                    .addComponent(jLabel19)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel21)
-                        .addComponent(jLabel28))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jLabel20)
-                    .addGap(18, 18, 18)
-                    .addComponent(jLabel23)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(46, 46, 46)
+                    .addGap(152, 152, 152)
+                    .addComponent(jLabel28)
+                    .addGap(121, 121, 121)
                     .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(568, Short.MAX_VALUE)))
+                    .addContainerGap(284, Short.MAX_VALUE)))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -729,21 +738,21 @@ public class ServiceNRoom extends javax.swing.JFrame {
 
         jLabel6.setText("Mã HĐ");
 
-        jLabel11.setText("Check-In");
+        checkinjLabel11.setText("Check-In");
 
         jLabel15.setText("Ngày");
 
-        jLabel12.setText("Check-Out");
+        cojLabel12.setText("Check-Out");
 
         jLabel13.setText("Tổng thời gian");
 
-        jLabel4.setText("Tên Khách Hàng ");
+        tenjLabel4.setText("Tên Khách Hàng ");
 
         jLabel5.setText("Nhân VIên");
 
         jLabel14.setText("Trạng thái HĐ");
 
-        jLabel8.setText("Số Người ở");
+        songuoijLabel8.setText("Số Người ở");
 
         jPanel3.setBackground(new java.awt.Color(0, 51, 102));
 
@@ -776,7 +785,7 @@ public class ServiceNRoom extends javax.swing.JFrame {
 
         jLabel1.setText("CCCD");
 
-        jLabel2.setText("Số Điện Thoại");
+        sdtjLabel2.setText("Số Điện Thoại");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -785,7 +794,7 @@ public class ServiceNRoom extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setText("Giới Tính");
+        gtjLabel9.setText("Giới Tính");
 
         jScrollPane1.setViewportView(jTextPane1);
 
@@ -793,116 +802,116 @@ public class ServiceNRoom extends javax.swing.JFrame {
         TenNhanvien.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jScrollPane2.setViewportView(TenNhanvien);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout cccdjPanel5Layout = new javax.swing.GroupLayout(cccdjPanel5);
+        cccdjPanel5.setLayout(cccdjPanel5Layout);
+        cccdjPanel5Layout.setHorizontalGroup(
+            cccdjPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cccdjPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
+                .addGroup(cccdjPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(cccdjPanel5Layout.createSequentialGroup()
+                        .addGroup(cccdjPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tenjLabel4)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(sdtjLabel2)
+                            .addComponent(gtjLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(cccdjPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(cccdjPanel5Layout.createSequentialGroup()
+                                .addGroup(cccdjPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(CCCD, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                    .addGroup(cccdjPanel5Layout.createSequentialGroup()
                                         .addComponent(Tenkh, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(songuoijLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(cccdjPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                                 .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.LEADING))))
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(cccdjPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cojLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkinjLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(cccdjPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(cccdjPanel5Layout.createSequentialGroup()
+                        .addGroup(cccdjPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cccdjPanel5Layout.createSequentialGroup()
+                        .addGroup(cccdjPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                             .addComponent(jScrollPane11)
                             .addComponent(jScrollPane1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel15)
                         .addGap(150, 150, 150))))
-            .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGroup(cccdjPanel5Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+        cccdjPanel5Layout.setVerticalGroup(
+            cccdjPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cccdjPanel5Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cccdjPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tenjLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(Tenkh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(songuoijLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(checkinjLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(cccdjPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(cccdjPanel5Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
+                        .addGroup(cccdjPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sdtjLabel2)
                             .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGroup(cccdjPanel5Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(CCCD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(52, 52, 52)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
+                        .addGroup(cccdjPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(gtjLabel9)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cccdjPanel5Layout.createSequentialGroup()
+                        .addGroup(cccdjPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(cccdjPanel5Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(12, 12, 12)
                                 .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addGroup(cccdjPanel5Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel12)
+                                .addComponent(cojLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(cccdjPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel15)
                                     .addComponent(jLabel13))))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(cccdjPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel14)
                             .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(6, 6, 6)))
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(cccdjPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(cccdjPanel5Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(cccdjPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(30, 30, 30))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cccdjPanel5Layout.createSequentialGroup()
+                        .addGroup(cccdjPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addGap(14, 14, 14))))
@@ -978,7 +987,7 @@ public class ServiceNRoom extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Mã DV", "Tên DV", "Giá DV", "Số Lượng còn lại "
+                "Mã DV", "Tên DV", "Giá DV", "Số lượng "
             }
         ) {
             Class[] types = new Class [] {
@@ -1119,17 +1128,27 @@ public class ServiceNRoom extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setText("Cập Nhật");
-
-        jButton8.setText("Đổi Phòng");
-
-        jButton18.setBackground(new java.awt.Color(0, 51, 102));
-        jButton18.setForeground(new java.awt.Color(255, 255, 255));
-        jButton18.setText("Check-out");
-        jButton18.setToolTipText("");
-        jButton18.addActionListener(new java.awt.event.ActionListener() {
+        Capnhat.setText("Cập Nhật");
+        Capnhat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton18ActionPerformed(evt);
+                CapnhatActionPerformed(evt);
+            }
+        });
+
+        jButton8.setText("Đổi phòng");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        checkout.setBackground(new java.awt.Color(0, 51, 102));
+        checkout.setForeground(new java.awt.Color(255, 255, 255));
+        checkout.setText("Check-out");
+        checkout.setToolTipText("");
+        checkout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkoutActionPerformed(evt);
             }
         });
 
@@ -1205,7 +1224,7 @@ public class ServiceNRoom extends javax.swing.JFrame {
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(CheckinjButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(59, 59, 59)
-                                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(Capnhat, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addComponent(jLabel10)
@@ -1239,7 +1258,7 @@ public class ServiceNRoom extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(checkout, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jScrollPane20, javax.swing.GroupLayout.PREFERRED_SIZE, 989, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(141, 141, 141)
@@ -1248,7 +1267,7 @@ public class ServiceNRoom extends javax.swing.JFrame {
                                     .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 7, Short.MAX_VALUE)
-                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cccdjPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -1261,16 +1280,16 @@ public class ServiceNRoom extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cccdjPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane20, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(CheckinjButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(Capnhat, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(checkout, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(TinhTienjButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
@@ -1306,7 +1325,7 @@ public class ServiceNRoom extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+    private void checkoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkoutActionPerformed
         // TODO add your handling code here:
         if (!isCheckedIn || bookingId == -1) {
             JOptionPane.showMessageDialog(this, "Phòng chưa được check-in hoặc không tìm thấy hóa đơn!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -1315,7 +1334,7 @@ public class ServiceNRoom extends javax.swing.JFrame {
         controller.checkOut();
         isRoomCheckedOut = true; // Đánh dấu phòng đã check-out
         JOptionPane.showMessageDialog(this, "Check-out thành công!");
-    }//GEN-LAST:event_jButton18ActionPerformed
+    }//GEN-LAST:event_checkoutActionPerformed
 
     private void CheckinjButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckinjButton5ActionPerformed
         // TODO add your handling code here:
@@ -1330,6 +1349,7 @@ public class ServiceNRoom extends javax.swing.JFrame {
         String soDienThoai = jTextField6.getText();
         String gioiTinh = (String) jComboBox1.getSelectedItem();
         String soNguoiO = jTextPane5.getText();
+       
 
         if (tenKhachHang.isEmpty() || cccd.isEmpty() || soDienThoai.isEmpty() || soNguoiO.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin khách hàng!", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -1371,6 +1391,8 @@ public class ServiceNRoom extends javax.swing.JFrame {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             jTextPane8.setText(sdf.format(checkInDate));
             jTextPane1.setText(String.format("HD%04d", generatedId));
+            booking.setMaHD(jTextPane1.getText());
+            bookingDAO.updateBookingMaHD(bookingId,booking.getMaHD());
 
             RoomDAO roomDAO = new RoomDAO(JDBCConnection.getConnection());
             roomDAO.updateRoomStatus(roomId, "Đang sử dụng");
@@ -1379,10 +1401,11 @@ public class ServiceNRoom extends javax.swing.JFrame {
             TrangThaiHD.setBackground(Color.GREEN);
             home.setPhongDaCheckIn(roomId);
             CheckinjButton5.setEnabled(false);
-            jButton18.setEnabled(true);
+            setDisForm();
+            checkout.setEnabled(true);
 
             controller.loadServiceUsages();
-
+            
             JOptionPane.showMessageDialog(this, "Check-in thành công!");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Số người ở phải là số nguyên!", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -1484,10 +1507,6 @@ public class ServiceNRoom extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField13ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     private void InhoadonjButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InhoadonjButton4ActionPerformed
 // TODO add your handling code here:
         // Kiểm tra trạng thái
@@ -1520,8 +1539,19 @@ public class ServiceNRoom extends javax.swing.JFrame {
             }
 
             // Fill dữ liệu vào jDialog1
-            controller.fillInvoiceInfo(booking, room, customer);
+            // Lấy danh sách dịch vụ đã sử dụng
+            // Tạo PDF trực tiếp
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setSelectedFile(new File("HD_" + String.format("%04d", booking.getId()) + ".pdf"));
+            int userSelection = fileChooser.showSaveDialog(null);
 
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+                if (!filePath.toLowerCase().endsWith(".pdf")) {
+                    filePath += ".pdf";
+                }
+                controller.createInvoicePDF(filePath, booking, room, customer);
+            }
             // Hiển thị jDialog1 tạm thời để lấy kích thước đúng
             if (!getJDialog1().isDisplayable()) {
                 getJDialog1().pack();
@@ -1529,10 +1559,10 @@ public class ServiceNRoom extends javax.swing.JFrame {
                 getJDialog1().setVisible(false);
             }
 
-            // Xuất PDF
-            String fileName = "invoice_HD" + booking.getId() + ".pdf";
-            controller.exportComponentToPDF(getJDialog1().getContentPane(), fileName);
-            JOptionPane.showMessageDialog(this, "Xuất hóa đơn PDF thành công!");
+//            // Xuất PDF
+//            String fileName = "invoice_HD" + booking.getId() + ".pdf";
+//            controller.exportComponentToPDF(getJDialog1().getContentPane(), fileName);
+//            JOptionPane.showMessageDialog(this, "Xuất hóa đơn PDF thành công!");
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Lỗi khi in hóa đơn: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -1549,6 +1579,115 @@ public class ServiceNRoom extends javax.swing.JFrame {
     private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField8ActionPerformed
+
+    private void CapnhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CapnhatActionPerformed
+        // TODO add your handling code here:
+    
+  setOpeForm(); // Bật các trường để chỉnh sửa
+    String tenKhachHang = Tenkh.getText();
+    String cccd = CCCD.getText();
+    String soDienThoai = jTextField6.getText();
+    String gioiTinh = (String) jComboBox1.getSelectedItem();
+    String soNguoiO = jTextPane5.getText();
+
+    if (tenKhachHang.isEmpty() || cccd.isEmpty() || soDienThoai.isEmpty() || soNguoiO.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    try {
+        // Tạo đối tượng Customer mới với thông tin cập nhật
+        Customer updatedCustomer = new Customer();
+        updatedCustomer.setTenKhachHang(tenKhachHang);
+        updatedCustomer.setCccd(cccd);
+        updatedCustomer.setSoDienThoai(soDienThoai);
+        updatedCustomer.setGioiTinh(gioiTinh);
+
+        BookingDAO bookingDAO = new BookingDAO(JDBCConnection.getConnection());
+        CustomerDAO customerDAO = new CustomerDAO(JDBCConnection.getConnection());
+        Booking booking = bookingDAO.getBookingById(bookingId);
+        
+        if (booking != null) {
+            // Cập nhật thông tin khách hàng và số người ở trong bookings
+            booking.setCustomer(updatedCustomer);
+            booking.setSoNguoiO(Integer.parseInt(soNguoiO));
+            bookingDAO.updateCustomerInfo(bookingId, updatedCustomer, Integer.parseInt(soNguoiO));
+
+            // Cập nhật thông tin khách hàng trong customers
+            
+            customerDAO.updateCustomer(updatedCustomer);
+
+            // Cập nhật giao diện
+            Tenkh.setText(tenKhachHang);
+            CCCD.setText(cccd);
+            jTextField6.setText(soDienThoai);
+            jComboBox1.setSelectedItem(gioiTinh);
+            jTextPane5.setText(soNguoiO);
+            
+            setDisForm(); // Tắt các trường sau khi cập nhật
+            JOptionPane.showMessageDialog(this, "Cập nhật thông tin thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin đặt phòng!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Số người ở phải là số nguyên!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Lỗi khi cập nhật thông tin: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+        
+     loadtb();
+          
+            
+           
+        
+    }//GEN-LAST:event_CapnhatActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        if (!isCheckedIn || bookingId == -1) {
+        JOptionPane.showMessageDialog(this, "Phòng chưa được check-in hoặc không tìm thấy hóa đơn!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        return;
+    }
+
+    // Mở cửa sổ chọn phòng mới
+    RoomSelectionDialog roomSelectionDialog = new RoomSelectionDialog(this, roomId);
+    roomSelectionDialog.setVisible(true);
+
+    // Lấy phòng mới từ dialog (nếu người dùng chọn)
+    int newRoomId = roomSelectionDialog.getSelectedRoomId();
+    if (newRoomId != -1) {
+        try {
+            // Thực hiện đổi phòng
+            BookingDAO bookingDAO = new BookingDAO(JDBCConnection.getConnection());
+            RoomDAO roomDAO = new RoomDAO(JDBCConnection.getConnection());
+
+            // Lấy thông tin booking hiện tại
+            Booking currentBooking = bookingDAO.getBookingById(bookingId);
+            if (currentBooking != null) {
+                // Cập nhật booking với roomId mới
+                currentBooking.setRoomId(newRoomId);
+                bookingDAO.updateRoomId(bookingId, newRoomId);
+
+                // Cập nhật trạng thái phòng
+                roomDAO.updateRoomStatus(roomId, "Trống"); // Phòng cũ thành trống
+                roomDAO.updateRoomStatus(newRoomId, "Đang sử dụng"); // Phòng mới thành đang sử dụng
+
+                // Cập nhật giao diện
+                home.setPhongDaCheckOut(roomId); // Cập nhật phòng cũ
+                home.setPhongDaCheckIn(newRoomId); // Cập nhật phòng mới
+                roomId = newRoomId; // Cập nhật roomId hiện tại
+                TenphongjLabel1.setText("PHÒNG " + roomId); // Cập nhật tên phòng trên giao diện
+                JOptionPane.showMessageDialog(this, "Đổi phòng thành công sang Phòng " + newRoomId + "!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin booking!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi đổi phòng: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1588,6 +1727,7 @@ public class ServiceNRoom extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CCCD;
+    private javax.swing.JButton Capnhat;
     private javax.swing.JButton CheckinjButton5;
     private javax.swing.JLabel GiaphongjLabel2;
     private javax.swing.JButton InhoadonjButton4;
@@ -1603,41 +1743,37 @@ public class ServiceNRoom extends javax.swing.JFrame {
     private javax.swing.JButton TinhtienthoilaijButton1;
     private javax.swing.JTextPane TrangThaiHD;
     private javax.swing.JButton backjButton9;
-    private javax.swing.JButton jButton18;
+    private javax.swing.JPanel cccdjPanel5;
+    private javax.swing.JLabel checkinjLabel11;
+    private javax.swing.JButton checkout;
+    private javax.swing.JLabel cojLabel12;
+    private javax.swing.JLabel gtjLabel9;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton8;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
@@ -1645,14 +1781,11 @@ public class ServiceNRoom extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
@@ -1674,13 +1807,11 @@ public class ServiceNRoom extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
@@ -1692,6 +1823,9 @@ public class ServiceNRoom extends javax.swing.JFrame {
     private javax.swing.JButton loadlaiCTDVjButton3;
     private javax.swing.JTextPane otiendichvujTextPane3;
     private javax.swing.JTextPane otienphongjTextPane2;
+    private javax.swing.JLabel sdtjLabel2;
+    private javax.swing.JLabel songuoijLabel8;
+    private javax.swing.JLabel tenjLabel4;
     private javax.swing.JTextField timkiemdichvujTextField2;
     private javax.swing.JTextPane tongtienjTextPane4;
     // End of variables declaration//GEN-END:variables

@@ -15,6 +15,8 @@ public class Booking {
     private Timestamp checkOutDate;
     private String status;
     private int soNguoiO;
+    private double tongTien;
+    private String maHD;
 
     public int getId() {
         return id;
@@ -79,4 +81,22 @@ public class Booking {
     public void setSoNguoiO(int soNguoiO) {
         this.soNguoiO = soNguoiO;
     }
+
+    public double getTongTien() {
+        return tongTien;
+    }
+
+    public void setTongTien(double tongTien) {
+        this.tongTien = tongTien;
+    }
+
+    public String getMaHD() {
+        return maHD;
+    }
+
+    public void setMaHD(String maHD) {
+        this.maHD = maHD;
+    }
+    
+    
 }

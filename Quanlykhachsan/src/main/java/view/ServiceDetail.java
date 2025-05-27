@@ -49,9 +49,11 @@ public class ServiceDetail extends javax.swing.JFrame {
         model = (DefaultTableModel) jTable1.getModel();
         controller.loadAllServices(model);
         
+        
         jTextField2.setEditable(false);
         jTextField1.setEditable(false);
         jTextField3.setEditable(false);
+        addSoluongjTextField4.setEditable(false);
     }
 
     private void clearForm() {
@@ -311,16 +313,16 @@ public class ServiceDetail extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        clearForm();
         String newID = generateServiceID();
         jTextField2.setText(newID);
         jTextField2.setEditable(false);
         jTextField1.setEditable(true); // tên dịch vụ
         jTextField3.setEditable(true); // giá
         addSoluongjTextField4.setEditable(true);
-        model.addRow(new Object[]{jTextField2.getText().trim(), jTextField1.getText().trim(),jTextField3.getText().trim(),addSoluongjTextField4.getText().trim()});
-        Service svService=new Service(jTextField2.getText(), jTextField1.getText(), Double.parseDouble(jTextField3.getText()), Integer.parseInt(addSoluongjTextField4.getText()));
-        controller.addService(svService, model);
-        clearForm();
+       
+        
+        
     
         isEditMode = false;
         
@@ -349,10 +351,12 @@ public class ServiceDetail extends javax.swing.JFrame {
         jTextField2.setText(model.getValueAt(row, 0).toString()); // ID
         jTextField1.setText(model.getValueAt(row, 1).toString()); // Tên
         jTextField3.setText(model.getValueAt(row, 2).toString()); // Giá
-
+        addSoluongjTextField4.setText(model.getValueAt(row, 3).toString());
+        addSoluongjTextField4.setText(model.getValueAt(row, 3).toString());
         jTextField2.setEditable(false); // ID không sửa
         jTextField1.setEditable(true);
         jTextField3.setEditable(true);
+        addSoluongjTextField4.setEditable(true);
 
         isEditMode = true;
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -388,6 +392,7 @@ public class ServiceDetail extends javax.swing.JFrame {
         jTextField2.setText(model.getValueAt(row, 0).toString()); // ID
         jTextField1.setText(model.getValueAt(row, 1).toString()); // Tên
         jTextField3.setText(model.getValueAt(row, 2).toString()); // Giá
+        addSoluongjTextField4.setText(model.getValueAt(row, 3).toString());
         jTextField2.setEditable(false); // Không cho sửa ID
     }//GEN-LAST:event_jTable1MouseClicked
 

@@ -111,7 +111,9 @@ public class Home extends javax.swing.JFrame {
             btn.setText("Phòng " + roomId + " - Trống");
         }
     }
-
+    public void refreshRoomStatuses() {
+        initializeRoomStatuses(); // Gọi lại để cập nhật trạng thái
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
