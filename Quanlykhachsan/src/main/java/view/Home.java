@@ -65,7 +65,7 @@ public class Home extends javax.swing.JFrame {
 //        window.setTenphong(title); // Ví dụ: setTitle() có sẵn trong JFrame
 //        window.setVisible(true);
 //    }
-     private void initializeRoomStatuses() {
+    public void initializeRoomStatuses() {
         RoomDAO roomDAO = new RoomDAO(JDBCConnection.getConnection());
         for (Map.Entry<Integer, JButton> entry : phongButtons.entrySet()) {
             int roomId = entry.getKey();

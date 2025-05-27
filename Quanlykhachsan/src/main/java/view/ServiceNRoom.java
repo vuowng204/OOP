@@ -1293,7 +1293,7 @@ public class ServiceNRoom extends javax.swing.JFrame {
                                 .addComponent(TinhTienjButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addGap(18, 18, 18)
@@ -1312,13 +1312,17 @@ public class ServiceNRoom extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(14, 14, 14)
                                         .addComponent(TinhtienthoilaijButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel18))
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(InhoadonjButton4))))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(19, 19, 19)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel18))
+                                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(InhoadonjButton4)))))))
                 .addGap(87, 87, Short.MAX_VALUE))
         );
 
@@ -1561,7 +1565,7 @@ public class ServiceNRoom extends javax.swing.JFrame {
     private void CapnhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CapnhatActionPerformed
         // TODO add your handling code here:
     
-  setOpeForm(); // Bật các trường để chỉnh sửa
+  
     String tenKhachHang = Tenkh.getText();
     String cccd = CCCD.getText();
     String soDienThoai = jTextField6.getText();
@@ -1602,7 +1606,7 @@ public class ServiceNRoom extends javax.swing.JFrame {
             jComboBox1.setSelectedItem(gioiTinh);
             jTextPane5.setText(soNguoiO);
             
-            setDisForm(); // Tắt các trường sau khi cập nhật
+           
             JOptionPane.showMessageDialog(this, "Cập nhật thông tin thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin đặt phòng!", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -1656,6 +1660,7 @@ public class ServiceNRoom extends javax.swing.JFrame {
                 home.setPhongDaCheckIn(newRoomId); // Cập nhật phòng mới
                 roomId = newRoomId; // Cập nhật roomId hiện tại
                 TenphongjLabel1.setText("PHÒNG " + roomId); // Cập nhật tên phòng trên giao diện
+                home.initializeRoomStatuses();
                 JOptionPane.showMessageDialog(this, "Đổi phòng thành công sang Phòng " + newRoomId + "!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin booking!", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -1664,7 +1669,9 @@ public class ServiceNRoom extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Lỗi khi đổi phòng: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
+        
     }
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
